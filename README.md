@@ -11,6 +11,32 @@
 ## Key Technical Concepts
 
 ## TODO
+#### Product Detail
+* Product Information
+* Style Selector
+* Add to Cart
+* Image Gallery
+#### Ratings & Reviews
+* Reviews List
+* Individual Review Tile
+* Sort Options
+* Rating Breakdown (Filtering)
+* Product Breakdown (Factors)
+* Write New Review
+* Keyword Search
+#### Questions & Answers
+* Questions List
+* Individual Question
+* Search Questions
+* More Answered Questions
+* Add a Question
+* Add an Answer Modal
+#### Related Items & Comparison
+* Related Product Cards
+* List Behavior
+* Related Products List
+* Your Outfit List
+
 
 ## Contributing
 #### Alex Roberson 
