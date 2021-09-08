@@ -10,6 +10,14 @@
 
 ## Key Technical Concepts
 
+## Tech Stack
+* HTML5, CSS, JavaScript
+* [react](https://reactjs.org/)
+* [node](https://nodejs.org/en/) / [express](https://expressjs.com/)
+* [nodemon](https://www.npmjs.com/package/nodemon)
+* [axios](https://axios-http.com/)
+* [webpack](https://webpack.js.org/) / [babel](https://babeljs.io/)
+
 ## TODO
 #### Product Detail
 * Product Information
