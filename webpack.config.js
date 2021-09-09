@@ -8,6 +8,7 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -16,7 +17,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /\node-modules/,
         options: {
-          presets: ['react', 'es2015']
+          presets: ["@babel/preset-env", "@babel/preset-react"],
         }
       }
     ]
