@@ -53,11 +53,54 @@ router.route('/products/:product_id')
     });
    })
 
-// router.route('/related')
-//   .get(function)
+router.route('/related/:product_id')
+   .get(function (req, res) {
+    var data = '';
 
-// router.route('/questions')
-//   .get(function)
-//   .post(function)
+    var config = {
+      method: 'get',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/related`,
+      headers: {
+        'Authorization': TOKEN
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      res.status(200).send(JSON.stringify(response.data));
+      res.end();
+    })
+    .catch(function (error) {
+      res.status(400).send();
+      console.log(error);
+    });
+   })
+
+router.route('/questions/:product_id')
+   .get(function (req, res) {
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/qa/questions`,
+      headers: {
+        'Authorization': TOKEN
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      res.status(200).send(JSON.stringify(response.data));
+      res.end();
+    })
+    .catch(function (error) {
+      res.status(400).send();
+      console.log(error);
+    });
+   })
 
 module.exports = router;
