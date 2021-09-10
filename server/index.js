@@ -15,6 +15,8 @@ app.use('/api/product', route.routeProducts);
 app.use('/api/QA', route.routeQA);
 app.use('/api/review', route.routeReviews);
 
-app.listen(port, () => {
-  console.log(`connected to port: ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`connected to port: ${port}`);
+// });
+
+module.exports = app;
