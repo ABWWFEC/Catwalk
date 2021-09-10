@@ -19,7 +19,7 @@ router.route('/reviews/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        res.status(200).json(response.data);
+        res.status(200).send(response.data);
         res.end();
       })
       .catch((error) => {
@@ -65,7 +65,7 @@ router.route('/related/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        res.status(200).json((response.data));
+        res.status(200).send((response.data));
         res.end();
       })
       .catch((error) => {

@@ -17,7 +17,7 @@ router.route('/questions/:product_id')
 
     axios(config)
       .then((response) => {
-        res.status(200).json((response.data));
+        res.status(200).send((response.data));
         res.end();
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ router.route('/qa/questions/:question_id/answers')
     };
     axios(config)
       .then((response) => {
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
       })
       .catch((error) => {
         res.status(400).send(error);
