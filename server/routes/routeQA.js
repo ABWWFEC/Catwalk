@@ -17,7 +17,7 @@ router.route('/questions/:product_id')
 
     axios(config)
       .then((response) => {
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).json((response.data));
         res.end();
       })
       .catch((error) => {
@@ -25,23 +25,13 @@ router.route('/questions/:product_id')
       });
   })
   .post((req, res) => {
-    const {
-      body, name, email, product_id,
-    } = req.body;
-    const data = {
-      body,
-      name,
-      email,
-      product_id,
-    };
-
     const config = {
       method: 'post',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/qa/questions`,
       headers: {
         Authorization: TOKEN,
       },
-      data,
+      data: req.body,
     };
 
     axios(config)

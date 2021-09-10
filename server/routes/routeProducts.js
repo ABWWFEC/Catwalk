@@ -18,7 +18,7 @@ router.route('/products/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).json((response.data));
         res.end();
       })
       .catch((error) => {
