@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /* eslint-disable camelcase */
+=======
+>>>>>>> 3da8193d93871be72d534ace8f87ddb0ee607a2b
 const router = require('express').Router();
 const axios = require('axios');
 const { TOKEN } = require('../config');
@@ -26,6 +29,7 @@ router.route('/reviews/:product_id')
         res.status(400).send();
         console.log(error);
       });
+<<<<<<< HEAD
   })
   .post((req, res) => {
     const {
@@ -61,6 +65,10 @@ router.route('/reviews/:product_id')
         res.status(400).send(err);
       });
   });
+=======
+  });
+//   .post(function)
+>>>>>>> 3da8193d93871be72d534ace8f87ddb0ee607a2b
 
 router.route('/products/:product_id')
   .get((req, res) => {
@@ -135,6 +143,7 @@ router.route('/questions/:product_id')
         res.status(400).send();
         console.log(error);
       });
+<<<<<<< HEAD
   })
   .post((req, res) => {
     const {
@@ -165,6 +174,8 @@ router.route('/questions/:product_id')
         console.log(error);
         res.status(400).send(error);
       });
+=======
+>>>>>>> 3da8193d93871be72d534ace8f87ddb0ee607a2b
   });
 
 module.exports = router;
