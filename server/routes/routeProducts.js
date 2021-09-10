@@ -3,7 +3,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const { TOKEN } = require('../../config');
 
-router.route('/products')
+router.route('/')
   .get((req, res) => {
     const data = '';
 
@@ -18,8 +18,7 @@ router.route('/products')
 
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
       })
       .catch((error) => {
         res.status(400).send();
@@ -27,7 +26,7 @@ router.route('/products')
       });
   });
 
-router.route('/products/:product_id')
+router.route('/:product_id')
   .get((req, res) => {
     const data = '';
 
@@ -42,8 +41,31 @@ router.route('/products/:product_id')
 
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
+        res.end();
+      })
+      .catch((error) => {
+        res.status(400).send();
+        console.log(error);
+      });
+  });
+
+router.route('/:product_id/styles')
+  .get((req, res) => {
+    const data = '';
+
+    const config = {
+      method: 'get',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${req.params.product_id}/styles`,
+      headers: {
+        Authorization: TOKEN,
+      },
+      data,
+    };
+
+    axios(config)
+      .then((response) => {
+        res.status(200).send(response.data);
         res.end();
       })
       .catch((error) => {

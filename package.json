@@ -4,7 +4,7 @@
   "description": "capstone project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "npx nodemon ./server/index.js",
     "dev:react": "webpack --watch"
   },
@@ -25,10 +25,12 @@
     "babel": "^6.23.0",
     "es2015": "^0.0.0",
     "express": "^4.17.1",
+    "jest": "^27.1.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "path": "^0.12.7",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "supertest": "^6.1.6"
   }
 }
