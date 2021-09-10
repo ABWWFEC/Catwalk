@@ -18,7 +18,11 @@ router.route('/products/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+<<<<<<< HEAD
         res.status(200).send(response.data);
+=======
+        res.status(200).json((response.data));
+>>>>>>> 2ef1fff6277cc84b03b5952f1ad686083edabc44
         res.end();
       })
       .catch((error) => {
