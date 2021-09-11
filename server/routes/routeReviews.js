@@ -19,7 +19,7 @@ router.route('/reviews/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
         res.end();
       })
       .catch((error) => {
@@ -28,28 +28,15 @@ router.route('/reviews/:product_id')
       });
   })
   .post((req, res) => {
-    const {
-      rating, summary, body, recommend, name, email, photos, characteristics,
-    } = req.body;
-    const data = {
-      product_id: req.params.product_id,
-      rating,
-      summary,
-      body,
-      recommend,
-      name,
-      email,
-      photos,
-      characteristics,
-    };
+    const { product_id } = req.params;
 
     const config = {
       method: 'post',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews?product_id=${req.params.product_id}`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews?product_id=${product_id}`,
       headers: {
         Authorization: TOKEN,
       },
-      data,
+      data: { product_id, ...req.body },
     };
     axios(config)
       .then((response) => {
@@ -78,7 +65,7 @@ router.route('/related/:product_id')
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send((response.data));
         res.end();
       })
       .catch((error) => {

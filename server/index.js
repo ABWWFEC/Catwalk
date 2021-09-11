@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const route = require('./routes/index');
+const { routeProducts, routeQA, routeReviews } = require('./routes/index');
 
 const app = express();
 
@@ -11,9 +11,9 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use('/api/product', route.routeProducts);
-app.use('/api/QA', route.routeQA);
-app.use('/api/review', route.routeReviews);
+app.use('/api/product', routeProducts);
+app.use('/api/QA', routeQA);
+app.use('/api/review', routeReviews);
 
 app.listen(port, () => {
   console.log(`connected to port: ${port}`);
