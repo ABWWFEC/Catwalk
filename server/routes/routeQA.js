@@ -8,7 +8,7 @@ router.route('/questions/:product_id')
 
     const config = {
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/qa/questions`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions?product_id=${req.params.product_id}`,
       headers: {
         Authorization: TOKEN,
       },
@@ -17,27 +17,21 @@ router.route('/questions/:product_id')
 
     axios(config)
       .then((response) => {
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
         res.end();
       })
       .catch((error) => {
         res.status(400).send(error);
       });
   })
-  .post((req, res) => {
-    const {
-      body, name, email, product_id,
-    } = req.body;
-    const data = {
-      body,
-      name,
-      email,
-      product_id,
-    };
+
+router.route('/questions/:question_id/answers')
+  .get((req, res) => {
+    const data = '';
 
     const config = {
-      method: 'post',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/qa/questions`,
+      method: 'get',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${req.params.question_id}/answers`,
       headers: {
         Authorization: TOKEN,
       },
@@ -45,17 +39,14 @@ router.route('/questions/:product_id')
     };
 
     axios(config)
-      .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        res.status(201).send('CREATED');
-      })
-      .catch((error) => {
-        // console.log(error);
-        res.status(400).send(error);
-      });
-  });
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    })
+  })
 
-router.route('/qa/questions/:question_id/answers')
   .post((req, res) => {
     const {
       body, name, email, photos,
@@ -76,7 +67,7 @@ router.route('/qa/questions/:question_id/answers')
     };
     axios(config)
       .then((response) => {
-        res.status(200).send(JSON.stringify(response.data));
+        res.status(200).send(response.data);
       })
       .catch((error) => {
         res.status(400).send(error);
