@@ -49,6 +49,29 @@ test('test a POST request for qa/questions.../answers ', async () => {
     })
 })
 
+test('test a POST request for qa/questions ', async () => {
+
+  const payload = {
+    body: 'this is a test body',
+    name: 'this is a test name',
+    email: 'test@email.com',
+    product_id: 42366
+  };
+
+  await request(app).post("/api/qa/questions")
+    .send(payload)
+    .expect(200)
+    .then((res) => {
+      expect(res.request._data).toHaveProperty('body', 'this is a test body');
+    })
+})
+
+test('test a PUT request for qa/questions... /helpful ', async () => {
+
+  await request(app).post("/api/qa/questions/348449/helpful")
+    .expect(204)
+})
+
 
 
 
