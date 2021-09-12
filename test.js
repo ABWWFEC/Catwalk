@@ -68,7 +68,24 @@ test('test a POST request for qa/questions ', async () => {
 
 test('test a PUT request for qa/questions... /helpful ', async () => {
 
-  await request(app).post("/api/qa/questions/348449/helpful")
+  await request(app).put("/api/qa/questions/348449/helpful")
+    .expect(204)
+})
+
+test('test a PUT request for qa/questions... /report ', async () => {
+
+  await request(app).put("/api/qa/questions/348449/report")
+    .expect(204)
+})
+
+test('test a PUT request for qa/answers... /report ', async () => {
+  // CHANGE THIS
+  await request(app).put("/api/qa/answers/3257729/report")
+    .expect(204)
+})
+test('test a PUT request for qa/answers... /helpful ', async () => {
+
+  await request(app).put("/api/qa/answers/3257729/report")
     .expect(204)
 })
 

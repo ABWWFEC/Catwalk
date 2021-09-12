@@ -2,13 +2,53 @@ const router = require('express').Router();
 const axios = require('axios');
 const { TOKEN } = require('../../config');
 
+router.route('/answers/:answer_id/helpful')
+  .put((req, res) => {
+    let data = '';
+
+    let config = {
+      method: 'put',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/answers/${req.params.answer_id}/helpful`,
+      headers: {
+        Authorization: TOKEN,
+      },
+      data: data
+    };
+
+    axios(config)
+      .then((response) => {
+        res.status(204).send('Updated!')
+      })
+      .catch(error => res.status(400).send(error));
+  })
+
+router.route('/answers/:answer_id/report')
+  .put((req, res) => {
+    let data = '';
+
+    let config = {
+      method: 'put',
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/answers/${req.params.answer_id}/report`,
+      headers: {
+        Authorization: TOKEN,
+      },
+      data: data
+    };
+
+    axios(config)
+      .then((response) => {
+        res.status(204).send('Updated!')
+      })
+      .catch(error => res.status(400).send(error));
+  })
+
 router.route('/questions/:question_id/report')
   .put((req, res) => {
     let data = '';
 
     let config = {
       method: 'put',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${req.params.question_id}/helpful`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${req.params.question_id}/report`,
       headers: {
         Authorization: TOKEN,
       },
