@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 
-var relatedEntry = ({product}) => (
-
+const RelatedEntry = ({product, photo}) =>  (
+    <div className='relatedEntry'>
+      <img src={`${photo}`} width="60" height="100"></img>
+      <div>
+       {product.category}
+      </div>
+      <div>
+       {product.name}
+      </div>
+      <div>
+        ${product.default_price}
+      </div>
+    </div>
 )
 
-export default relatedEntry;
+export default RelatedEntry;

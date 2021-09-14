@@ -7,10 +7,7 @@ const App = () => {
   return (
     <div>
       <h1>hello</h1>
-      <Overview prodId={prodId} />
       <Related prodId={prodId} setProdId={setProdId} />
-      <QandA prodId={prodId} />
-      <Reviews prodId={prodId} />
     </div>
   )
 };
