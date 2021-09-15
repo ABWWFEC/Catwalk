@@ -5,6 +5,7 @@ const { TOKEN } = require('../../config');
 
 router.route('/:product_id')
   .get((req, res) => {
+    const { sortBy } = req.query;
     const config = {
       method: 'get',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`,
@@ -13,7 +14,8 @@ router.route('/:product_id')
       },
       params: {
         product_id: req.params.product_id,
-        count: 50
+        count: 50,
+        sort: sortBy
       }
     };
 

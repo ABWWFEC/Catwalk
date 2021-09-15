@@ -10,9 +10,10 @@ const Reviews = (props) => {
     numberOfReviews: null,
     prodId: props.prodId,
     sortParam: 'relevance',
-    starFilter: []
+    starFilter: [],
+    isFiltered: false
   });
-  const { reviews, numberOfReviews, prodId, sortParam, starFilter } = reviewsData;
+  const { reviews, numberOfReviews, prodId, sortParam, starFilter, isFiltered } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -35,9 +36,7 @@ const Reviews = (props) => {
   }
 
   const providerValue = {
-    reviews,
-    numberOfReviews,
-    prodId,
+    ...reviewsData,
     getReviewsData
   }
 
