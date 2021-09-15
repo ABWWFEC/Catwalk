@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ReviewsContext } from './Rating_and_Reviews.jsx';
 import Review from './Review.jsx';
 
-const ReviewsList = ({ reviewsData, sortReviews }) => {
-  const { reviews, numberOfReviews, prodId } = reviewsData;
+const ReviewsList = () => {
+  // const { reviews, numberOfReviews, prodId } = reviewsData;
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
   const [ maxReviewsReached, setMaxReviewsReached ] = useState(false);
+  const { reviews, numberOfReviews, prodId, getReviewsData } = useContext(ReviewsContext);
 
   let displayedReviews = reviews.slice(0, displayReviewsAmount);
 
@@ -21,7 +23,7 @@ const ReviewsList = ({ reviewsData, sortReviews }) => {
     <div>
       <div>
         {numberOfReviews} reviews, sorted by
-        <select onChange={(e) => sortReviews(e.target.value) }>
+        <select onChange={(e) => getReviewsData(e.target.value) }>
           <option value={'relevant'}>relevance</option>
           <option value={'newest'}>newest</option>
           <option value={'helpful'}>helpfulness</option>

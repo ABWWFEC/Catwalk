@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ReviewsContext } from './Rating_and_Reviews.jsx';
 
-const StarRatingBreakdown = ({ ratings, numberOfReviews }) => {
+const StarRatingBreakdown = ({ ratings }) => {
+  const { numberOfReviews } = useContext(ReviewsContext)
   let reversedRatings = Object.keys(ratings).reverse()
 
   return (

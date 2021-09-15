@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 import ReviewsList from './ReviewsList.jsx';
 import ReviewsMetaData from './ReviewsMetaData.jsx';
+
+export const ReviewsContext = createContext();
 
 const Reviews = (props) => {
   const [ reviewsData, setReviewsData ] = useState({ reviews: [],
     numberOfReviews: null,
     prodId: props.prodId,
-    sortParam: 'relevance'
+    sortParam: 'relevance',
+    starFilter: []
   });
-  const { reviews, numberOfReviews, prodId, sortParam } = reviewsData;
+  const { reviews, numberOfReviews, prodId, sortParam, starFilter } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -31,6 +34,13 @@ const Reviews = (props) => {
     .catch(err => console.log(`Couldn't fetch reviews :(`));
   }
 
+  const providerValue = {
+    reviews,
+    numberOfReviews,
+    prodId,
+    getReviewsData
+  }
+
   useEffect(() => {
     getReviewsData(sortParam);
   }, []);
@@ -38,8 +48,10 @@ const Reviews = (props) => {
   return (
     <div>
       RATINGS & REVIEWS
-      <ReviewsMetaData numberOfReviews={numberOfReviews} prodId={prodId} />
-      <ReviewsList reviewsData={reviewsData} sortReviews={getReviewsData} />
+      <ReviewsContext.Provider value={providerValue}>
+        <ReviewsMetaData />
+        <ReviewsList />
+      </ReviewsContext.Provider>
     </div>
   )
 }
