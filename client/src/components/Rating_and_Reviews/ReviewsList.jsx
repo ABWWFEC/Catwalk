@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Review from './Review.jsx';
 
-const ReviewsList = ({ reviewsData }) => {
+const ReviewsList = ({ reviewsData, sortReviews }) => {
   const { reviews, numberOfReviews, prodId } = reviewsData;
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
   const [ maxReviewsReached, setMaxReviewsReached ] = useState(false);
@@ -21,10 +21,10 @@ const ReviewsList = ({ reviewsData }) => {
     <div>
       <div>
         {numberOfReviews} reviews, sorted by
-        <select>
-          <option key={'criteria name'}>some criteria 1</option>
-          <option key={'criteria name 2'}>some criteria 2</option>
-          <option key={'criteria name 3'}>some criteria 3</option>
+        <select onChange={(e) => sortReviews(e.target.value) }>
+          <option value={'relevant'}>relevance</option>
+          <option value={'newest'}>newest</option>
+          <option value={'helpful'}>helpfulness</option>
         </select>
       </div>
       {displayedReviews.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />)}
