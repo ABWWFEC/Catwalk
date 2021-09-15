@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Reviews from './Rating_and_Reviews';
 
 const App = () => {
   const [prodId, setProdId] = useState(42366);
@@ -6,9 +7,9 @@ const App = () => {
   return (
     <div>
       <h1>hello</h1>
-      <Overview prodId={prodId} />
+      {/* <Overview prodId={prodId} />
       <Related prodId={prodId} setProdId={setProdId} />
-      <QandA prodId={prodId} />
+      <QandA prodId={prodId} /> */}
       <Reviews prodId={prodId} />
     </div>
   );
