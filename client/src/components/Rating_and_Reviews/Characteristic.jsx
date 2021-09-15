@@ -57,8 +57,6 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     }
   }
 
-  console.log(characteristicName);
-
   return (
     <div>
       <div>{characteristicName}</div>
