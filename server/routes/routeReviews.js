@@ -7,9 +7,13 @@ router.route('/:product_id')
   .get((req, res) => {
     const config = {
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews?product_id=${req.params.product_id}`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`,
       headers: {
         Authorization: TOKEN,
+      },
+      params: {
+        product_id: req.params.product_id,
+        count: 50
       }
     };
 
@@ -45,8 +49,7 @@ router.route('/meta/:product_id')
     };
 
     axios(config)
-      .then((results) => {
-        res.status(200).send(results.data)})
+      .then((results) => res.status(200).send(results.data))
       .catch((err) => res.status(400).send(`Couldn't get review metadata`, err));
   });
 

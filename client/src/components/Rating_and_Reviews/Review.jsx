@@ -14,16 +14,15 @@ const Review = ({ reviewData }) => {
   return (
     <div>
       <div>
-        <div>{rating}</div>
+        <div>star rating {rating}</div>
         <div>{reviewer_name}, {readableDate}</div>
       </div>
       <div>{summary}</div>
       <div>{body}</div>
       {recommend && <div>checkmark I recommend this product</div>}
-      {response && <div>reviewData.response</div>}
+      {response && <div>{response}</div>}
       <div>
-        Helpful?
-        <span>Yes({helpfulness})</span> | <span>Report</span>
+        Helpful? <span>Yes</span>({helpfulness}) | <span>Report</span>
       </div>
     </div>
   )

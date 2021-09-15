@@ -4,22 +4,35 @@ import ReviewsList from './ReviewsList.jsx';
 import ReviewsMetaData from './ReviewsMetaData.jsx';
 
 const Reviews = (props) => {
-  const [ reviewsData, setReviewsData ] = useState({ reviews: [], numberOfReviews: 0, prodId: props.prodId });
+  const [ reviewsData, setReviewsData ] = useState({ reviews: [],
+    numberOfReviews: null,
+    prodId: props.prodId
+  });
+  const { reviews, numberOfReviews, prodId } = reviewsData;
 
   useEffect(() => {
     axios.get(`/api/reviews/${props.prodId}`)
       .then(results => {
-        setReviewsData({ ...reviewsData,
-          reviews: results.data.results ,
+        setReviewsData((prevReviewsData) => ({ ...prevReviewsData,
+          reviews: results.data.results,
           numberOfReviews: results.data.results.length
-        })
+        }))
       })
       .catch(err => console.log(`Couldn't fetch reviews :(`));
   }, []);
 
   return (
     <div>
-      <ReviewsMetaData numberOfReviews={reviewsData.numberOfReviews} prodId={reviewsData.prodId} />
+      RATINGS & REVIEWS
+      <ReviewsMetaData numberOfReviews={numberOfReviews} prodId={prodId} />
+      <div>
+        {numberOfReviews} reviews, sorted by
+        <select>
+          <option key={'criteria name'}>some criteria 1</option>
+          <option key={'criteria name 2'}>some criteria 2</option>
+          <option key={'criteria name 3'}>some criteria 3</option>
+        </select>
+      </div>
       <ReviewsList reviewsData={reviewsData} />
     </div>
   )
