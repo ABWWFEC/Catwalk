@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StarRatingBreakdown from './StarRatingBreakdown.jsx';
+import CharacteristicsBreakdown from './CharacteristicsBreakdown.jsx';
 
 const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
   // do i need this? hmmm
@@ -57,11 +58,7 @@ const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
     return (sum / numberOfReviews).toPrecision(2);
   }
 
-  const calculatePercent = (recommendedTrue) => {
-    let percent = (recommendedTrue / numberOfReviews) * 100;
-
-    return Math.floor(percent);
-  }
+  let percentRecommended = Math.floor((recommended.true / numberOfReviews) * 100)
 
   useEffect(() => {
     axios.get(`/api/reviews/meta/${prodId}`)
@@ -79,10 +76,10 @@ const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
       <div>
         {calculateAverage(ratings) > 0 && <div>{calculateAverage(ratings)}</div>}
         <div>star rating</div>
-        {calculatePercent(recommended.true) > 0 && <div>{calculatePercent(recommended.true)} percent reviews recommend this product</div>}
+        {percentRecommended > 0 && <div>{percentRecommended} percent reviews recommend this product</div>}
       </div>
       <StarRatingBreakdown ratings={ratings} numberOfReviews={numberOfReviews} />
-      <div>characteristics</div>
+      <CharacteristicsBreakdown characteristics={characteristics} />
     </div>
   )
 }
