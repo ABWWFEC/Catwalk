@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import StarRatingBreakdown from './StarRatingBreakdown.jsx';
 
 const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
   // do i need this? hmmm
@@ -50,7 +51,6 @@ const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
   const calculateAverage = (ratings) => {
     let sum = 0;
     for (var rating in ratings) {
-      // sum += (Number(rating) * Number(ratings[rating]));
       sum += rating * ratings[rating];
     }
 
@@ -65,11 +65,14 @@ const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
 
   useEffect(() => {
     axios.get(`/api/reviews/meta/${prodId}`)
-      .then((results) => setReviewsMetaData(results.data))
+      .then((results) => setReviewsMetaData({
+        "product_id": results.data.product_id,
+        "ratings": {...ratings, ...results.data.ratings},
+        "recommended": results.data.recommended,
+        "characteristics": results.data.characteristics
+        }))
       .catch((err) => console.log(`Couldn't get the metadata on reviews :(`, err));
   }, []);
-
-  console.log(Math.floor((recommended.true / numberOfReviews) * 100));
 
   return (
     <div>
@@ -78,7 +81,7 @@ const ReviewsMetaData = ({ numberOfReviews, prodId }) => {
         <div>star rating</div>
         {calculatePercent(recommended.true) > 0 && <div>{calculatePercent(recommended.true)} percent reviews recommend this product</div>}
       </div>
-      <div>star rating break down</div>
+      <StarRatingBreakdown ratings={ratings} numberOfReviews={numberOfReviews} />
       <div>characteristics</div>
     </div>
   )

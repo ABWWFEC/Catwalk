@@ -25,14 +25,6 @@ const Reviews = (props) => {
     <div>
       RATINGS & REVIEWS
       <ReviewsMetaData numberOfReviews={numberOfReviews} prodId={prodId} />
-      <div>
-        {numberOfReviews} reviews, sorted by
-        <select>
-          <option key={'criteria name'}>some criteria 1</option>
-          <option key={'criteria name 2'}>some criteria 2</option>
-          <option key={'criteria name 3'}>some criteria 3</option>
-        </select>
-      </div>
       <ReviewsList reviewsData={reviewsData} />
     </div>
   )
