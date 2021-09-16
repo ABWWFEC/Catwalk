@@ -6,7 +6,7 @@ const relatedList = function({prodId}) {
 
   const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedInfo, setRelatedInfo] = useState([]);
-  const [relatedPhotos, setRelatedPhotos] = useState([]);
+  const [relatedPhotos, setRelatedPhotos] = useState({});
 
   useEffect(() => {
     const getIDs = () => {
@@ -23,11 +23,11 @@ const relatedList = function({prodId}) {
 
   useEffect(() => {
     const getRelatedInfo = () => {
-      console.log('the related IDs are: ', relatedIDs);
       for (var i = 0; i < relatedIDs.length; i++) {
         axios.get(`/api/product/${relatedIDs[i]}`)
           .then(res => {
             setRelatedInfo(prevRelatedInfo => ([...prevRelatedInfo, {
+              id: res.data.id,
               category: res.data.category,
               price: res.data.default_price,
               features: res.data.features,
@@ -43,15 +43,17 @@ const relatedList = function({prodId}) {
   }, [relatedIDs])
 
   useEffect(() => {
+    console.log('The related info is: ', relatedInfo);
+  }, [relatedInfo])
+
+  useEffect(() => {
     const getRelatedPhotos = () => {
       for (var i = 0; i < relatedIDs.length; i++) {
         axios.get(`/api/product/${relatedIDs[i]}/styles`)
           .then(res => {
-            setRelatedPhotos(prevRelatedPhotos => ([...prevRelatedPhotos, {
-              id: res.data.product_id,
-              url: res.data.results[0].photos[0].thumbnail_url
-            }
-            ]))
+            setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
+              [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
+            }))
           })
       }
     }
@@ -63,7 +65,7 @@ const relatedList = function({prodId}) {
   }, [relatedPhotos])
 
   const entry = relatedInfo.map((product, index) => {
-    const currentPhoto = relatedPhotos[index];
+    const currentPhoto = relatedPhotos[product.id];
     return(
       <RelatedEntry product={product} key={product.id} photo={currentPhoto}/>
     );

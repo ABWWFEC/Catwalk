@@ -10,7 +10,7 @@ const RelatedEntry = ({product, photo}) =>  (
        {product.name}
       </div>
       <div>
-        ${product.default_price}
+        ${product.price}
       </div>
     </div>
 )
