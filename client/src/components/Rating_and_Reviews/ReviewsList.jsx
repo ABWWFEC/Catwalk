@@ -11,12 +11,9 @@ const ReviewsList = () => {
   const displayedReviews = () => {
     let displayed;
 
-    if (numberOfFilters) {
-      displayed = starFilteredList.slice(0, displayReviewsAmount);
-
-      return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);
-    }
-    displayed = reviews.slice(0, displayReviewsAmount);
+    numberOfFilters
+      ? displayed = starFilteredList.slice(0, displayReviewsAmount)
+      : displayed = reviews.slice(0, displayReviewsAmount);
 
     return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);
   }
@@ -35,9 +32,9 @@ const ReviewsList = () => {
       <div>
         {numberOfReviews} reviews, sorted by
         <select onChange={(e) => getReviewsData(e.target.value) }>
-          <option value={'relevant'}>relevance</option>
+          <option value={'relevant'}>relevant</option>
           <option value={'newest'}>newest</option>
-          <option value={'helpful'}>helpfulness</option>
+          <option value={'helpful'}>helpful</option>
         </select>
       </div>
       {displayedReviews()}

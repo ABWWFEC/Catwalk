@@ -60,7 +60,7 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
   return (
     <div>
       <div>{characteristicName}</div>
-      <div>{characteristicValue} bar</div>
+      <div>{Number(characteristicValue).toPrecision(3)} bar</div>
       {descriptors(characteristicName)}
     </div>
   )
