@@ -6,12 +6,12 @@ const ReviewsList = () => {
   // const { reviews, numberOfReviews, prodId } = reviewsData;
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
   const [ maxReviewsReached, setMaxReviewsReached ] = useState(false);
-  const { reviews, numberOfReviews, prodId, getReviewsData, starFilteredList, starFiltered } = useContext(ReviewsContext);
+  const { reviews, numberOfReviews, prodId, getReviewsData, starFilteredList, numberOfFilters } = useContext(ReviewsContext);
 
   const displayedReviews = () => {
     let displayed;
 
-    if (starFiltered) {
+    if (numberOfFilters) {
       displayed = starFilteredList.slice(0, displayReviewsAmount);
 
       return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);

@@ -18,9 +18,9 @@ const Reviews = (props) => {
       4: false,
       5: false
     },
-    starFiltered: 0
+    numberOfFilters: 0
   });
-  const { reviews, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, starFiltered } = reviewsData;
+  const { reviews, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -51,7 +51,7 @@ const Reviews = (props) => {
         ...reviewsData,
         starFilteredList: [...starFilteredList, ...filteredReviews],
         starRatingsClicked: {...starRatingsClicked, [starRating]: true},
-        starFiltered: starFiltered + 1
+        numberOfFilters: numberOfFilters + 1
       })
 
       return;
@@ -62,14 +62,30 @@ const Reviews = (props) => {
       ...reviewsData,
       starFilteredList: filteredReviews,
       starRatingsClicked: {...starRatingsClicked, [starRating]: false},
-      starFiltered: starFiltered - 1
+      numberOfFilters: numberOfFilters - 1
+    })
+  }
+
+  const handleResetFilterClick = () => {
+    setReviewsData({
+      ...reviewsData,
+      starFilteredList: [],
+      numberOfFilters: 0,
+      starRatingsClicked: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false
+      }
     })
   }
 
   const providerValue = {
     ...reviewsData,
     getReviewsData,
-    handleStarRatingClick
+    handleStarRatingClick,
+    handleResetFilterClick
   }
 
   useEffect(() => {

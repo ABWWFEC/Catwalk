@@ -76,9 +76,9 @@ const ReviewsMetaData = () => {
   return (
     <div>
       <div>
-        {calculateAverage(ratings) > 0 && <div>{calculateAverage(ratings)}</div>}
+        {(calculateAverage(ratings) > 0 && calculateAverage(ratings) !== Infinity) && <div>{calculateAverage(ratings)}</div>}
         <div>star rating</div>
-        {percentRecommended > 0 && <div>{percentRecommended} percent reviews recommend this product</div>}
+        {(percentRecommended > 0 && percentRecommended !== Infinity) && <div>{percentRecommended} percent reviews recommend this product</div>}
       </div>
       <StarRatingBreakdown ratings={ratings} />
       <CharacteristicsBreakdown characteristics={characteristics} />
