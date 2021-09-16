@@ -6,9 +6,20 @@ const ReviewsList = () => {
   // const { reviews, numberOfReviews, prodId } = reviewsData;
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
   const [ maxReviewsReached, setMaxReviewsReached ] = useState(false);
-  const { reviews, numberOfReviews, prodId, getReviewsData } = useContext(ReviewsContext);
+  const { reviews, numberOfReviews, prodId, getReviewsData, starFilteredList, starFiltered } = useContext(ReviewsContext);
 
-  let displayedReviews = reviews.slice(0, displayReviewsAmount);
+  const displayedReviews = () => {
+    let displayed;
+
+    if (starFiltered) {
+      displayed = starFilteredList.slice(0, displayReviewsAmount);
+
+      return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);
+    }
+    displayed = reviews.slice(0, displayReviewsAmount);
+
+    return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);
+  }
 
   const onMoreReviewsClick = () => {
     if (displayReviewsAmount >= numberOfReviews) {
@@ -29,7 +40,7 @@ const ReviewsList = () => {
           <option value={'helpful'}>helpfulness</option>
         </select>
       </div>
-      {displayedReviews.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />)}
+      {displayedReviews()}
       <div>
         {(numberOfReviews > 2) && <button onClick={onMoreReviewsClick} >More Reviews</button>}
         {maxReviewsReached && <div>These are all the reviews!</div>}

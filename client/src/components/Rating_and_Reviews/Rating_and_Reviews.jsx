@@ -10,10 +10,17 @@ const Reviews = (props) => {
     numberOfReviews: null,
     prodId: props.prodId,
     sortParam: 'relevance',
-    starFilter: [],
-    isFiltered: false
+    starFilteredList: [],
+    starRatingsClicked: {
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false
+    },
+    starFiltered: false
   });
-  const { reviews, numberOfReviews, prodId, sortParam, starFilter, isFiltered } = reviewsData;
+  const { reviews, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, starFiltered } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -35,9 +42,24 @@ const Reviews = (props) => {
     .catch(err => console.log(`Couldn't fetch reviews :(`));
   }
 
+  const handleStarRatingClick = (e) => {
+    let starRating = e.target.dataset.rating;
+    let filteredReviews = reviews.filter(review => Number(starRating) === review.rating);
+
+    if (!starRatingsClicked[starRating]) {
+      setReviewsData({
+        ...reviewsData,
+        starFilteredList: [...starFilteredList, ...filteredReviews],
+        starRatingsClicked: {...starRatingsClicked, [starRating]: true},
+        starFiltered: true
+      })
+    }
+  }
+
   const providerValue = {
     ...reviewsData,
-    getReviewsData
+    getReviewsData,
+    handleStarRatingClick
   }
 
   useEffect(() => {
