@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 
 const Review = ({ reviewData }) => {
-  const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness } = reviewData;
+  const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness, review_id } = reviewData;
   const readableDate = new Date(date).toLocaleDateString(
     'en-us',
     {
@@ -10,6 +11,18 @@ const Review = ({ reviewData }) => {
       day: 'numeric'
     }
   );
+
+  const handleYesClick = () => {
+    axios.put(`/api/reviews/${review_id}`)
+      .then(() => console.log(`Marked review as helpful! :)`))
+      .catch((err) => console.log(`Couldn't mark review as helpful :(`, err));
+  }
+
+  const handleReportClick = () => {
+    axios.put(`/api/reviews/${review_id}`)
+      .then(() => console.log(`Reported review! :)`))
+      .catch((err) => console.log(`Couldn't report the review :(`, err));
+  }
 
   return (
     <div>

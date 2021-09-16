@@ -3,28 +3,23 @@ import { ReviewsContext } from './Rating_and_Reviews.jsx';
 import Review from './Review.jsx';
 
 const ReviewsList = () => {
-  // const { reviews, numberOfReviews, prodId } = reviewsData;
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
-  const [ maxReviewsReached, setMaxReviewsReached ] = useState(false);
   const { reviews, numberOfReviews, prodId, getReviewsData, starFilteredList, numberOfFilters } = useContext(ReviewsContext);
 
-  const displayedReviews = () => {
-    let displayed;
+  let currNumberOfReviews = numberOfFilters ? starFilteredList.length : numberOfReviews;
 
-    numberOfFilters
-      ? displayed = starFilteredList.slice(0, displayReviewsAmount)
-      : displayed = reviews.slice(0, displayReviewsAmount);
+  const displayedReviews = () => {
+    let displayed = numberOfFilters
+      ? starFilteredList.slice(0, displayReviewsAmount)
+      : reviews.slice(0, displayReviewsAmount);
 
     return displayed.map(reviewData => <Review key={reviewData.review_id} reviewData={reviewData} />);
   }
 
-  const onMoreReviewsClick = () => {
-    if (displayReviewsAmount >= numberOfReviews) {
-      setMaxReviewsReached(true);
-      return;
+  const handleMoreReviewsClick = () => {
+    if (numberOfReviews > displayReviewsAmount) {
+      setDisplayReviewsAmount(displayReviewsAmount + 2);
     }
-
-    setDisplayReviewsAmount(displayReviewsAmount + 2);
   }
 
   return (
@@ -39,8 +34,8 @@ const ReviewsList = () => {
       </div>
       {displayedReviews()}
       <div>
-        {(numberOfReviews > 2) && <button onClick={onMoreReviewsClick} >More Reviews</button>}
-        {maxReviewsReached && <div>These are all the reviews!</div>}
+        {(currNumberOfReviews > 2) && <button onClick={handleMoreReviewsClick} >More Reviews</button>}
+        {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       </div>
       <button>Add A Review</button>
     </div>
