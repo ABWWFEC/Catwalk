@@ -18,7 +18,7 @@ const Reviews = (props) => {
       4: false,
       5: false
     },
-    starFiltered: false
+    starFiltered: 0
   });
   const { reviews, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, starFiltered } = reviewsData;
 
@@ -51,9 +51,19 @@ const Reviews = (props) => {
         ...reviewsData,
         starFilteredList: [...starFilteredList, ...filteredReviews],
         starRatingsClicked: {...starRatingsClicked, [starRating]: true},
-        starFiltered: true
+        starFiltered: starFiltered + 1
       })
+
+      return;
     }
+
+    filteredReviews = starFilteredList.filter(review => Number(starRating) !== review.rating);
+    setReviewsData({
+      ...reviewsData,
+      starFilteredList: filteredReviews,
+      starRatingsClicked: {...starRatingsClicked, [starRating]: false},
+      starFiltered: starFiltered - 1
+    })
   }
 
   const providerValue = {
