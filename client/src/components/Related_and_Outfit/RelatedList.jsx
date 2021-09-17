@@ -9,8 +9,6 @@ const RelatedList = function({prodId}) {
   const [relatedInfo, setRelatedInfo] = useState([]);
   const [relatedPhotos, setRelatedPhotos] = useState({});
 
-  const handleDragStart = (e) => e.preventDefault();
-
   useEffect(() => {
     const getIDs = () => {
       axios.get(`/api/product/${prodId}/related`)
@@ -46,10 +44,6 @@ const RelatedList = function({prodId}) {
   }, [relatedIDs])
 
   useEffect(() => {
-    console.log('The related info is: ', relatedInfo);
-  }, [relatedInfo])
-
-  useEffect(() => {
     const getRelatedPhotos = () => {
       for (var i = 0; i < relatedIDs.length; i++) {
         axios.get(`/api/product/${relatedIDs[i]}/styles`)
@@ -68,17 +62,6 @@ const RelatedList = function({prodId}) {
     }
     getRelatedPhotos()
   }, [relatedIDs])
-
-  useEffect(() => {
-    console.log('related photo link objects: ', relatedPhotos);
-  }, [relatedPhotos])
-
-  const entry = relatedInfo.map((product, index) => {
-    const currentPhoto = relatedPhotos[product.id];
-    return(
-      <RelatedEntry product={product} key={product.id} photo={currentPhoto}/>
-    );
-  });
 
   return (
     <Carousel>
