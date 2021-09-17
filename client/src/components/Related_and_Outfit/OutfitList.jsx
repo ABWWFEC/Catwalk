@@ -2,6 +2,8 @@ import React, {useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import axios from 'axios';
 import OutfitEntry from './OutfitEntry.jsx';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const OutfitList = function({prodId}) {
   const [OutfitIDs, setOutfitIDs] = useState([]);
@@ -59,10 +61,30 @@ const OutfitList = function({prodId}) {
     console.log('outfit info: ', OutfitInfo);
   }, [OutfitInfo])
 
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
   return (
-    <div>
+    <Carousel responsive={responsive}>
       <a style={{ cursor: 'pointer' }} onClick={handleClick}>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{width: '10rem', flex: 1}}>
         <Card.Body>
           <Card.Title>
             +
@@ -77,7 +99,7 @@ const OutfitList = function({prodId}) {
         return <OutfitEntry product={product} key={product.id} photo={OutfitPhotos[product.id]}/>
         })
       }
-    </div>
+    </Carousel>
   )
 }
 

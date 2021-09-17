@@ -1,9 +1,10 @@
 import React, {useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
+import '../../../dist/style.css';
 
 const OutfitEntry = ({product, photo}) => (
-  <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" src={`${photo}`} />
+  <Card style={{width: '10rem', flex: 1}}>
+    <Card.Img variant="top" src={`${photo}`} style={{width: '10rem', height: '15vw', objectFit: 'cover'}}/>
     <Card.Body>
       <Card.Title>
         {product.name}
