@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { ReviewsContext } from './Rating_and_Reviews.jsx';
 import Review from './Review.jsx';
+import AddReview from './AddReview.jsx';
 
 const ReviewsList = () => {
   const [ displayReviewsAmount, setDisplayReviewsAmount ] = useState(2);
+  const [ addReviewClicked, setAddReviewclicked ] = useState(false);
   const { reviews, numberOfReviews, prodId, getReviewsData, starFilteredList, numberOfFilters } = useContext(ReviewsContext);
 
   let currNumberOfReviews = numberOfFilters ? starFilteredList.length : numberOfReviews;
@@ -22,6 +24,10 @@ const ReviewsList = () => {
     }
   }
 
+  const handleAddAReviewClick = () => {
+    setAddReviewclicked(!addReviewClicked);
+  }
+
   return (
     <div>
       <div>
@@ -37,7 +43,8 @@ const ReviewsList = () => {
         {(currNumberOfReviews > 2) && <button onClick={handleMoreReviewsClick} >More Reviews</button>}
         {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       </div>
-      <button>Add A Review</button>
+      <button onClick={handleAddAReviewClick}>Add A Review</button>
+      {addReviewClicked && <AddReview />}
     </div>
   )
 }

@@ -66,7 +66,7 @@ router.route('/:review_id/helpful')
     };
 
     axios(config)
-      .then((results) => res.status(204).send('Updated review as helpful!'))
+      .then((results) => res.status(200).send('Updated review as helpful!'))
       .catch((err) => res.status(400).send(`Couldn't update review as helpful`, err));
   });
 
@@ -81,7 +81,7 @@ router.route('/:review_id/report')
     };
 
     axios(config)
-      .then((results) => res.status(204).send('Review has been reported'))
+      .then((results) => res.status(200).send('Review has been reported'))
       .catch((err) => res.status(400).send(`Couldn't report review`, err));
   });
 

@@ -6,8 +6,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Fit') {
       return (
         <div>
-          <div>fit descriptor 1</div>
-          <div>fit descriptor 2</div>
+          <div>Too tight</div>
+          <div>Too loose</div>
         </div>
       )
     }
@@ -15,8 +15,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Length') {
       return (
         <div>
-          <div>length descriptor 1</div>
-          <div>length descriptor 2</div>
+          <div>Runs short</div>
+          <div>Runs long</div>
         </div>
       )
     }
@@ -24,16 +24,16 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Comfort') {
       return (
         <div>
-          <div>comfort descriptor 1</div>
-          <div>comfort descriptor 2</div>
+          <div>Uncomfortable</div>
+          <div>Perfect</div>
         </div>
       )
     }
     if (name === 'Quality') {
       return (
         <div>
-          <div>quality descriptor 1</div>
-          <div>quality descriptor 2</div>
+          <div>Poor</div>
+          <div>Perfect</div>
         </div>
       )
     }
@@ -41,8 +41,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Width') {
       return (
         <div>
-          <div>width descriptor 1</div>
-          <div>width descriptor 2</div>
+          <div>Too narrow</div>
+          <div>Too wide</div>
         </div>
       )
     }
@@ -50,8 +50,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name ==='Size') {
       return (
         <div>
-          <div>size descriptor 1</div>
-          <div>size descriptor 2</div>
+          <div>Too small</div>
+          <div>Too large</div>
         </div>
       )
     }
