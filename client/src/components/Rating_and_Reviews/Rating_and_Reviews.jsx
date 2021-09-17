@@ -8,6 +8,46 @@ export const ReviewsContext = createContext();
 const Reviews = (props) => {
   const [ reviewsData, setReviewsData ] = useState({
     reviews: [],
+    reviewsMetaData: {
+      "product_id": "",
+      "ratings": {
+          "1": "",
+          "2": "",
+          "3": "",
+          "4": "",
+          "5": ""
+      },
+      "recommended": {
+          "false": "",
+          "true": ""
+      },
+      "characteristics": {
+          "Fit": {
+              "id": 0,
+              "value": ""
+          },
+          "Length": {
+              "id": 0,
+              "value": ""
+          },
+          "Comfort": {
+              "id": 0,
+              "value": ""
+          },
+          "Quality": {
+              "id": 0,
+              "value": ""
+          },
+          "Width": {
+              "id": 0,
+              "value": ""
+          },
+          "Size": {
+              "id": 0,
+              "value": ""
+          }
+      }
+    },
     numberOfReviews: null,
     prodId: props.prodId,
     sortParam: 'relevance',
@@ -21,7 +61,7 @@ const Reviews = (props) => {
     },
     numberOfFilters: 0
   });
-  const { reviews, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
+  const { reviews, reviewsMetaData, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -36,7 +76,7 @@ const Reviews = (props) => {
           setReviewsData(prevReviewsData => ({
             ...prevReviewsData,
             starFilteredList: []
-          }))
+          }));
 
           for (const rating in starRatingsClicked) {
             if (starRatingsClicked[rating]) {
@@ -44,7 +84,7 @@ const Reviews = (props) => {
               setReviewsData(prevReviewsData => ({
                 ...prevReviewsData,
                 starFilteredList: [...prevReviewsData.starFilteredList, ...filteredReviews]
-              }))
+              }));
             }
           }
         }
@@ -54,10 +94,26 @@ const Reviews = (props) => {
           reviews: results.data.results,
           numberOfReviews: results.data.results.length,
           sortParam: sorter
-        }))
+        }));
       })
       .catch(err => console.log(`Couldn't fetch reviews :(`));
-  }
+  };
+
+  const getReviewsMetaData =(() => {
+    axios.get(`/api/reviews/meta/${prodId}`)
+      .then((results) => {
+        setReviewsData(prevReviewsData =>({
+          ...prevReviewsData,
+          reviewsMetaData: {
+            "product_id": results.data.product_id,
+            "ratings": {...prevReviewsData.reviewsMetaData.ratings, ...results.data.ratings},
+            "recommended": results.data.recommended,
+            "characteristics": results.data.characteristics
+          }
+        }));
+      })
+      .catch((err) => console.log(`Couldn't get the metadata on reviews :(`, err));
+  });
 
   const handleStarRatingClick = (e) => {
     let starRating = e.target.dataset.rating;
@@ -69,7 +125,7 @@ const Reviews = (props) => {
         starFilteredList: [...prevReviewsData.starFilteredList, ...filteredReviews],
         starRatingsClicked: {...prevReviewsData.starRatingsClicked, [starRating]: true},
         numberOfFilters: prevReviewsData.numberOfFilters + 1
-      }))
+      }));
 
       return;
     }
@@ -80,7 +136,7 @@ const Reviews = (props) => {
       starFilteredList: filteredReviews,
       starRatingsClicked: {...prevReviewsData.starRatingsClicked, [starRating]: false},
       numberOfFilters: prevReviewsData.numberOfFilters - 1
-    }))
+    }));
   }
 
   const handleResetFilterClick = () => {
@@ -95,7 +151,7 @@ const Reviews = (props) => {
         4: false,
         5: false
       }
-    }))
+    }));
   }
 
   const providerValue = {
@@ -107,6 +163,7 @@ const Reviews = (props) => {
 
   useEffect(() => {
     getReviewsData(sortParam);
+    getReviewsMetaData();
   }, []);
 
   return (

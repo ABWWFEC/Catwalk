@@ -5,51 +5,8 @@ import StarRatingBreakdown from './StarRatingBreakdown.jsx';
 import CharacteristicsBreakdown from './CharacteristicsBreakdown.jsx';
 
 const ReviewsMetaData = () => {
-  // do i need this? hmmm
-  const initialize = {
-    "product_id": "",
-    "ratings": {
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": ""
-    },
-    "recommended": {
-        "false": "",
-        "true": ""
-    },
-    "characteristics": {
-        "Fit": {
-            "id": 0,
-            "value": ""
-        },
-        "Length": {
-            "id": 0,
-            "value": ""
-        },
-        "Comfort": {
-            "id": 0,
-            "value": ""
-        },
-        "Quality": {
-            "id": 0,
-            "value": ""
-        },
-        "Width": {
-            "id": 0,
-            "value": ""
-        },
-        "Size": {
-            "id": 0,
-            "value": ""
-        }
-    }
-  };
-
-  const [ reviewsMetaData, setReviewsMetaData ] = useState(initialize);
+  const { reviewsMetaData, numberOfReviews, prodId } = useContext(ReviewsContext)
   const { ratings, recommended, characteristics } = reviewsMetaData;
-  const { numberOfReviews, prodId } = useContext(ReviewsContext)
 
   const calculateAverage = (ratings) => {
     let sum = 0;
@@ -61,17 +18,6 @@ const ReviewsMetaData = () => {
   }
 
   let percentRecommended = Math.floor((recommended.true / numberOfReviews) * 100)
-
-  useEffect(() => {
-    axios.get(`/api/reviews/meta/${prodId}`)
-      .then((results) => setReviewsMetaData({
-        "product_id": results.data.product_id,
-        "ratings": {...ratings, ...results.data.ratings},
-        "recommended": results.data.recommended,
-        "characteristics": results.data.characteristics
-        }))
-      .catch((err) => console.log(`Couldn't get the metadata on reviews :(`, err));
-  }, []);
 
   return (
     <div>

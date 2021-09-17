@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Review = ({ reviewData }) => {
-  const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness, review_id } = reviewData;
+  const [ photoClicked, setPhotoClicked ] = useState(false);
+  const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness, review_id, photos } = reviewData;
   const readableDate = new Date(date).toLocaleDateString(
     'en-us',
     {
@@ -24,6 +25,10 @@ const Review = ({ reviewData }) => {
       .catch((err) => console.log(`Couldn't report the review :(`, err));
   }
 
+  const handlePhotoClick = () => {
+    setPhotoClicked(true);
+  }
+
   return (
     <div>
       <div>
@@ -32,6 +37,16 @@ const Review = ({ reviewData }) => {
       </div>
       <div>{summary}</div>
       <div>{body}</div>
+      <div>
+        {photos.length > 0 && photos.map(photo => {
+          return (
+            <div key={photo.id}>
+              <img onClick={handlePhotoClick} src={photo.url}></img>
+              {photoClicked && <img src={photo.url}></img>}
+            </div>
+          )
+        })}
+      </div>
       {recommend && <div>checkmark I recommend this product</div>}
       {response && <div>{response}</div>}
       <div>

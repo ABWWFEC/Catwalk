@@ -6,8 +6,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Fit') {
       return (
         <div>
-          <div>Too tight</div>
-          <div>Too loose</div>
+          <div>Runs tight</div>
+          <div>Runs long</div>
         </div>
       )
     }
@@ -50,8 +50,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name ==='Size') {
       return (
         <div>
-          <div>Too small</div>
-          <div>Too large</div>
+          <div>A size too small</div>
+          <div>A size too wide</div>
         </div>
       )
     }
