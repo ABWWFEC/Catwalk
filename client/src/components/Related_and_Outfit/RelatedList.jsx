@@ -1,12 +1,15 @@
 import React, {useState, useEffect } from 'react';
 import axios from 'axios';
 import RelatedEntry from './relatedEntry.jsx';
+import { Carousel } from 'react-bootstrap';
 
-const relatedList = function({prodId}) {
+const RelatedList = function({prodId}) {
 
   const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedInfo, setRelatedInfo] = useState([]);
   const [relatedPhotos, setRelatedPhotos] = useState({});
+
+  const handleDragStart = (e) => e.preventDefault();
 
   useEffect(() => {
     const getIDs = () => {
@@ -51,9 +54,15 @@ const relatedList = function({prodId}) {
       for (var i = 0; i < relatedIDs.length; i++) {
         axios.get(`/api/product/${relatedIDs[i]}/styles`)
           .then(res => {
-            setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
-              [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
-            }))
+            if (res.data.results[0].photos[0].thumbnail_url !== null) {
+              setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
+                [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
+              }))
+            } else {
+              setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
+                [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+              }))
+            }
           })
       }
     }
@@ -72,9 +81,12 @@ const relatedList = function({prodId}) {
   });
 
   return (
-    <div className="relatedList">
-      {entry}
-    </div>
+    <Carousel>
+      {relatedInfo.map((product) => {
+        return <RelatedEntry product={product} key={product.id} photo={relatedPhotos[product.id]}/>
+        })
+      }
+    </Carousel>
   )
 }
-export default relatedList;
+export default RelatedList;
