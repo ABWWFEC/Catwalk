@@ -44,7 +44,7 @@ const ReviewsList = () => {
         {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       </div>
       <button onClick={handleAddAReviewClick}>Add A Review</button>
-      {addReviewClicked && <AddReview />}
+      {addReviewClicked && <AddReview product_id={prodId} />}
     </div>
   )
 }
