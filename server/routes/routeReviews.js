@@ -28,7 +28,7 @@ router.route('/:product_id')
 
     const config = {
       method: 'post',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews?product_id=${product_id}`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews`,
       headers: {
         Authorization: TOKEN,
       },
