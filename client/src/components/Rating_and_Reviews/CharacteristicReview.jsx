@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ReviewFormContext } from './AddReview.jsx';
 
 const CharacteristicReview = ({ characteristicName, characteristicDescriptors, characteristicId }) => {
-  const { handleInputChange } = useContext(ReviewFormContext);
+  const { handleInputChange, characteristics } = useContext(ReviewFormContext);
 
   return (
     <div>
@@ -13,6 +13,7 @@ const CharacteristicReview = ({ characteristicName, characteristicDescriptors, c
               <input
                 type="radio"
                 key={index}
+                checked={characteristics[characteristicId] === index}
                 value={index}
                 name={characteristicId}
                 data-characteristic-name={characteristicName}

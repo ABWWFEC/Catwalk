@@ -21,10 +21,10 @@ const AddReview = ({ product_id }) => {
     body: '',
     rating: 0,
     photos: [],
-    characteristics: characteristicsById
+    characteristics: characteristicsById,
+    recommend: false
   });
-  const [ recommend, setRecommend ] = useState(false);
-  const { name, email, summary, body, photos } = reviewForm;
+  const { name, email, summary, body, photos, rating, recommend } = reviewForm;
 
   const handleInputChange = (e) => {
     const characteristicIds = Object.keys(characteristicsById);
@@ -67,24 +67,44 @@ const AddReview = ({ product_id }) => {
     }))
   }
 
-  const handleRecommendChange = (e) => {
-    e.target.value === 'true' ? setRecommend(true) : setRecommend(false);
-  }
-
   const handleReviewFormSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`/api/reviews/${product_id}`, {
-      ...reviewForm,
-      recommend
+    setReviewForm({
+      name: '',
+      email: '',
+      summary: '',
+      body: '',
+      rating: 0,
+      photos: [],
+      characteristics: characteristicsById,
+      recommend: false
     })
-      .then(() => console.log('Added review successfully! :)'))
-      .catch((err) => console.log(`Couldn't add the review :(`, err));
+
+    // axios.post(`/api/reviews/${product_id}`, {
+    //   ...reviewForm,
+    //   recommend: recommend === 'true'
+    // })
+    //   .then(() => {
+    //     setReviewForm({
+    //       name: '',
+    //       email: '',
+    //       summary: '',
+    //       body: '',
+    //       rating: 0,
+    //       photos: [],
+    //       characteristics: characteristicsById
+    //     })
+    //     setRecommend(false)
+    //     console.log('Added review successfully! :)')
+    //   })
+    //   .catch((err) => console.log(`Couldn't add the review :(`, err));
   }
 
   console.log(`/api/reviews/${product_id}`);
 
   const providerValue = {
+    characteristics: reviewForm.characteristics,
     handleInputChange
   }
 
@@ -93,7 +113,7 @@ const AddReview = ({ product_id }) => {
       <ReviewFormContext.Provider value={providerValue}>
         <div>
           <div>Rate this product!</div>
-          {[...Array(5)].map((rating, index) => {
+          {[...Array(5)].map((starRating, index) => {
             index += 1;
             return (
               <input
@@ -101,6 +121,7 @@ const AddReview = ({ product_id }) => {
                 key={index}
                 value={index}
                 name="rating"
+                checked={rating === index}
                 onChange={e => handleInputChange(e)}/>
             )
           })}
@@ -112,12 +133,14 @@ const AddReview = ({ product_id }) => {
           <input type="radio"
             name="recommend"
             value={true}
-            onChange={e => handleRecommendChange(e)}></input>
+            checked={recommend === 'true'}
+            onChange={e => handleInputChange(e)}></input>
           <label>No</label>
           <input type="radio"
             name="recommend"
             value={false}
-            onChange={e => handleRecommendChange(e)}></input>
+            checked={recommend === 'false'}
+            onChange={e => handleInputChange(e)}></input>
         </div>
         <div>
           <div>Rate the characteristics of this product!</div>
