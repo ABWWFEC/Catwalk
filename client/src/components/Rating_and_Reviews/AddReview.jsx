@@ -70,35 +70,24 @@ const AddReview = ({ product_id }) => {
   const handleReviewFormSubmit = (e) => {
     e.preventDefault();
 
-    setReviewForm({
-      name: '',
-      email: '',
-      summary: '',
-      body: '',
-      rating: 0,
-      photos: [],
-      characteristics: characteristicsById,
-      recommend: false
+    axios.post(`/api/reviews/${product_id}`, {
+      ...reviewForm,
+      recommend: recommend === 'true'
     })
-
-    // axios.post(`/api/reviews/${product_id}`, {
-    //   ...reviewForm,
-    //   recommend: recommend === 'true'
-    // })
-    //   .then(() => {
-    //     setReviewForm({
-    //       name: '',
-    //       email: '',
-    //       summary: '',
-    //       body: '',
-    //       rating: 0,
-    //       photos: [],
-    //       characteristics: characteristicsById
-    //     })
-    //     setRecommend(false)
-    //     console.log('Added review successfully! :)')
-    //   })
-    //   .catch((err) => console.log(`Couldn't add the review :(`, err));
+      .then(() => {
+        setReviewForm({
+          name: '',
+          email: '',
+          summary: '',
+          body: '',
+          rating: 0,
+          photos: [],
+          characteristics: characteristicsById,
+          recommend: false
+        })
+        console.log('Added review successfully! :)')
+      })
+      .catch((err) => console.log(`Couldn't add the review :(`, err));
   }
 
   console.log(`/api/reviews/${product_id}`);

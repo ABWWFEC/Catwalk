@@ -61,7 +61,7 @@ const Reviews = (props) => {
     },
     numberOfFilters: 0
   });
-  const { reviews, reviewsMetaData, numberOfReviews, prodId, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
+  const { reviews, reviewsMetaData, numberOfReviews, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -78,15 +78,18 @@ const Reviews = (props) => {
             starFilteredList: []
           }));
 
-          for (const rating in starRatingsClicked) {
-            if (starRatingsClicked[rating]) {
-              let filteredReviews = results.data.results.filter(review => Number(rating) === review.rating);
-              setReviewsData(prevReviewsData => ({
-                ...prevReviewsData,
-                starFilteredList: [...prevReviewsData.starFilteredList, ...filteredReviews]
-              }));
+          let filteredReviews = results.data.results.filter(review => {
+            for (const rating  in starRatingsClicked) {
+              if (starRatingsClicked[rating] && Number(rating) === review.rating) {
+                return true;
+              }
             }
-          }
+          })
+
+          setReviewsData(prevReviewsData => ({
+            ...prevReviewsData,
+            starFilteredList: [...prevReviewsData.starFilteredList, ...filteredReviews]
+          }))
         }
 
         setReviewsData(prevReviewsData => ({
@@ -96,11 +99,11 @@ const Reviews = (props) => {
           sortParam: sorter
         }));
       })
-      .catch(err => console.log(`Couldn't fetch reviews :(`));
+      .catch(err => console.log(`Couldn't fetch reviews :(`, err));
   };
 
   const getReviewsMetaData =(() => {
-    axios.get(`/api/reviews/meta/${prodId}`)
+    axios.get(`/api/reviews/meta/${props.prodId}`)
       .then((results) => {
         setReviewsData(prevReviewsData =>({
           ...prevReviewsData,
