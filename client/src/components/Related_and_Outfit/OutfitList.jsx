@@ -81,25 +81,33 @@ const OutfitList = function({prodId}) {
     }
   };
 
+  function OutfitDisplay() {
+    return (
+      <Carousel responsive={responsive}>
+        <a style={{ cursor: 'pointer' }} onClick={handleClick}>
+          <Card style={{width: '10rem', flex: 1}}>
+          <Card.Body>
+            <Card.Title>
+              +
+            </Card.Title>
+            <Card.Text>
+            Add Current Item To Outfit
+            </Card.Text>
+          </Card.Body>
+          </Card>
+        </a>
+        {OutfitInfo.map((product) => {
+          return <OutfitEntry product={product} key={product.id} photo={OutfitPhotos[product.id]}/>
+          })
+        }
+      </Carousel>
+    )
+  }
+
   return (
-    <Carousel responsive={responsive}>
-      <a style={{ cursor: 'pointer' }} onClick={handleClick}>
-        <Card style={{width: '10rem', flex: 1}}>
-        <Card.Body>
-          <Card.Title>
-            +
-          </Card.Title>
-          <Card.Text>
-          Add Current Item To Outfit
-          </Card.Text>
-        </Card.Body>
-        </Card>
-      </a>
-      {OutfitInfo.map((product) => {
-        return <OutfitEntry product={product} key={product.id} photo={OutfitPhotos[product.id]}/>
-        })
-      }
-    </Carousel>
+    <div>
+      <OutfitDisplay />
+    </div>
   )
 }
 

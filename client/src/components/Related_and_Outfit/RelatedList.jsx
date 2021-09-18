@@ -4,7 +4,7 @@ import RelatedEntry from './relatedEntry.jsx';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-const RelatedList = function({prodId}) {
+const RelatedList = function({prodId, setCurrentProd}) {
 
   const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedInfo, setRelatedInfo] = useState([]);
@@ -84,12 +84,21 @@ const RelatedList = function({prodId}) {
     }
   };
 
+  // const handleClick = () => {
+  //   console.log('product function hit');
+  //   setCurrentProd(product.id);
+  // }
+
   function CardDisplay() {
     return (
       <Carousel responsive={responsive}>
         {relatedInfo.map((product) => {
-          return <RelatedEntry product={product} key={product.id} photo={relatedPhotos[product.id]}/>
-          })
+          return (
+            <a style={{ cursor: 'pointer' }} onClick={() => setCurrentProd(product.id)}>
+              <RelatedEntry product={product} key={product.id} photo={relatedPhotos[product.id]} setCurrentProd={setCurrentProd}/>
+            </a>
+          )
+        })
         }
      </Carousel>
     )
