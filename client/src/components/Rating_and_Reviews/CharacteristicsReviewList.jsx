@@ -19,6 +19,7 @@ const CharacteristicsReviewList = ({ characteristics }) => {
           && <CharacteristicReview
             key={characteristics[characteristic].id}
             characteristicName={characteristic}
+            characteristicId={characteristics[characteristic].id}
             characteristicDescriptors={characteristicsDescriptors[characteristic]} />
       ))}
     </div>

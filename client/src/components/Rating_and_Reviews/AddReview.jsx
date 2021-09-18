@@ -8,7 +8,12 @@ export const ReviewFormContext = createContext();
 const AddReview = ({ product_id }) => {
   const { reviewsMetaData } = useContext(ReviewsContext);
   const { characteristics } = reviewsMetaData;
-  const characteristicTags = Object.keys(characteristics);
+  const characteristicsById = {};
+
+  for (const characteristic in characteristics) {
+    characteristicsById[characteristics[characteristic].id] = characteristics[characteristic].value;
+  }
+
   const [ reviewForm, setReviewForm ] = useState({
     name: '',
     email: '',
@@ -16,12 +21,14 @@ const AddReview = ({ product_id }) => {
     body: '',
     rating: 0,
     photos: [],
-    characteristics: characteristics
+    characteristics: characteristicsById
   });
   const [ recommend, setRecommend ] = useState(false);
   const { name, email, summary, body, photos } = reviewForm;
 
   const handleInputChange = (e) => {
+    const characteristicIds = Object.keys(characteristicsById);
+
     if (e.target.name === 'photos') {
       let photoURLs = [...e.target.files].map(file => URL.createObjectURL(file));
 
@@ -33,7 +40,7 @@ const AddReview = ({ product_id }) => {
       return;
     }
 
-    if (characteristicTags.includes(e.target.name)) {
+    if (characteristicIds.includes(e.target.name)) {
       setReviewForm(prevReviewForm => ({
         ...prevReviewForm,
         characteristics: {
@@ -71,6 +78,8 @@ const AddReview = ({ product_id }) => {
       ...reviewForm,
       recommend
     })
+      .then(() => console.log('Added review successfully! :)'))
+      .catch((err) => console.log(`Couldn't add the review :(`, err));
   }
 
   console.log(`/api/reviews/${product_id}`);
@@ -87,7 +96,12 @@ const AddReview = ({ product_id }) => {
           {[...Array(5)].map((rating, index) => {
             index += 1;
             return (
-              <input type="radio" key={index} value={index} name="rating" onChange={e => handleInputChange(e)}/>
+              <input
+                type="radio"
+                key={index}
+                value={index}
+                name="rating"
+                onChange={e => handleInputChange(e)}/>
             )
           })}
           <label>Some descriptor</label>
@@ -95,9 +109,15 @@ const AddReview = ({ product_id }) => {
         <div>
           <div>Would you recommend this product?</div>
           <label>Yes</label>
-          <input type="radio" name="recommend" value={true} onChange={e => handleRecommendChange(e)}></input>
+          <input type="radio"
+            name="recommend"
+            value={true}
+            onChange={e => handleRecommendChange(e)}></input>
           <label>No</label>
-          <input type="radio" name="recommend" value={false} onChange={e => handleRecommendChange(e)}></input>
+          <input type="radio"
+            name="recommend"
+            value={false}
+            onChange={e => handleRecommendChange(e)}></input>
         </div>
         <div>
           <div>Rate the characteristics of this product!</div>
@@ -105,11 +125,19 @@ const AddReview = ({ product_id }) => {
         </div>
         <div>
           <div>Review Summary</div>
-          <input type="text" name="summary" value={summary} placeholder="Example: Best purchase ever!" onChange={e => handleInputChange(e)}></input>
+          <input type="text"
+            name="summary"
+            value={summary}
+            placeholder="Example: Best purchase ever!"
+            onChange={e => handleInputChange(e)}></input>
         </div>
         <div>
           <div>Tell us what you thought!</div>
-          <textarea name="body" value={body} placeholder="Why did you like this product or not?" onChange={e => handleInputChange(e)}></textarea>
+          <textarea
+            name="body"
+            value={body}
+            placeholder="Why did you like this product or not?"
+            onChange={e => handleInputChange(e)}></textarea>
         </div>
         {photos.length > 1 &&
           <div>
@@ -117,16 +145,28 @@ const AddReview = ({ product_id }) => {
           </div>}
         {photos.length < 5 &&
           <div>
-            <input type="file" multiple name="photos" onChange={e => handleInputChange(e)}></input>
+            <input
+              type="file"
+              multiple
+              name="photos"
+              onChange={e => handleInputChange(e)}></input>
           </div>}
         <div>
           <div>Username</div>
-          <input type="text" name="name" value={name} onChange={e => handleInputChange(e)}></input>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={e => handleInputChange(e)}></input>
           <div>For privacy reasons, do not use your full name or e-mail address</div>
         </div>
         <div>
           <div>E-mail</div>
-          <input type="email" name="email" value={email} onChange={e => handleInputChange(e)}></input>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={e => handleInputChange(e)}></input>
           <div>For authentication reasons, you will not be emailed</div>
         </div>
         <button onClick={handleReviewFormSubmit}>Submit!</button>
