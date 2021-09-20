@@ -1,8 +1,13 @@
 import React from 'react';
 
-const MoreQuests = () => {
+const MoreQuests = ({ moreQuestions, setMoreQuestions }) => {
   return (
-    <button>More Questions</button>
+    <div className='col'>
+    { !moreQuestions
+      ? <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-secondary">More Questions</button>
+      : <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-secondary">Less Questions</button>
+    }
+    </div>
   )
 }
 

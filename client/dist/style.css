@@ -1,0 +1,6 @@
+.accord-container {
+  overflow: scroll;
+  height: 300px;
+  margin: auto;
+  padding: 15px;
+}
