@@ -9,13 +9,13 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
   const [ submissionCheck, setSubmissionCheck ] = useState(true);
 
   const handlePost = (e) => {
-
     const data = {
-      body: questText,
-      name: nickname,
-      email: email,
-      product_id: prodInfo.id
-    };
+        body: questText,
+        name: nickname,
+        email: email,
+        product_id: prodInfo.id
+      };
+
     axios.post('/api/QA/questions', data)
       .then(() => {
         axios.get(`/api/QA/questions/${ prodInfo.id }`)

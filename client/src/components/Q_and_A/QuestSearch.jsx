@@ -7,9 +7,22 @@ const QuestSearch = ({ questInfo, setQuestInfo, constQuestInfo, searched, setSea
     setQuestInfo(questInfo.filter(question => {
       return question.question_body.toLowerCase().includes(searchText);
     }))
-    const question = document.querySelectorAll('.question');
-    let newQuest = question.split(searchText);
-    console.log(newQuest);
+    // const question = document.querySelectorAll('.question');
+    // const questionText = [];
+    // question.forEach(question => {
+    //   if (question.innerHTML.includes(searchText)) {
+    //     let innerHTML = question.innerHTML;
+    //     const index = question.innerHTML.indexOf(searchText);
+    //     if (index >= 0) {
+    //       innerHTML = innerHTML.substring(0, index) + "<span class='highlight'>" + innerHTML.substring(index, index + searchText.length) + "</span>" + innerHTML.substring(index + searchText.length);
+    //       question.innerHTML = innerHTML;
+    //      }
+    //      if (!searched) {
+    //        const span = document.querySelectorAll('.highlight');
+    //        span.forEach(span => span.classList.remove('highlight'))
+    //      }
+    //   }
+    // })
   }
 
   const handleText = (e) => {
