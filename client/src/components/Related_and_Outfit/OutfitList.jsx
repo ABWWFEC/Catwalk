@@ -34,10 +34,6 @@ const OutfitList = function({prodId}) {
           })
       }
     }
-    getOutfitInfo()
-  }, [OutfitIDs])
-
-  useEffect(() => {
     const getOutfitPhotos = () => {
       for (var i = 0; i < OutfitIDs.length; i++) {
         axios.get(`/api/product/${OutfitIDs[i]}/styles`)
@@ -54,7 +50,8 @@ const OutfitList = function({prodId}) {
           })
       }
     }
-    getOutfitPhotos()
+    getOutfitInfo();
+    getOutfitPhotos();
   }, [OutfitIDs])
 
   useEffect(() => {
@@ -63,7 +60,6 @@ const OutfitList = function({prodId}) {
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
