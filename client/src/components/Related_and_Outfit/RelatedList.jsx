@@ -41,10 +41,7 @@ const RelatedList = function({prodId, setCurrentProd}) {
           })
       }
     }
-    getRelatedInfo()
-  }, [relatedIDs])
 
-  useEffect(() => {
     const getRelatedPhotos = () => {
       for (var i = 0; i < relatedIDs.length; i++) {
         axios.get(`/api/product/${relatedIDs[i]}/styles`)
@@ -62,6 +59,7 @@ const RelatedList = function({prodId, setCurrentProd}) {
       }
     }
     getRelatedPhotos()
+    getRelatedInfo()
   }, [relatedIDs])
 
   const responsive = {

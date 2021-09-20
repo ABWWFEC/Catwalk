@@ -5,20 +5,24 @@ import '../../../dist/style.css';
 const RelatedEntry = ({product, photo, setCurrentProd}) =>  {
 
   return (
-      <Card style={{width: '10rem', flex: 1}}>
-        <Card.Img variant="top" src={`${photo}`} style={{width: '10rem', height: '15vw', objectFit: 'cover'}}/>
-        <Card.Body>
-          <Card.Title>
-            {product.name}
-          </Card.Title>
-          <Card.Text>
-            {product.category}
-          </Card.Text>
-          <Card.Text>
-            ${product.price}
-          </Card.Text>
-        </Card.Body>
-      </Card>
+    <div>
+      <b-card
+        title={product.name}
+        img-src={`${photo}`}
+        img-alt="Image"
+        img-top
+        tag="article"
+        style="max-width: 20rem;"
+        class="mb-2"
+      >
+        <b-card-text>
+          {product.category}
+        </b-card-text>
+        <b-card-text>
+          ${product.price}
+        </b-card-text>
+      </b-card>
+   </div>
   )
 }
 export default RelatedEntry;
