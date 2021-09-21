@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
+
 import Overview from './Overview.jsx';
 import QandA from './Q_and_A.jsx';
-import Related from './Related_Prods.jsx';
-import Reviews from './Rating_and_Reviews.jsx';
+import Reviews from './Rating_and_Reviews';
+import RelatedList from './Related_and_Outfit/RelatedList.jsx';
+import OutfitList from './Related_and_Outfit/OutfitList.jsx';
+
 
 const App = () => {
   const [prodId, setProdId] = useState(42370);
 
   return (
     <div>
-      <h1>hello</h1>
-      <Overview prodId={prodId} />
+      {/* <Overview prodId={prodId} />
       <Related prodId={prodId} setProdId={setProdId} />
       <QandA prodId={prodId} />
-      <Reviews prodId={prodId} />
+      <Reviews prodId={prodId} />*/}
+
+      <RelatedList prodId={prodId} />
+      <OutfitList prodId={prodId} />
     </div>
   );
 };
