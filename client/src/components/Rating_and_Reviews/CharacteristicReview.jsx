@@ -6,11 +6,12 @@ const CharacteristicReview = ({ characteristicName, characteristicDescriptors, c
 
   return (
     <div>
-      <div>
+      <div className="row">
         {[...Array(5)].map((rating, index) => {
             index += 1;
             return (
               <input
+                className="col"
                 type="radio"
                 key={index}
                 checked={characteristics[characteristicId] === index}
@@ -21,8 +22,8 @@ const CharacteristicReview = ({ characteristicName, characteristicDescriptors, c
               )
             })}
       </div>
-      <div>
-        {characteristicDescriptors.map((descriptor, index) => <span key={index}>{descriptor}</span>)}
+      <div className="row">
+        {characteristicDescriptors.map((descriptor, index) => <p className="col text-center" key={index}>{descriptor}</p>)}
       </div>
     </div>
   )
