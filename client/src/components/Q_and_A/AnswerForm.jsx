@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
 import validator from 'email-validator'
 import axios from 'axios';
+// import cloudinary from 'cloudinary';
 
+
+// const CLOUDINARY_UPLOAD_PRESET = 'answerPhotosUpload'
+// const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dipxthdkg/upload'
 const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }) => {
   const [ answerText, setAnswerText ] = useState('');
   const [ nickname, setNickname ] = useState('');
