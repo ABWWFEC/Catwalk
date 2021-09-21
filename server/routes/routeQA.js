@@ -109,7 +109,7 @@ router.route('/questions')
 
     const config = {
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions?product_id=${req.params.product_id}&count=10`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions?product_id=${req.params.product_id}&count=100`,
       headers: {
         Authorization: TOKEN,
       },
