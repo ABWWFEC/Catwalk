@@ -1,8 +1,4 @@
 import app from '../../../../server/index.js';
-import React from 'react';
-import { screen, render, cleanup, fireEvent } from '@testing-library/react'
-import {rest} from 'msw';
-import {setupServer} from 'msw/node';
 import QandA from './Q_AND_A.jsx';
 import App from '../App.jsx';
 import QuestSearch from './QuestSearch.jsx';
@@ -33,9 +29,4 @@ test('search bar tests ', async () =>  {
   expect(input).toBeInTheDocument();
   fireEvent.change(input, { target: { value: 'where' } });
   expect(input).toHaveValue('where');
-})
-
-test('question modal ', async() => {
-  await render(<App />);
-
 })

@@ -35,7 +35,7 @@ const Answer = ({ answer, first }) => {
               <img key={idx}
                 style={{
                   'width': '25%', 'height': '15vw',
-                  'object-fit': 'cover', 'padding': '5px'
+                  'objectFit': 'cover', 'padding': '5px'
                 }}
                 className='card col-sm-3 img-fluid' src={ photo }>
               </img>

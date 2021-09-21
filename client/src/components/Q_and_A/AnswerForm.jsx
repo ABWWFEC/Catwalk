@@ -57,15 +57,16 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
       email: email,
       photos: photoURLs
     };
-    console.log(prodInfo);
     axios.post(`/api/QA/questions/${question.question_id}/answers`, data)
-      .then(() => {
-        axios.get(`/api/QA/questions/${prodInfo.id}`)
-        .then(response => {
-          setQuestInfo(sortQuestions(response.data.results));
-        })
+    .then(() => {
+      axios.get(`/api/QA/questions/${prodInfo.id}`)
+      .then(response => {
+        setQuestInfo(sortQuestions(response.data.results));
       })
-      .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+    const answerCloser = document.getElementById(`answer-form-${ idx }`);
+    answerCloser.click();
     e.preventDefault();
   }
 
@@ -90,7 +91,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
       <div id={`answer-form-${ idx }`} className="modal" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form onSubmit={ handlePost  }>
+            <form onSubmit={ handlePost }>
               <div className="modal-header">
                 <h3 className="modal-title">
                   { prodInfo.name }: { question.question_body }
@@ -174,6 +175,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
 
                   <button
                     type="button"
+                    id={`answer-form-${ idx }`}
                     className="btn btn-secondary"
                     data-dismiss="modal">Close
                   </button>
