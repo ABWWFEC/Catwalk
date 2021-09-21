@@ -2,6 +2,8 @@ import React, { useState, useContext, createContext } from 'react';
 import axios from 'axios';
 import { ReviewsContext } from './Rating_and_Reviews.jsx';
 import CharacteristicsReviewList from './CharacteristicsReviewList.jsx';
+import StarRatingReview from './StarRatingReview.jsx';
+import RecommendReview from './RecommendReview.jsx';
 
 export const ReviewFormContext = createContext();
 
@@ -85,57 +87,24 @@ const AddReview = ({ product_id }) => {
           characteristics: characteristicsById,
           recommend: false
         })
-        console.log('Added review successfully! :)')
+        console.log('Added review successfully! :)');
       })
-      .catch((err) => console.log(`Couldn't add the review :(`, err));
+      .catch((err) => console.log(`Couldn't add the review :(`, err))
+      .then(() => handleAddReviewClose());
   }
 
-  console.log(`/api/reviews/${product_id}`);
-
   const providerValue = {
-    characteristics: reviewForm.characteristics,
+    ...reviewForm,
     handleInputChange
   }
 
   return (
-    <form>
-      <ReviewFormContext.Provider value={providerValue}>
-        <div>
-          <div>Rate this product!</div>
-          {[...Array(5)].map((starRating, index) => {
-            index += 1;
-            return (
-              <input
-                type="radio"
-                key={index}
-                value={index}
-                name="rating"
-                checked={rating === index}
-                onChange={e => handleInputChange(e)}/>
-            )
-          })}
-          <label>Some descriptor</label>
-        </div>
-        <div>
-          <div>Would you recommend this product?</div>
-          <label>Yes</label>
-          <input type="radio"
-            name="recommend"
-            value={true}
-            checked={recommend === 'true'}
-            onChange={e => handleInputChange(e)}></input>
-          <label>No</label>
-          <input type="radio"
-            name="recommend"
-            value={false}
-            checked={recommend === 'false'}
-            onChange={e => handleInputChange(e)}></input>
-        </div>
-        <div>
-          <div>Rate the characteristics of this product!</div>
-          <CharacteristicsReviewList characteristics={characteristics} />
-        </div>
-        <div>
+    <ReviewFormContext.Provider value={providerValue}>
+      <form className="row">
+        <StarRatingReview />
+        <RecommendReview />
+        <CharacteristicsReviewList characteristics={characteristics} />
+        <div className="row">
           <div>Review Summary</div>
           <input type="text"
             name="summary"
@@ -143,7 +112,7 @@ const AddReview = ({ product_id }) => {
             placeholder="Example: Best purchase ever!"
             onChange={e => handleInputChange(e)}></input>
         </div>
-        <div>
+        <div className="row">
           <div>Tell us what you thought!</div>
           <textarea
             name="body"
@@ -152,18 +121,18 @@ const AddReview = ({ product_id }) => {
             onChange={e => handleInputChange(e)}></textarea>
         </div>
         {photos.length > 1 &&
-          <div>
+          <div className="row">
             {photos.map((photo, index) => <img key={index} src={photo}></img>)}
           </div>}
         {photos.length < 5 &&
-          <div>
+          <div className="row">
             <input
               type="file"
               multiple
               name="photos"
               onChange={e => handleInputChange(e)}></input>
           </div>}
-        <div>
+        <div className="row">
           <div>Username</div>
           <input
             type="text"
@@ -172,7 +141,7 @@ const AddReview = ({ product_id }) => {
             onChange={e => handleInputChange(e)}></input>
           <div>For privacy reasons, do not use your full name or e-mail address</div>
         </div>
-        <div>
+        <div className="row">
           <div>E-mail</div>
           <input
             type="email"
@@ -181,9 +150,13 @@ const AddReview = ({ product_id }) => {
             onChange={e => handleInputChange(e)}></input>
           <div>For authentication reasons, you will not be emailed</div>
         </div>
-        <button onClick={handleReviewFormSubmit}>Submit!</button>
-      </ReviewFormContext.Provider>
-    </form>
+        <div className="row justify-content-end">
+          <div>
+            <button onClick={handleReviewFormSubmit}>Submit!</button>
+          </div>
+        </div>
+      </form>
+    </ReviewFormContext.Provider>
   )
 }
 
