@@ -48,7 +48,6 @@ const Reviews = (props) => {
           }
       }
     },
-    numberOfReviews: null,
     prodId: props.prodId,
     sortParam: 'relevance',
     starFilteredList: [],
@@ -61,7 +60,7 @@ const Reviews = (props) => {
     },
     numberOfFilters: 0
   });
-  const { reviews, reviewsMetaData, numberOfReviews, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
+  const { reviews, reviewsMetaData, sortParam, starFilteredList, starRatingsClicked, numberOfFilters } = reviewsData;
 
   const getReviewsData = (sorter) => {
     let config = {
@@ -95,7 +94,6 @@ const Reviews = (props) => {
         setReviewsData(prevReviewsData => ({
           ...prevReviewsData,
           reviews: results.data.results,
-          numberOfReviews: results.data.results.length,
           sortParam: sorter
         }));
       })
@@ -170,12 +168,14 @@ const Reviews = (props) => {
   }, []);
 
   return (
-    <div>
-      RATINGS & REVIEWS
-      <ReviewsContext.Provider value={providerValue}>
-        <ReviewsMetaData />
-        <ReviewsList />
-      </ReviewsContext.Provider>
+    <div className="row mx-3">
+      <div className="row lead">RATINGS & REVIEWS</div>
+      <div className="row justify-content-center">
+        <ReviewsContext.Provider value={providerValue}>
+          <ReviewsMetaData />
+          <ReviewsList />
+        </ReviewsContext.Provider>
+      </div>
     </div>
   )
 }
