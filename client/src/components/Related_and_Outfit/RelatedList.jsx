@@ -2,19 +2,38 @@ import React, {useState, useEffect } from 'react';
 import axios from 'axios';
 import RelatedEntry from './relatedEntry.jsx';
 import Carousel from 'react-multi-carousel';
+import { Card } from 'react-bootstrap';
 import 'react-multi-carousel/lib/styles.css';
 
-const RelatedList = function({prodId, setCurrentProd}) {
+const RelatedList = function({prodId, setProdId}) {
 
   const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedInfo, setRelatedInfo] = useState([]);
   const [relatedPhotos, setRelatedPhotos] = useState({});
+  const [relatedRatings, setRelatedRatings] = useState({});
+
+  const calculateAverage = (ratings) => {
+    let sum = 0;
+    let numberOfReviews = 0;
+    for (var rating in ratings) {
+      numberOfReviews += Number(ratings[rating])
+      sum += rating * ratings[rating];
+    }
+
+    return (sum / numberOfReviews).toPrecision(2);
+  }
 
   useEffect(() => {
     const getIDs = () => {
       axios.get(`/api/product/${prodId}/related`)
         .then(res => {
+          setRelatedInfo([]);
+          setRelatedPhotos({});
+          setRelatedRatings({});
           setRelatedIDs(res.data);
+          getRelatedInfo();
+          getRelatedPhotos();
+          getRelatedRatings();
         })
         .catch(err => {
           console.error(err);
@@ -37,7 +56,7 @@ const RelatedList = function({prodId, setCurrentProd}) {
             }]));
           })
           .catch(err => {
-            console.error('uh oh', err);
+            console.error('Error in info fetch: ', err);
           })
       }
     }
@@ -56,11 +75,34 @@ const RelatedList = function({prodId, setCurrentProd}) {
               }))
             }
           })
+          .catch(err => {
+            console.error('Error in photos fetch: ', err);
+          })
+      }
+    }
+    const getRelatedRatings = () => {
+      for (var i = 0; i < relatedIDs.length; i++) {
+        axios.get(`api/review/meta/${relatedIDs[i]}`)
+          .then(res => {
+            if(Object.keys(res.data.ratings).length !== 0){
+              setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
+            } else {
+              setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: "No ratings"}))
+            }
+          })
+          .catch(err => {
+            console.error('Error in ratings fetch: ', err);
+          })
       }
     }
     getRelatedPhotos()
     getRelatedInfo()
-  }, [relatedIDs])
+    getRelatedRatings()
+  }, [relatedIDs.length])
+
+  useEffect(() => {
+    console.log('related ratings: ', relatedRatings);
+  }, [relatedRatings])
 
   const responsive = {
     superLargeDesktop: {
@@ -82,21 +124,20 @@ const RelatedList = function({prodId, setCurrentProd}) {
     }
   };
 
-  // const handleClick = () => {
-  //   console.log('product function hit');
-  //   setCurrentProd(product.id);
-  // }
+  const handleClick = () => {
+    console.log('compare click handled');
+  }
 
   function CardDisplay() {
     return (
       <Carousel responsive={responsive}>
-        {relatedInfo.map((product) => {
+        {relatedInfo.map((product, index) => {
           return (
-            <a style={{ cursor: 'pointer' }} onClick={() => setCurrentProd(product.id)}>
-              <RelatedEntry product={product} key={product.id} photo={relatedPhotos[product.id]} setCurrentProd={setCurrentProd}/>
+            <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
+              <RelatedEntry product={product} key={index} photo={relatedPhotos[product.id]} handleClick={handleClick}/>
             </a>
-          )
-        })
+           )
+         })
         }
      </Carousel>
     )

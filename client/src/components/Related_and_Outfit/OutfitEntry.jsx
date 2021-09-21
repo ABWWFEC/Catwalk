@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import '../../../dist/style.css';
 
 const OutfitEntry = ({product, photo}) => (
 <Card style={{width: '10rem', flex: 1}}>

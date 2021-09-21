@@ -13,13 +13,13 @@ const OutfitList = function({prodId}) {
   const handleClick = () => {
     if (!OutfitIDs.includes(prodId)) {
       console.log('new id for outfit click handled! with: ', prodId);
-      setOutfitIDs(prevOutfitIDs => [...prevOutfitIDs, prodId])
+      setOutfitIDs([...OutfitIDs, prodId])
     }
   }
 
   useEffect(() => {
     const getOutfitInfo = () => {
-      for (var i = 0; i < OutfitIDs.length; i++) {
+      for (var i = OutfitIDs.length - 1; i < OutfitIDs.length; i++) {
         axios.get(`/api/product/${OutfitIDs[i]}`)
           .then(res => {
             setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {

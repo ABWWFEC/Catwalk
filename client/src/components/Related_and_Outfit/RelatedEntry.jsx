@@ -1,28 +1,24 @@
 import React, {useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
-import '../../../dist/style.css';
+import { Card, Button } from 'react-bootstrap';
 
-const RelatedEntry = ({product, photo, setCurrentProd}) =>  {
+const RelatedEntry = ({product, photo, handleClick}) =>  {
 
   return (
-    <div>
-      <b-card
-        title={product.name}
-        img-src={`${photo}`}
-        img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-        class="mb-2"
-      >
-        <b-card-text>
+    <Card style={{width: '10rem', flex: 1}}>
+      <Card.Img variant="top" src={`${photo}`} style={{width: '10rem', height: '15vw', objectFit: 'cover'}}/>
+      <Card.Body>
+        <Card.Title>
+          {product.name}
+        </Card.Title>
+        <Card.Text>
           {product.category}
-        </b-card-text>
-        <b-card-text>
+        </Card.Text>
+        <Card.Text>
           ${product.price}
-        </b-card-text>
-      </b-card>
-   </div>
+        </Card.Text>
+        <Button variant="secondary">Compare</Button>
+      </Card.Body>
+    </Card>
   )
 }
 export default RelatedEntry;
