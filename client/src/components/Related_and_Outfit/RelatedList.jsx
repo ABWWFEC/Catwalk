@@ -100,10 +100,6 @@ const RelatedList = function({prodId, setProdId}) {
     getRelatedRatings()
   }, [relatedIDs.length])
 
-  useEffect(() => {
-    console.log('related ratings: ', relatedRatings);
-  }, [relatedRatings])
-
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.

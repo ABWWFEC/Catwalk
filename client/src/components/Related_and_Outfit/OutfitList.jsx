@@ -33,6 +33,7 @@ const OutfitList = function({prodId}) {
       for (var i = OutfitIDs.length - 1; i < OutfitIDs.length; i++) {
         axios.get(`/api/product/${OutfitIDs[i]}`)
           .then(res => {
+            setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
             setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
               id: res.data.id,
               category: res.data.category,
@@ -79,10 +80,10 @@ const OutfitList = function({prodId}) {
     const showOutfitIDs = () => {
       console.log('Outfit IDs: ', OutfitIDs);
     }
-    showOutfitIDs();
     getOutfitInfo();
     getOutfitPhotos();
     getOutfitRatings();
+    showOutfitIDs();
   }, [OutfitIDs])
 
   useEffect(() => {
@@ -109,7 +110,7 @@ const OutfitList = function({prodId}) {
   };
 
   const removeItem = (e) => {
-    let itemID = e.target.parentNode.getAttribute("id");
+    let itemID = Number(e.target.parentNode.getAttribute("id"));
     setOutfitIDs(OutfitIDs.filter(id => id !== itemID));
     setOutfitInfo(OutfitInfo.filter(item => item.id !== itemID));
   }
