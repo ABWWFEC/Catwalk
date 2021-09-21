@@ -24,7 +24,6 @@ const OutfitList = function({prodId}) {
 
   const handleClick = () => {
     if (!OutfitIDs.includes(prodId)) {
-      console.log('new id for outfit click handled! with: ', prodId);
       setOutfitIDs([...OutfitIDs, prodId])
     }
   }
@@ -77,6 +76,10 @@ const OutfitList = function({prodId}) {
           })
       }
     }
+    const showOutfitIDs = () => {
+      console.log('Outfit IDs: ', OutfitIDs);
+    }
+    showOutfitIDs();
     getOutfitInfo();
     getOutfitPhotos();
     getOutfitRatings();
@@ -105,6 +108,12 @@ const OutfitList = function({prodId}) {
     }
   };
 
+  const removeItem = (e) => {
+    let itemID = e.target.parentNode.getAttribute("id");
+    setOutfitIDs(OutfitIDs.filter(id => id !== itemID));
+    setOutfitInfo(OutfitInfo.filter(item => item.id !== itemID));
+  }
+
   function OutfitDisplay() {
     return (
       <Carousel responsive={responsive}>
@@ -121,7 +130,7 @@ const OutfitList = function({prodId}) {
           </Card>
         </a>
         {OutfitInfo.map((product) => {
-          return <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} photo={OutfitPhotos[product.id]}/>
+          return <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} removeItem={removeItem} photo={OutfitPhotos[product.id]}/>
           })
         }
       </Carousel>
