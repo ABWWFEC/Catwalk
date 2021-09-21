@@ -9,6 +9,18 @@ const OutfitList = function({prodId}) {
   const [OutfitIDs, setOutfitIDs] = useState([]);
   const [OutfitInfo, setOutfitInfo] = useState([]);
   const [OutfitPhotos, setOutfitPhotos] = useState({});
+  const [OutfitRatings, setOutfitRatings] = useState({});
+
+  const calculateAverage = (ratings) => {
+    let sum = 0;
+    let numberOfReviews = 0;
+    for (var rating in ratings) {
+      numberOfReviews += Number(ratings[rating])
+      sum += rating * ratings[rating];
+    }
+
+    return (sum / numberOfReviews).toPrecision(2);
+  }
 
   const handleClick = () => {
     if (!OutfitIDs.includes(prodId)) {
@@ -50,8 +62,24 @@ const OutfitList = function({prodId}) {
           })
       }
     }
+    const getOutfitRatings = () => {
+      for (var i = 0; i < OutfitIDs.length; i++) {
+        axios.get(`api/review/meta/${OutfitIDs[i]}`)
+          .then(res => {
+            if(Object.keys(res.data.ratings).length !== 0){
+              setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
+            } else {
+              setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: "No ratings"}))
+            }
+          })
+          .catch(err => {
+            console.error('Error in ratings fetch: ', err);
+          })
+      }
+    }
     getOutfitInfo();
     getOutfitPhotos();
+    getOutfitRatings();
   }, [OutfitIDs])
 
   useEffect(() => {
@@ -93,7 +121,7 @@ const OutfitList = function({prodId}) {
           </Card>
         </a>
         {OutfitInfo.map((product) => {
-          return <OutfitEntry product={product} key={product.id} photo={OutfitPhotos[product.id]}/>
+          return <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} photo={OutfitPhotos[product.id]}/>
           })
         }
       </Carousel>

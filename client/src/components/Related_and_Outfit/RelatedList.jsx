@@ -134,7 +134,7 @@ const RelatedList = function({prodId, setProdId}) {
         {relatedInfo.map((product, index) => {
           return (
             <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
-              <RelatedEntry product={product} key={index} photo={relatedPhotos[product.id]} handleClick={handleClick}/>
+              <RelatedEntry product={product} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick}/>
             </a>
            )
          })

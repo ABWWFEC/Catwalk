@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const RelatedEntry = ({product, photo, handleClick}) =>  {
+const RelatedEntry = ({product, photo, rating, handleClick}) =>  {
 
   return (
     <Card style={{width: '10rem', flex: 1}}>
@@ -15,6 +15,9 @@ const RelatedEntry = ({product, photo, handleClick}) =>  {
         </Card.Text>
         <Card.Text>
           ${product.price}
+        </Card.Text>
+        <Card.Text>
+          Rating: {rating}
         </Card.Text>
         <Button variant="secondary">Compare</Button>
       </Card.Body>
