@@ -24,6 +24,58 @@ const RelatedList = function({prodId, setProdId}) {
 
     return (sum / numberOfReviews).toPrecision(2);
   }
+  const getRelatedInfo = () => {
+    for (var i = 0; i < relatedIDs.length; i++) {
+      axios.get(`/api/product/${relatedIDs[i]}`)
+        .then(res => {
+          setRelatedInfo(prevRelatedInfo => ([...prevRelatedInfo, {
+            id: res.data.id,
+            category: res.data.category,
+            price: res.data.default_price,
+            features: res.data.features,
+            name: res.data.name
+          }]));
+        })
+        .catch(err => {
+          console.error('Error in info fetch: ', err);
+        })
+    }
+  }
+
+  const getRelatedPhotos = () => {
+    for (var i = 0; i < relatedIDs.length; i++) {
+      axios.get(`/api/product/${relatedIDs[i]}/styles`)
+        .then(res => {
+          if (res.data.results[0].photos[0].thumbnail_url !== null) {
+            setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
+              [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
+            }))
+          } else {
+            setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
+              [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+            }))
+          }
+        })
+        .catch(err => {
+          console.error('Error in photos fetch: ', err);
+        })
+    }
+  }
+  const getRelatedRatings = () => {
+    for (var i = 0; i < relatedIDs.length; i++) {
+      axios.get(`api/review/meta/${relatedIDs[i]}`)
+        .then(res => {
+          if(Object.keys(res.data.ratings).length !== 0){
+            setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
+          } else {
+            setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: "No ratings"}))
+          }
+        })
+        .catch(err => {
+          console.error('Error in ratings fetch: ', err);
+        })
+    }
+  }
 
   useEffect(() => {
     const getIDs = () => {
@@ -45,58 +97,6 @@ const RelatedList = function({prodId, setProdId}) {
   }, [prodId])
 
   useEffect(() => {
-    const getRelatedInfo = () => {
-      for (var i = 0; i < relatedIDs.length; i++) {
-        axios.get(`/api/product/${relatedIDs[i]}`)
-          .then(res => {
-            setRelatedInfo(prevRelatedInfo => ([...prevRelatedInfo, {
-              id: res.data.id,
-              category: res.data.category,
-              price: res.data.default_price,
-              features: res.data.features,
-              name: res.data.name
-            }]));
-          })
-          .catch(err => {
-            console.error('Error in info fetch: ', err);
-          })
-      }
-    }
-
-    const getRelatedPhotos = () => {
-      for (var i = 0; i < relatedIDs.length; i++) {
-        axios.get(`/api/product/${relatedIDs[i]}/styles`)
-          .then(res => {
-            if (res.data.results[0].photos[0].thumbnail_url !== null) {
-              setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
-                [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
-              }))
-            } else {
-              setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
-                [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
-              }))
-            }
-          })
-          .catch(err => {
-            console.error('Error in photos fetch: ', err);
-          })
-      }
-    }
-    const getRelatedRatings = () => {
-      for (var i = 0; i < relatedIDs.length; i++) {
-        axios.get(`api/review/meta/${relatedIDs[i]}`)
-          .then(res => {
-            if(Object.keys(res.data.ratings).length !== 0){
-              setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
-            } else {
-              setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: "No ratings"}))
-            }
-          })
-          .catch(err => {
-            console.error('Error in ratings fetch: ', err);
-          })
-      }
-    }
     getRelatedPhotos()
     getRelatedInfo()
     getRelatedRatings()

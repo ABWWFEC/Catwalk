@@ -30,20 +30,24 @@ const OutfitList = function({prodId}) {
 
   useEffect(() => {
     const getOutfitInfo = () => {
-      for (var i = OutfitIDs.length - 1; i < OutfitIDs.length; i++) {
-        axios.get(`/api/product/${OutfitIDs[i]}`)
-          .then(res => {
-            setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
-            setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
-              id: res.data.id,
-              category: res.data.category,
-              price: res.data.default_price,
-              name: res.data.name
-            }]));
-          })
-          .catch(err => {
-            console.error('Outfit info error on axios call: ', err);
-          })
+      if (OutfitIDs.length) {
+        for (var i = OutfitIDs.length - 1; i < OutfitIDs.length; i++) {
+          if (OutfitIDs[i] !== undefined) {
+            axios.get(`/api/product/${OutfitIDs[i]}`)
+            .then(res => {
+              setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
+              setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
+                id: res.data.id,
+                category: res.data.category,
+                price: res.data.default_price,
+                name: res.data.name
+              }]));
+            })
+            .catch(err => {
+              console.error('Outfit info error on axios call: ', err);
+            })
+          }
+        }
       }
     }
     const getOutfitPhotos = () => {
@@ -80,18 +84,10 @@ const OutfitList = function({prodId}) {
           })
       }
     }
-    const showOutfitIDs = () => {
-      console.log('Outfit IDs: ', OutfitIDs);
-    }
     getOutfitInfo();
     getOutfitPhotos();
     getOutfitRatings();
-    showOutfitIDs();
   }, [OutfitIDs])
-
-  useEffect(() => {
-    console.log('outfit info: ', OutfitInfo);
-  }, [OutfitInfo])
 
   const responsive = {
     superLargeDesktop: {

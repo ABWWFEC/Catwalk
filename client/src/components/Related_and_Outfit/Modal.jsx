@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 const RelatedModal = ({prodId, comparison}) => {
@@ -11,13 +11,15 @@ const RelatedModal = ({prodId, comparison}) => {
 
   useEffect(() => {
     const getCurrentProductFeatures = () => {
-      axios.get(`/api/product/${prodId}`)
+      if (prodId !== undefined) {
+        axios.get(`/api/product/${prodId}`)
         .then(res => {
           setMainProduct(res.data);
-      })
+        })
         .catch(err => {
           console.error('Modal state error: ', err);
         })
+      }
     }
     getCurrentProductFeatures();
   }, [prodId])
@@ -32,12 +34,15 @@ const RelatedModal = ({prodId, comparison}) => {
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+          <Container>
+            <Row>
+              <Col md="auto">{MainProduct.name}</Col>
+              <Col></Col>
+              <Col md="auto">{comparison}</Col>
+            </Row>
+          </Container>
+        </Modal.Body>
       </Modal>
     </>
   );
