@@ -1,9 +1,11 @@
 import React, {useState, useEffect } from 'react';
 import axios from 'axios';
 import RelatedEntry from './relatedEntry.jsx';
+import RelatedModal from './Modal.jsx';
 import Carousel from 'react-multi-carousel';
-import { Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'react-multi-carousel/lib/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RelatedList = function({prodId, setProdId}) {
 
@@ -120,8 +122,8 @@ const RelatedList = function({prodId, setProdId}) {
     }
   };
 
-  const handleClick = () => {
-    console.log('compare click handled');
+  const handleClick = (e) => {
+    console.log('compare click handled', e.target.parentNode.getAttribute('id'));
   }
 
   function CardDisplay() {
@@ -129,9 +131,12 @@ const RelatedList = function({prodId, setProdId}) {
       <Carousel responsive={responsive}>
         {relatedInfo.map((product, index) => {
           return (
-            <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
-              <RelatedEntry product={product} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick}/>
-            </a>
+            <div id={product.id}>
+              <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
+                <RelatedEntry product={product} id={product.id} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick} setProdId={setProdId}/>
+              </a>
+            <RelatedModal prodId={prodId} comparison={index}/>
+            </div>
            )
          })
         }

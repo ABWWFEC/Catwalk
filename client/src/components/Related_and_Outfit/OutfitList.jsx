@@ -42,7 +42,7 @@ const OutfitList = function({prodId}) {
             }]));
           })
           .catch(err => {
-            console.error('uh oh', err);
+            console.error('Outfit info error on axios call: ', err);
           })
       }
     }
@@ -59,6 +59,9 @@ const OutfitList = function({prodId}) {
                 [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
               }))
             }
+          })
+          .catch(err => {
+            console.error('Error in outfit photo axios call: ', err);
           })
       }
     }
