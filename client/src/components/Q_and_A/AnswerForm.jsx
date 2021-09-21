@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import validator from 'email-validator'
+import axios from 'axios';
+// import cloudinary from 'cloudinary';
 
-const AnswerForm = ({ prodInfo, questInfo }) => {
+
+// const CLOUDINARY_UPLOAD_PRESET = 'answerPhotosUpload'
+// const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dipxthdkg/upload'
+const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }) => {
   const [ answerText, setAnswerText ] = useState('');
   const [ nickname, setNickname ] = useState('');
   const [ email, setEmail ] = useState('');
@@ -11,6 +16,7 @@ const AnswerForm = ({ prodInfo, questInfo }) => {
   const [ photoURL, setPhotoURL ] = useState('');
   const [ photoURLs, setPhotoURLs ] = useState([]);
   const [ photoCount, setPhotoCount ] = useState(0);
+  const inputref = useRef();
 
   const fileHandler = (e) => {
     setPhoto(e.target.files[0]);
@@ -18,34 +24,62 @@ const AnswerForm = ({ prodInfo, questInfo }) => {
   }
 
   const handlePhotoSubmit = () => {
-    setPhotoURLs([...photoURLs, photoURL]);
-    setPhotos([...photos, photo]);
+    if (!photoURL) return;
+    setPhotoURLs([ ...photoURLs, photoURL ]);
+    setPhotos([ ...photos, photo ]);
     setPhotoCount(photoCount + 1);
   }
 
   const handleImagePreviews = () => {
-    return photoURLs.map((url, idx) => (
-      <img key={idx} src={url} ></img>));
+    return (
+      <div className='container'>
+        <div className='row'>
+          {photoURLs.map((url, idx) => {
+              return(<img key={ idx } src={ url } style={{ 'width': '50%', 'height': '15vw','object-fit': 'cover', 'padding': '5px' }} className='mt-3 mr-auto card img-fluid'></img>)
+          })
+          }
+        </div>
+      </div>)
+  }
+
+  const sortQuestions = (questions) => {
+    return questions.sort((a, b) => {
+      if (a.question_helpfulness > b.question_helpfulness) return -1;
+      if (a.question_helpfulness < b.question_helpfulness) return 1;
+      return 0
+    });
+  };
+
+  const handlePost = (e) => {
+    const data = {
+      body: answerText,
+      name: nickname,
+      email: email,
+      photos: photoURLs
+    };
+    console.log(prodInfo);
+    axios.post(`/api/QA/questions/${question.question_id}/answers`, data)
+      .then(() => {
+        axios.get(`/api/QA/questions/${prodInfo.id}`)
+        .then(response => {
+          setQuestInfo(sortQuestions(response.data.results));
+        })
+      })
+      .catch(error => console.error(error))
+    e.preventDefault();
   }
 
   const handleSubmit = (e) => {
-    console.log(questInfo);
     if (!validator.validate(email)) {
       setSubmissionCheck(false)
-      // const email = document.getElementById('email');
-      // email.style.color = 'red';
       return;
     }
     if (nickname.length < 2) {
       setSubmissionCheck(false)
-      // const nickname = document.getElementById('nickname');
-      // nickname.style.color = 'red';
       return;
     }
-    if (questText.length < 5) {
+    if (answerText.length < 5) {
       setSubmissionCheck(false)
-      // const yourQuest = document.getElementById('your-quest');
-      // yourQuest.style.color = 'red';
       return;
     }
     setSubmissionCheck(true);
@@ -53,45 +87,103 @@ const AnswerForm = ({ prodInfo, questInfo }) => {
 
   return (
     <div>
-    <div className="modal" tabIndex="-1" role="form">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h3 className="modal-title">Submit your Answer</h3>
-            <h4>PRODUCT INFO: QUESTION BODY HERE</h4>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            {!submissionCheck && <div>Please fill out all fields and ensure you are entering a valid email.</div>}
-            <h5 id='your-quest'>Your Answer*</h5>
-            <textarea onChange={(e) => setAnswerText(e.target.value)} />
-            <h5 id='nickname'>What is your nickname?*</h5>
-            <input onChange={(e) => setNickname(e.target.value)} placeholder='Example: jack543!' />
-            <p>For privacy reasons, do not use your full name or email address</p>
-            <h5 id='email'>Your Email*</h5>
-            <input onChange={(e) => setEmail(e.target.value)} placeholder='Example: jack@email.com' />
-            <h5>Upload your photos </h5>
-            <input
-              type='file'
-              onChange={ fileHandler }
-            />
-            <button
-              style={{ display: photoCount === 5 ? 'none': 'block'}}
-              onClick={ handlePhotoSubmit }>Upload Photo
-            </button>
-            { handleImagePreviews() }
-            <p>For authentication reasons, you will not be emailed.</p>
-          </div>
-          <div className="modal-footer">
-            <button onClick={ handleSubmit } type="button" className="btn btn-primary">Submit</button>
-            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+      <div id={`answer-form-${ idx }`} className="modal" tabIndex="-1">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={ handlePost  }>
+              <div className="modal-header">
+                <h3 className="modal-title">
+                  { prodInfo.name }: { question.question_body }
+                </h3>
+
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div className="modal-body">
+
+                { !submissionCheck &&
+                  <div className='fs-6 mb-3 badge bg-danger'>
+                    Please check your responses and try again
+                  </div>}
+
+                <h6 id='your-quest'>Your Answer*</h6>
+
+                <textarea
+                  type='text'
+                  className='form-control'
+                  onChange={(e) => setAnswerText(e.target.value) }
+                required />
+
+                <h6 id='nickname'>What is your nickname?*</h6>
+                <p className='fs-6 font-weight-light text-muted'>
+                  <small>
+                    For privacy reasons, do not use your full name or email
+                  </small>
+                </p>
+
+                <input className='input-group mb-3 fs-6 form-control'
+                  onChange={(e) => setNickname(e.target.value)}
+                  placeholder='Example: jack543!'
+                required />
+
+                <h6 id='email'>Your Email*</h6>
+                <input type='email'
+                  className='input-group mb-3 fs-6 form-control'
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder='Example: jack@email.com'
+                required />
+
+                <h6>Upload your photos </h6>
+                <input
+                  type='file'
+                  ref={ inputref }
+                  onChange={ fileHandler }
+                  style={{ display: 'none' }}
+                />
+
+                <button className='btn btn-info' onClick={(e) => {
+                  e.preventDefault();
+                  inputref.current.click();
+                }}>Select Photo</button>
+
+                <div className='mt-3 fs-6'>{photo.name}</div>
+
+                <button
+                  className="btn btn-primary"
+                  style={{ display: photoCount === 5 ? 'none' : 'block' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePhotoSubmit();
+                  }}>Upload Photo
+                </button>
+                { handleImagePreviews() }
+
+              </div>
+              <div className="modal-footer">
+                <div className='fs-6 font-weight-light text-muted'>
+                    <small>
+                      For authentication reasons you will not be emailed
+                    </small>
+                </div>
+                <div>
+                  <button onClick={ handleSubmit }
+                    className="btn btn-primary" type='submit' >Submit
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-dismiss="modal">Close
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 
