@@ -5,8 +5,22 @@ import StarRatingBreakdown from './StarRatingBreakdown.jsx';
 import CharacteristicsBreakdown from './CharacteristicsBreakdown.jsx';
 
 const ReviewsMetaData = () => {
-  const { reviewsMetaData, numberOfReviews, prodId } = useContext(ReviewsContext)
+  const { reviewsMetaData, prodId } = useContext(ReviewsContext)
   const { ratings, recommended, characteristics } = reviewsMetaData;
+
+  const totalStarRatings = () => {
+    let sum = 0;
+
+    for (const rating in ratings) {
+      sum += Number(ratings[rating]);
+    }
+
+    return sum;
+  }
+
+  const totalRecommended = () => {
+    return Number(recommended.false) + Number(recommended.true);
+  }
 
   const calculateAverage = (ratings) => {
     let sum = 0;
@@ -14,19 +28,19 @@ const ReviewsMetaData = () => {
       sum += rating * ratings[rating];
     }
 
-    return (sum / numberOfReviews).toPrecision(2);
+    return (sum / totalStarRatings()).toPrecision(2);
   }
 
-  let percentRecommended = Math.floor((recommended.true / numberOfReviews) * 100)
+  let percentRecommended = Math.floor((recommended.true / totalRecommended()) * 100)
 
   return (
-    <div>
-      <div>
-        {(calculateAverage(ratings) > 0 && calculateAverage(ratings) !== Infinity) && <div>{calculateAverage(ratings)}</div>}
-        <div>star rating</div>
-        {(percentRecommended > 0 && percentRecommended !== Infinity) && <div>{percentRecommended} percent reviews recommend this product</div>}
+    <div className="col-md-3" style={{height: '70%'}}>
+      <div className="row">
+        {(calculateAverage(ratings) > 0 && calculateAverage(ratings) !== Infinity) && <div className="col-sm-auto h1">{calculateAverage(ratings)}</div>}
+        <div className="col-sm-auto">star rating</div>
       </div>
-      <StarRatingBreakdown ratings={ratings} />
+      {(percentRecommended > 0 && percentRecommended !== Infinity) && <div>{percentRecommended}% of reviews recommend this product</div>}
+      <StarRatingBreakdown ratings={ratings} totalStarRatings={totalStarRatings} />
       <CharacteristicsBreakdown characteristics={characteristics} />
     </div>
   )

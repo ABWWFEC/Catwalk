@@ -32,7 +32,7 @@ router.route('/:product_id')
       headers: {
         Authorization: TOKEN,
       },
-      data: { product_id, ...req.body },
+      data: { product_id: Number(product_id), ...req.body },
     };
 
     axios(config)
