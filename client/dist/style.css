@@ -1,0 +1,21 @@
+input.star-rating {
+  display: none;
+}
+
+.add-review {
+  max-width: 80%;
+}
+
+.rating-graph {
+  background-color: #ccc;
+  max-width: 175px;
+}
+
+.rating-percent {
+  height: 10px;
+  background-color: #05b105cf;
+}
+
+.star-ratings {
+  max-width: 75px;
+}
