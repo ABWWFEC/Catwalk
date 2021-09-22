@@ -148,6 +148,7 @@ router.route('/questions/:question_id/answers')
       })
   })
 
+router.route('/questions/:question_id/answers')
   .post((req, res) => {
     const {
       body, name, email, photos,
