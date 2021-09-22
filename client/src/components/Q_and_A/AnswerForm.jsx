@@ -1,26 +1,35 @@
 import React, { useState, useRef } from 'react';
 import validator from 'email-validator'
 import axios from 'axios';
-// import cloudinary from 'cloudinary';
+import config from '../../../../../config.js';
 
-
-// const CLOUDINARY_UPLOAD_PRESET = 'answerPhotosUpload'
-// const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dipxthdkg/upload'
 const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }) => {
   const [ answerText, setAnswerText ] = useState('');
   const [ nickname, setNickname ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ submissionCheck, setSubmissionCheck ] = useState(true);
   const [ photos, setPhotos ] = useState([]);
-  const [ photo, setPhoto ] = useState({});
+  const [ photo, setPhoto ] = useState('');
   const [ photoURL, setPhotoURL ] = useState('');
   const [ photoURLs, setPhotoURLs ] = useState([]);
   const [ photoCount, setPhotoCount ] = useState(0);
   const inputref = useRef();
 
   const fileHandler = (e) => {
-    setPhoto(e.target.files[0]);
-    setPhotoURL(URL.createObjectURL(e.target.files[0]));
+    const data = new FormData();
+    data.append('file', e.target.files[0]);
+    data.append('upload_preset', config.CLOUDINARY_PRESET);
+    data.append('api_key', config.CLOUDINARY_API)
+
+    axios.post(config.CLOUDINARY_UPLOAD_URL, data, {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    })
+    .then(response => {
+      setPhotoURL(response.data.secure_url)})
+    .catch(error => console.error(error));
+
   }
 
   const handlePhotoSubmit = () => {
@@ -140,7 +149,10 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                 <input
                   type='file'
                   ref={ inputref }
-                  onChange={ fileHandler }
+                  onChange={(e) => {
+                    setPhoto(e.target.files[0]);
+                    fileHandler(e);
+                  }}
                   style={{ display: 'none' }}
                 />
 

@@ -16,9 +16,12 @@ module.exports = {
         test: /\.jsx?/,
         include: SRC_DIR,
         loader: 'babel-loader',
-        exclude: '/node_modules/',
+        exclude: path.resolve(__dirname, 'node_modules')
         options: {
-          presets: ['es2015', 'react'],
+          presets: ['@babel/preset-react', '@babel/preset-env'],
+        },
+        resolve: {
+          extensions: ['.jsx', '.js'],
         },
       },
     ],
