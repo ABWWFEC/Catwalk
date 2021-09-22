@@ -24,6 +24,8 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
         })
       })
       .catch(error => console.error(error))
+      const questCloser = document.getElementById('question-closer');
+      questCloser.click();
       e.preventDefault();
   }
 
@@ -110,11 +112,16 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
                 </div>
 
                 <div>
-                  <button onClick={ handleSubmit } type="submit"
-                    className="btn btn-primary" >Submit
+                  <button onClick={ handleSubmit }
+                    type="submit" className="btn btn-primary">Submit
                   </button>
 
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button"
+                    id='question-closer'
+                    className="btn btn-secondary"
+                    data-dismiss="modal">Close
+                  </button>
+
                 </div>
               </div>
             </form>

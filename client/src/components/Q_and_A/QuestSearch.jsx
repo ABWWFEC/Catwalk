@@ -42,8 +42,8 @@ const QuestSearch = ({ questInfo, setQuestInfo, constQuestInfo, searched, setSea
       <input
         onChange={ handleText }
         type="text" className="form-control"
-        placeholder="Have a question? Search for answers…"
-        aria-label="Have a question? Search for answers…"
+        placeholder="Have a question? Search for answers..."
+        aria-label="Have a question? Search for answers..."
         aria-describedby="basic-addon2"
       />
       <div className ="input-group-append">
