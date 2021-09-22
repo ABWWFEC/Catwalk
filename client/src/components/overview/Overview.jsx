@@ -4,27 +4,15 @@ import Cart from './Cart.jsx';
 import Style from './Style.jsx';
 import Gallery from './Gallery test.jsx';
 
-const Overview = ({prodId}) => {
-  const [prodInfo, setProdInfo] = useState({});
+const Overview = ({prodInfo}) => {
+
   const [prodStyle, setProdStyle] = useState([]);
   const [selStyle, setSelStyle] = useState({skus:{}, photos: [{url: null, thumbnail_url: null}]});
 
-  useEffect(() => {
-    const getInfo = () => {
-      axios.get(`/api/product/${prodId}`)
-        .then(res => {
-          setProdInfo(res.data);
-        })
-        .catch(err => {
-          console.error(err);
-        })
-    }
-    getInfo();
-  }, [prodId]);
 
   useEffect(() => {
     const getStyle = () => {
-      axios.get(`/api/product/${prodId}/styles`)
+      axios.get(`/api/product/${prodInfo.id}/styles`)
         .then(res => {
           setProdStyle(res.data.results);
           setSelStyle(res.data.results[0]);
@@ -34,7 +22,7 @@ const Overview = ({prodId}) => {
         })
     }
     getStyle();
-  }, [prodId]);
+  }, [prodInfo]);
 
   const discounPrice = () => {
     if (selStyle.sale_price === null) {
@@ -72,7 +60,7 @@ const Overview = ({prodId}) => {
               <Style styles={prodStyle} setStyle={setSelStyle}/>
             </div>
             <div className='cart'>
-              <Cart style={selStyle} prodId={prodId}/>
+              <Cart style={selStyle} prodId={prodInfo.id}/>
             </div>
 
           </div>
