@@ -216,7 +216,7 @@ const AddReview = ({ product_id }) => {
         </div>
         <div className="row justify-content-end">
           <div>
-            <button onClick={handleValidation}>Submit!</button>
+            <button className="btn btn-outline-dark" onClick={handleValidation}>Submit!</button>
           </div>
         </div>
       </form>

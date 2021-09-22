@@ -45,15 +45,13 @@ const ReviewsList = () => {
         </select>
       </div>
       {displayedReviews()}
-      <div className="row">
-        {(currNumberOfReviews > 2) && <div className="col">
-          <button onClick={handleMoreReviewsClick} >More Reviews</button>
-          {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
-        </div>}
-        <div className="col">
-          <button onClick={handleAddAReviewClick}>Add A Review</button>
-        </div>
+      <div className="row justify-content-between mt-2">
+        {(currNumberOfReviews > 2) &&
+          <button className="btn btn-outline-dark col-3" onClick={handleMoreReviewsClick} >More Reviews</button>
+        }
+        <button className="btn btn-outline-dark col-3" onClick={handleAddAReviewClick}>Add A Review</button>
       </div>
+      {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       <Modal dialogClassName="add-review" show={addReviewClicked} onHide={handleAddReviewClose}>
         <Modal.Header>
           <Modal.Title>Add a Review!</Modal.Title>

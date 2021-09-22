@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import Collapse from 'react-bootstrap/Collapse';
 
 const Review = ({ reviewData }) => {
   const [ photoClicked, setPhotoClicked ] = useState(false);
@@ -37,18 +38,22 @@ const Review = ({ reviewData }) => {
     setPhotoClicked(false);
   }
 
-  const renderBody = () => {
-
-  }
-
   return (
     <div>
       <div className="row">
         <div className="col">star rating {rating}</div>
         <div className="col text-end">{reviewer_name}, {readableDate}</div>
       </div>
-      <div className="font-weight-bold">{summary}</div>
-      <div>{body}</div>
+      <div className="fw-bold">{summary}</div>
+      {body.length <= 250 && <div>{body}</div>}
+      {body.length > 250 &&
+        <div>
+          <p>{body.slice(0, 250)}...</p>
+          <Collapse in={readMore}>
+            <p id="collapseReview">...{body.slice(250)}</p>
+          </Collapse>
+          <button className="btn btn-outline-dark" onClick={() => setReadMore(!readMore)}>Show more</button>
+        </div>}
       <div>
         {photos.length > 0 && photos.map((photo, index) => {
           return (
