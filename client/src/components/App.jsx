@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import Overview from './Overview.jsx';
-import QandA from './Q_and_A.jsx';
-import Reviews from './Rating_and_Reviews';
+import Overview from './overview/Overview.jsx';
+import QandA from './Q_and_A/Q_and_A.jsx';
+import Reviews from './Rating_and_Reviews/Rating_and_Reviews.jsx';
 import RelatedList from './Related_and_Outfit/RelatedList.jsx';
 import OutfitList from './Related_and_Outfit/OutfitList.jsx';
 
@@ -12,12 +12,11 @@ const App = () => {
 
   return (
     <div>
-      {/* <Overview prodId={prodId} />
-      <Related prodId={prodId} setProdId={setProdId} />
+      <Overview prodId={prodId} />
       <QandA prodId={prodId} />
-      <Reviews prodId={prodId} />*/}
+      <Reviews prodId={prodId} />
 
-      <RelatedList prodId={prodId} />
+      <RelatedList prodId={prodId} setProdId={setProdId}/>
       <OutfitList prodId={prodId} />
     </div>
   );

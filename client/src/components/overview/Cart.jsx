@@ -110,7 +110,6 @@ const Cart = ({style, setStyle, prodId}) => {
   return(
     <div>
       <CheckStock />
-      {console.log(style)}
       <SelectQuan />
     </div>
   )

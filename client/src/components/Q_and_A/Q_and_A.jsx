@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AddQuest from './Q_and_A/AddQuest.jsx';
-import MoreQuests from './Q_and_A/MoreQuests.jsx';
-import QuestAnswerContainer from './Q_and_A/QuestAnswerContainer.jsx';
-import QuestSearch from './Q_and_A/QuestSearch.jsx';
+import AddQuest from './AddQuest.jsx';
+import MoreQuests from './MoreQuests.jsx';
+import QuestAnswerContainer from './QuestAnswerContainer.jsx';
+import QuestSearch from './QuestSearch.jsx';
 
 const QandA = ({ prodId }) => {
   const [ prodInfo, setProdInfo ] = useState({});
