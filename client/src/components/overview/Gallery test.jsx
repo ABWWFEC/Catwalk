@@ -8,7 +8,7 @@ const Gallery = ({style}) => {
 
   //fullscreen
   const [fullScreen, setFullScreen] = useState(false);
-
+  const [fullScreenZoom, setFullScreenZoom] = useState(false);
 
   //zoom feature
   const [showMagnifier, setShowMagnifier] = useState(false);
@@ -71,7 +71,7 @@ const Gallery = ({style}) => {
         <div className='row row-cols-7'>
           {style.photos.map((photo, index) => {
             return (
-              <div className='col align-items-center' key={index} style={{height:150, width: 150}} >
+              <div className='col ' key={index} style={{height:150, width: 150}} >
                 <img className='align-items-center' src={photo.thumbnail_url}  id={index} onClick={e => setIndex(Number(e.target.id))} style={{maxHeight: '100%', maxWidth: '100%'}} />
               </div>
             )
@@ -85,9 +85,39 @@ const Gallery = ({style}) => {
 
   //fullScreen
 
-  // const fullScreenFunc = () => {
-  //   return
-  // }
+  const fullScreenFunc = () => {
+    return (
+      <div
+        style={{
+          display: fullScreen ? "" : "none",
+          position: "absolute",
+          zIndex: 1,
+          height: 1200,
+          width: 1400,
+          backgroundColor: '#92a8d1'
+        }}
+        >
+        <div
+          style={{
+            height: 1000,
+            width: 1400,
+          }}
+          >
+          <img
+            className='rounded mx-auto d-block'
+            src={style.photos[index].url}
+            onClick={e => setFullScreen(false)}
+            style={{
+              maxHeight: '100%',
+              maxWidth: '100%'
+            }}
+            />
+        </div>
+
+        {thumbnailDisplay()}
+      </div>
+    )
+  }
 
 
 
@@ -98,83 +128,80 @@ const Gallery = ({style}) => {
       return <p className='no-img-placeholder'>The selected style does not have image</p>
     } else {
       return (
-        <div className='app' style={{height: 1000, width: 700}}>
-          <div className='row row-cols-3 align-items-center' style={{height:900, width: 700}}>
-            <div className='col-sm-1'>
-              {leftNav(style)}
-            </div>
-            <div className='col-sm-10'>
-              <div>
-                <img
-                  className='rounded mx-auto d-block'
-                  src={style.photos[index].url}
-                  onMouseEnter={(e) => {
-                    const elem = e.currentTarget;
-                    const { width, height } = elem.getBoundingClientRect();
-                    setSize([width, height]);
-                    setShowMagnifier(true);
-                  }}
-                  onMouseLeave={() => {
-                    setShowMagnifier(false);
-                  }}
-                  onMouseMove={(e) => {
-                    const elem = e.currentTarget;
-                    const { top, left } = elem.getBoundingClientRect();
+        <div>
+          {fullScreenFunc()}
 
-                    const x = e.pageX - left - window.pageXOffset;
-                    const y = e.pageY - top - window.pageYOffset;
-                    setXY([x, y]);
-                    setOff([top, left]);
-                  }}
-                  style={{maxWidth: '100%', maxHeight: '100%'}}
-                  onClick={e => setFullScreen(true)}
-                />
-                <div
-                  style={{
-                    display: fullScreen ? "" : "none",
-                    position: "absolute",
-
-                  }}
-                >
-                  <img src={style.photos[index].url} onClick={e => setFullScreen(false)}/>
-                </div>
-                <div
-                  style={{
-                    display: showMagnifier ? "" : "none",
-                    position: "absolute",
-                    left: offX,
-                    top: offY,
-                    // prevent magnifier blocks the mousemove event of img
-                    pointerEvents: "none",
-                    // set size of magnifier
-                    height: `250px`,
-                    width: `250px`,
-                    // move element center to cursor pos
-                    top: `${y-250/2}px`,
-                    left: `${x-250/2}px`,
-                    opacity: "1", // reduce opacity so you can verify position
-                    border: "1px solid lightgray",
-                    backgroundColor: "white",
-                    backgroundImage: `url('${style.photos[index].url}')`,
-                    backgroundRepeat: "no-repeat",
-
-                    //calculate zoomed image size
-                    backgroundSize: `${imgWidth * 1.5}px ${imgHeight * 1.5}px`,
-
-                    //calculate position of zoomed image.
-                    backgroundPositionX: `${-x * 1.5 + 250 / 2}px`,
-                    backgroundPositionY: `${-y * 1.5 + 250 / 2}px`
-                  }}
-                ></div>
+          <div className='app' style={{height: 800, width: 700}}>
+            <div className='row row-cols-3 align-items-center' style={{height:750, width: 600}}>
+              <div className='col-sm-1'>
+                {leftNav(style)}
               </div>
+              <div className='col-sm-10'>
+                <div>
+                  <img
+                    className='rounded mx-auto d-block'
+                    src={style.photos[index].url}
+                    onMouseEnter={(e) => {
+                      const elem = e.currentTarget;
+                      const { width, height } = elem.getBoundingClientRect();
+                      setSize([width, height]);
+                      setShowMagnifier(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShowMagnifier(false);
+                    }}
+                    onMouseMove={(e) => {
+                      const elem = e.currentTarget;
+                      const { top, left } = elem.getBoundingClientRect();
 
+                      const x = e.pageX - left - window.pageXOffset;
+                      const y = e.pageY - top - window.pageYOffset;
+                      setXY([x, y]);
+                      setOff([top, left]);
+                    }}
+                    style={{maxWidth: '100%', maxHeight: '100%'}}
+                    onClick={e => setFullScreen(true)}
+                  />
+
+                  <div
+                    style={{
+                      display: showMagnifier ? "" : "none",
+                      position: "absolute",
+                      left: offX,
+                      top: offY,
+                      // prevent magnifier blocks the mousemove event of img
+                      pointerEvents: "none",
+                      // set size of magnifier
+                      height: `250px`,
+                      width: `250px`,
+                      // move element center to cursor pos
+                      top: `${y-250/2}px`,
+                      left: `${x-250/2}px`,
+                      opacity: "1", // reduce opacity so you can verify position
+                      border: "1px solid lightgray",
+                      backgroundColor: "white",
+                      backgroundImage: `url('${style.photos[index].url}')`,
+                      backgroundRepeat: "no-repeat",
+
+                      //calculate zoomed image size
+                      backgroundSize: `${imgWidth * 1.5}px ${imgHeight * 1.5}px`,
+
+                      //calculate position of zoomed image.
+                      backgroundPositionX: `${-x * 1.5 + 250 / 2}px`,
+                      backgroundPositionY: `${-y * 1.5 + 250 / 2}px`
+                    }}
+                  ></div>
+                </div>
+
+              </div>
+              <div className='col-sm-1'>
+                  {rightNav(style)}
+              </div>
             </div>
-            <div className='col-sm-1'>
-                {rightNav(style)}
+            <div className='row align-items-end'>
+              {thumbnailDisplay()}
             </div>
-          </div>
-          <div className='row align-items-end'>
-            {thumbnailDisplay()}
+
           </div>
 
         </div>

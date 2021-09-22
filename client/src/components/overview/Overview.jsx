@@ -36,8 +36,21 @@ const Overview = ({prodId}) => {
     getStyle();
   }, [prodId]);
 
+  const discounPrice = () => {
+    if (selStyle.sale_price === null) {
+      return (
+        <h3 className='price'>{`$ ${selStyle.original_price}`}</h3>
+      )
+    } else {
+      return (
+        <h3 className='price'>{`$ ${selStyle.sale_price}`}</h3>
+      )
+    }
+  }
+
+
   return (
-    <div className='container' style={{width: '100%'}}>
+    <div className='container' style={{height: 1200, width: window.innerWidth, backgroundColor: '#92a8d1'}}>
       <div className='row'>
         <div className='col-8'>
           <div className='images'>
@@ -51,10 +64,10 @@ const Overview = ({prodId}) => {
               <div className='rate star'></div>
               <div className='all review'></div>
             </div>
-            <div className='category'>{prodInfo.category}</div>
+            <h4 className='category'>{prodInfo.category}</h4>
             <h1 className='title'>{prodInfo.name}</h1>
-            <h1 className='price'>{`$ ${selStyle.original_price}`}</h1>
-            <h1 className='selected style'>{`STYLE > ${selStyle.name}`}</h1>
+            {discounPrice()}
+            <h6 className='selected style'>{`STYLE > ${selStyle.name}`}</h6>
             <div className='style seletcer'>
               <Style styles={prodStyle} setStyle={setSelStyle}/>
             </div>
