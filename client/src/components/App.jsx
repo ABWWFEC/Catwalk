@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
 
 import Overview from './overview/Overview.jsx';
 import QandA from './Q_and_A/Q_and_A.jsx';
@@ -9,15 +10,29 @@ import OutfitList from './Related_and_Outfit/OutfitList.jsx';
 
 const App = () => {
   const [prodId, setProdId] = useState(42370);
+  const [prodInfo, setProdInfo] = useState({id:prodId});
+
+  useEffect(() => {
+    const getInfo = () => {
+      axios.get(`/api/product/${prodId}`)
+        .then(res => {
+          setProdInfo(res.data);
+        })
+        .catch(err => {
+          // console.error(err);
+        })
+    }
+    getInfo();
+  }, [prodId]);
 
   return (
     <div>
-      <Overview prodId={prodId} />
-      <QandA prodId={prodId} />
+      <Overview prodInfo={prodInfo} />
+      {/* <QandA prodId={prodId} />
       <Reviews prodId={prodId} />
 
       <RelatedList prodId={prodId} setProdId={setProdId}/>
-      <OutfitList prodId={prodId} />
+      <OutfitList prodId={prodId} /> */}
     </div>
   );
 };
