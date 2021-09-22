@@ -25,9 +25,9 @@ const StarRatingBreakdown = ({ ratings, totalStarRatings }) => {
       {totalStarRatings() > 0 && reversedRatings.map(rating => {
         return (
           <div className="row align-items-center" key={rating} data-rating={rating} onClick={(e) => handleStarRatingClick(e)}>
-            <div className="col" style={{'max-width': '75px'}} data-rating={rating}>{rating} stars</div>
-            <div className="col px-0" style={{'backgroundColor': '#ccc', 'max-width': '200px'}}>
-              <div style={{'backgroundColor': '#05b105cf', width: `${(Math.floor((ratings[rating] / totalStarRatings()) * 100))}%`, height: '10px'}} data-rating={rating}></div>
+            <div className="col star-ratings" data-rating={rating}>{rating} stars</div>
+            <div className="col px-0 rating-graph">
+              <div className="rating-percent" style={{width: `${(Math.floor((ratings[rating] / totalStarRatings()) * 100))}%`}} data-rating={rating}></div>
             </div>
           </div>
         )

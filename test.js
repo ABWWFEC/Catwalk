@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 
-const request = require('supertest');
-const app = require('./server/index');
+// const request = require('supertest');
+// const app = require('./server/index');
 
-app.listen(5000, () => {
-  console.log('test server is listening on 5000')
-});
+// app.listen(5000, () => {
+//   console.log('test server is listening on 5000')
+// });
 
 test('adds 1 + 2', () => {
   expect(1 + 2).toBe(3);
