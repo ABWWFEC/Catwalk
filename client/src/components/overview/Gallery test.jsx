@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 const Gallery = ({style}) => {
   //image gallery
