@@ -24,6 +24,16 @@ const RelatedModal = ({prodId, comparison}) => {
     getCurrentProductFeatures();
   }, [prodId])
 
+  // function displayFeatures() {
+  //   return (
+  //     {MainProduct.map((feature, index) => {
+  //       return (
+
+  //       )
+  //     })}
+  //   )
+  // }
+
   return (
     <>
       <Button variant="secondary" onClick={handleShow}>
@@ -32,14 +42,14 @@ const RelatedModal = ({prodId, comparison}) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Comparing</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
             <Row>
               <Col md="auto">{MainProduct.name}</Col>
-              <Col></Col>
-              <Col md="auto">{comparison}</Col>
+              <Col>Features</Col>
+              <Col md="auto">{comparison.name}</Col>
             </Row>
           </Container>
         </Modal.Body>
