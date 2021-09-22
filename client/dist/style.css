@@ -2,7 +2,12 @@ input.star-rating {
   display: none;
 }
 
+.btn-outline-dark {
+  border-radius: 0;
+}
+
 .add-review {
+  width: 700px;
   max-width: 80%;
 }
 
