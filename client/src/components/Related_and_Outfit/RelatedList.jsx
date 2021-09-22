@@ -135,7 +135,7 @@ const RelatedList = function({prodId, setProdId}) {
               <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
                 <RelatedEntry product={product} id={product.id} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick} setProdId={setProdId}/>
               </a>
-            <RelatedModal prodId={prodId} comparison={index}/>
+            <RelatedModal prodId={prodId} comparison={product}/>
             </div>
            )
          })
