@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
 
 const Review = ({ reviewData }) => {
   const [ photoClicked, setPhotoClicked ] = useState(false);
+  const [ photoURL, setPhotoURL ] = useState('');
   const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness, review_id, photos } = reviewData;
   const readableDate = new Date(date).toLocaleDateString(
     'en-us',
@@ -25,8 +27,13 @@ const Review = ({ reviewData }) => {
       .catch((err) => console.log(`Couldn't report the review :(`, err));
   }
 
-  const handlePhotoClick = () => {
+  const handlePhotoClick = (e) => {
     setPhotoClicked(true);
+    setPhotoURL(e.target.src);
+  }
+
+  const handlePhotoModalClose = () => {
+    setPhotoClicked(false);
   }
 
   return (
@@ -38,11 +45,10 @@ const Review = ({ reviewData }) => {
       <div>{summary}</div>
       <div>{body}</div>
       <div>
-        {photos.length > 0 && photos.map(photo => {
+        {photos.length > 0 && photos.map((photo, index) => {
           return (
             <div key={photo.id}>
-              <img onClick={handlePhotoClick} src={photo.url}></img>
-              {photoClicked && <img src={photo.url}></img>}
+              <img src={photo.url} onClick={handlePhotoClick}></img>
             </div>
           )
         })}
@@ -52,6 +58,14 @@ const Review = ({ reviewData }) => {
       <div>
         Helpful? <span>Yes</span>({helpfulness}) | <span>Report</span>
       </div>
+      <Modal show={photoClicked} onHide={handlePhotoModalClose}>
+        <Modal.Header>
+          <button type="button" className="btn-close" aria-label="Close" onClick={handlePhotoModalClose}></button>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={photoURL}></img>
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }

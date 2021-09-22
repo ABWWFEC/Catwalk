@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CharacteristicReview from './CharacteristicReview.jsx';
 
 const CharacteristicsReviewList = ({ characteristics }) => {
@@ -13,14 +13,18 @@ const CharacteristicsReviewList = ({ characteristics }) => {
   }
 
   return (
-    <div>
-      {characteristicTags.map(characteristic => (
-        characteristics[characteristic].id !== 0
-          && <CharacteristicReview
-            key={characteristics[characteristic].id}
-            characteristicName={characteristic}
-            characteristicDescriptors={characteristicsDescriptors[characteristic]} />
-      ))}
+    <div className="row">
+      <div>Rate the characteristics of this product!</div>
+      <div>
+        {characteristicTags.map(characteristic => (
+          characteristics[characteristic].id
+            && <CharacteristicReview
+              key={characteristics[characteristic].id}
+              characteristicName={characteristic}
+              characteristicId={characteristics[characteristic].id}
+              characteristicDescriptors={characteristicsDescriptors[characteristic]} />
+        ))}
+      </div>
     </div>
   )
 }

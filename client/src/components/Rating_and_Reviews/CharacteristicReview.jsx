@@ -1,21 +1,29 @@
 import React, { useContext } from 'react';
 import { ReviewFormContext } from './AddReview.jsx';
 
-const CharacteristicReview = ({ characteristicName, characteristicDescriptors }) => {
-  const { handleInputChange } = useContext(ReviewFormContext);
+const CharacteristicReview = ({ characteristicName, characteristicDescriptors, characteristicId }) => {
+  const { handleInputChange, characteristics } = useContext(ReviewFormContext);
 
   return (
     <div>
-      <div>
+      <div className="row">
         {[...Array(5)].map((rating, index) => {
             index += 1;
             return (
-              <input type="radio" key={index} value={index} name={characteristicName} onChange={e => handleInputChange(e)}/>
+              <input
+                className="col"
+                type="radio"
+                key={index}
+                checked={characteristics[characteristicId] === index}
+                value={index}
+                name={characteristicId}
+                data-characteristic-name={characteristicName}
+                onChange={e => handleInputChange(e)}/>
               )
             })}
       </div>
-      <div>
-        {characteristicDescriptors.map((descriptor, index) => <span key={index}>{descriptor}</span>)}
+      <div className="row">
+        {characteristicDescriptors.map((descriptor, index) => <p className="col text-center" key={index}>{descriptor}</p>)}
       </div>
     </div>
   )
