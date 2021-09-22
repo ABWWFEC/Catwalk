@@ -34,7 +34,7 @@ const ReviewsMetaData = () => {
   let percentRecommended = Math.floor((recommended.true / totalRecommended()) * 100)
 
   return (
-    <div className="col-md-3" style={{height: '70%'}}>
+    <div className="col-md-4" style={{height: '70%'}}>
       <div className="row">
         {(calculateAverage(ratings) > 0 && calculateAverage(ratings) !== Infinity) && <div className="col-sm-auto h1">{calculateAverage(ratings)}</div>}
         <div className="col-sm-auto">star rating</div>

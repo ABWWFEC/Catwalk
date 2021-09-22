@@ -119,7 +119,6 @@ router.route('/questions')
     axios(config)
       .then((response) => {
         res.status(200).send(response.data);
-        res.end();
       })
       .catch((error) => {
         res.status(400).send(error);

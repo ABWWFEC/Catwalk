@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { ReviewFormContext } from './AddReview.jsx'
 
 const RecommendReview = () => {
-  const { recommend, handleInputChange } = useContext(ReviewFormContext);
+  const { reviewForm, handleInputChange } = useContext(ReviewFormContext);
+  const { recommend } = reviewForm;
 
   return (
     <div className="row">
-      <div>Would you recommend this product?</div>
+      <div className="h6">Would you recommend this product? *</div>
       <div className="col-2">
         <label className="radio-inline">
           <input
