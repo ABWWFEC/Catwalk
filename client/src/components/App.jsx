@@ -28,11 +28,14 @@ const App = () => {
   return (
     <div>
       <Overview prodInfo={prodInfo} />
-      {/* <QandA prodId={prodId} />
+      <QandA
+        prodId={ prodId }
+        prodInfo={ prodInfo }
+        setProdInfo={ setProdInfo }/>
       <Reviews prodId={prodId} />
 
       <RelatedList prodId={prodId} setProdId={setProdId}/>
-      <OutfitList prodId={prodId} /> */}
+      <OutfitList prodId={prodId} />
     </div>
   );
 };

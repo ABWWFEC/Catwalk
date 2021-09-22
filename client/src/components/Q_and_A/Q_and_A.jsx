@@ -5,8 +5,7 @@ import MoreQuests from './MoreQuests.jsx';
 import QuestAnswerContainer from './QuestAnswerContainer.jsx';
 import QuestSearch from './QuestSearch.jsx';
 
-const QandA = ({ prodId }) => {
-  const [ prodInfo, setProdInfo ] = useState({});
+const QandA = ({ prodId, prodInfo, setProdInfo }) => {
   const [ questInfo, setQuestInfo ] = useState([]);
   const [ constQuestInfo, setConstQuestInfo ] = useState([]);
   const [ searched, setSearched ] = useState(false);
@@ -16,11 +15,6 @@ const QandA = ({ prodId }) => {
       .then(response => {
         setQuestInfo(sortQuestions(response.data.results));
         setConstQuestInfo(sortQuestions(response.data.results));
-      })
-      .then(() => {
-        axios.get(`/api/product/${prodId}`)
-          .then(response => setProdInfo(response.data))
-          .catch(error => console.error(error));
       })
       .catch(error => console.error(error));
   }, [])
