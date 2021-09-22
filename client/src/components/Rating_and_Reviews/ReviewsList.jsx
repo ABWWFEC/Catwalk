@@ -35,7 +35,7 @@ const ReviewsList = () => {
   }
 
   return (
-    <div className="col-md-9">
+    <div className="col-md-8">
       <div>
         {numberOfTotalReviews} reviews, sorted by
         <select onChange={(e) => getReviewsData(e.target.value) }>
@@ -54,7 +54,7 @@ const ReviewsList = () => {
           <button onClick={handleAddAReviewClick}>Add A Review</button>
         </div>
       </div>
-      <Modal show={addReviewClicked} onHide={handleAddReviewClose}>
+      <Modal dialogClassName="add-review" show={addReviewClicked} onHide={handleAddReviewClose}>
         <Modal.Header>
           <Modal.Title>Add a Review!</Modal.Title>
           <button type="button" className="btn-close" aria-label="Close" onClick={handleAddReviewClose}></button>

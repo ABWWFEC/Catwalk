@@ -119,7 +119,6 @@ router.route('/questions')
     axios(config)
       .then((response) => {
         res.status(200).send(response.data);
-        res.end();
       })
       .catch((error) => {
         res.status(400).send(error);
@@ -148,6 +147,7 @@ router.route('/questions/:question_id/answers')
       })
   })
 
+router.route('/questions/:question_id/answers')
   .post((req, res) => {
     const {
       body, name, email, photos,

@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { ReviewFormContext } from './AddReview.jsx';
 
 const CharacteristicReview = ({ characteristicName, characteristicDescriptors, characteristicId }) => {
-  const { handleInputChange, characteristics } = useContext(ReviewFormContext);
+  const { reviewForm, handleInputChange } = useContext(ReviewFormContext);
+  const { characteristics } = reviewForm;
 
   return (
     <div>
@@ -23,7 +24,7 @@ const CharacteristicReview = ({ characteristicName, characteristicDescriptors, c
             })}
       </div>
       <div className="row">
-        {characteristicDescriptors.map((descriptor, index) => <p className="col text-center" key={index}>{descriptor}</p>)}
+        {characteristicDescriptors.map((descriptor, index) => <div className="col text-center" key={index}>{descriptor}</div>)}
       </div>
     </div>
   )

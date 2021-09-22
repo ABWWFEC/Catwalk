@@ -3,7 +3,8 @@ import { IoIosStarOutline, IoIosStar } from 'react-icons/io';
 import { ReviewFormContext } from './AddReview.jsx';
 
 const StarRatingReview = () => {
-  const { rating, handleInputChange } = useContext(ReviewFormContext);
+  const { reviewForm, handleInputChange } = useContext(ReviewFormContext);
+  const { rating } = reviewForm;
 
   const ratingDescriptor = () => {
     if (rating === 1) {
@@ -29,12 +30,12 @@ const StarRatingReview = () => {
 
   return (
     <div className="row">
-      <div>Rate this product!</div>
+      <div className="h6">Overall Rating *</div>
       <div className="row align-items-center">
         {[...Array(5)].map((starRating, index) => {
           index += 1;
           return (
-            <label className="col-auto px-1">
+            <label className="col-auto px-1" key={`star ${index}`}>
               <input
                 className="star-rating"
                 type="radio"
@@ -44,7 +45,7 @@ const StarRatingReview = () => {
                 checked={rating === index}
                 onChange={e => handleInputChange(e)}/>
               {index <= rating && <IoIosStar size={'2em'} key={`up to star ${index}`}/>}
-              {index > rating && <IoIosStarOutline size={'2em'} key={`star ${index}`}/>}
+              {index > rating && <IoIosStarOutline size={'2em'} key={`less than star ${index}`}/>}
             </label>
           )
         })}

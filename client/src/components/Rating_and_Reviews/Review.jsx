@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 const Review = ({ reviewData }) => {
   const [ photoClicked, setPhotoClicked ] = useState(false);
   const [ photoURL, setPhotoURL ] = useState('');
+  const [ readMore, setReadMore ] = useState(false);
   const { date, rating, reviewer_name, summary, body, recommend, response, helpfulness, review_id, photos } = reviewData;
   const readableDate = new Date(date).toLocaleDateString(
     'en-us',
@@ -36,13 +37,17 @@ const Review = ({ reviewData }) => {
     setPhotoClicked(false);
   }
 
+  const renderBody = () => {
+
+  }
+
   return (
     <div>
-      <div>
-        <div>star rating {rating}</div>
-        <div>{reviewer_name}, {readableDate}</div>
+      <div className="row">
+        <div className="col">star rating {rating}</div>
+        <div className="col text-end">{reviewer_name}, {readableDate}</div>
       </div>
-      <div>{summary}</div>
+      <div className="font-weight-bold">{summary}</div>
       <div>{body}</div>
       <div>
         {photos.length > 0 && photos.map((photo, index) => {
