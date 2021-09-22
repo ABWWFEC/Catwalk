@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import QuestForm from './QuestForm.jsx';
 
-const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
+const AddQuest = ({ prodInfo, questInfo, setQuestInfo }) => {
   const [ showModal, setShowModal ] = useState(false);
 
   return (
@@ -14,7 +14,6 @@ const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
       </button>
       <QuestForm
         prodInfo={ prodInfo }
-        prodId={ prodId }
         questInfo={ questInfo }
         setQuestInfo={ setQuestInfo }
       />

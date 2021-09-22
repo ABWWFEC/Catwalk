@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import validator from 'email-validator'
 import axios from 'axios';
-// import config from '../../../../../config.js';
+import config from '../../../../config.js';
 
-const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }) => {
+const AnswerForm = ({ prodInfo, question, idx, questInfo, setQuestInfo }) => {
   const [ answerText, setAnswerText ] = useState('');
   const [ nickname, setNickname ] = useState('');
   const [ email, setEmail ] = useState('');
@@ -15,22 +15,22 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
   const [ photoCount, setPhotoCount ] = useState(0);
   const inputref = useRef();
 
-  // const fileHandler = (e) => {
-  //   const data = new FormData();
-  //   data.append('file', e.target.files[0]);
-  //   data.append('upload_preset', config.CLOUDINARY_PRESET);
-  //   data.append('api_key', config.CLOUDINARY_API)
+  const fileHandler = (e) => {
+    const data = new FormData();
+    data.append('file', e.target.files[0]);
+    data.append('upload_preset', config.CLOUDINARY_PRESET);
+    data.append('api_key', config.CLOUDINARY_API)
 
-  //   axios.post(config.CLOUDINARY_UPLOAD_URL, data, {
-  //     headers: {
-  //       "X-Requested-With": "XMLHttpRequest"
-  //   }
-  //   })
-  //   .then(response => {
-  //     setPhotoURL(response.data.secure_url)})
-  //   .catch(error => console.error(error));
+    axios.post(config.CLOUDINARY_UPLOAD_URL, data, {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    })
+    .then(response => {
+      setPhotoURL(response.data.secure_url)})
+    .catch(error => console.error(error));
 
-  // }
+  }
 
   const handlePhotoSubmit = () => {
     if (!photoURL) return;

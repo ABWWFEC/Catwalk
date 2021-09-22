@@ -4,9 +4,10 @@ const QuestSearch = ({ questInfo, setQuestInfo, constQuestInfo, searched, setSea
   const [ searchText, setSearchText ] = useState('');
 
   const questParser = () => {
-    setQuestInfo(questInfo.filter(question => {
+    setQuestInfo(questInfo.filter(question => {  
       return question.question_body.toLowerCase().includes(searchText);
     }))
+  }
     // const question = document.querySelectorAll('.question');
     // const questionText = [];
     // question.forEach(question => {
@@ -23,7 +24,6 @@ const QuestSearch = ({ questInfo, setQuestInfo, constQuestInfo, searched, setSea
     //      }
     //   }
     // })
-  }
 
   const handleText = (e) => {
     setSearchText(e.target.value.toLowerCase());
