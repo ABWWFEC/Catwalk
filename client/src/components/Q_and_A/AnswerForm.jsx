@@ -1,6 +1,9 @@
 import React, { useState, useRef } from 'react';
 import validator from 'email-validator'
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 // import config from '../../../../../config.js';
 
 const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }) => {
@@ -106,7 +109,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                   { prodInfo.name }: { question.question_body }
                 </h3>
 
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -189,7 +192,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                     type="button"
                     id={`answer-form-${ idx }`}
                     className="btn btn-secondary"
-                    data-dismiss="modal">Close
+                    data-bs-dismiss="modal">Close
                   </button>
                 </div>
               </div>

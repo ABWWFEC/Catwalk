@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const { routeProducts, routeQA, routeReviews } = require('./routes/index');
-const dependencies = ['bootstrap', 'jquery'];
+const dependencies = ['bootstrap', 'jquery', '@popperjs/core'];
 
 const app = express();
 app.use(compression());

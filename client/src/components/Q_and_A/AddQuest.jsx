@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import QuestForm from './QuestForm.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
   const [ showModal, setShowModal ] = useState(false);
@@ -7,8 +10,8 @@ const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
   return (
     <div className='col'>
       <button type="button"
-        data-toggle="modal"
-        data-target="#quest-form"
+        data-bs-toggle="modal"
+        data-bs-target="#quest-form"
         className="btn btn-primary">
         Add Question +
       </button>

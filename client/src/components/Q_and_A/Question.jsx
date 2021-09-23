@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQuestInfo }) => {
   const [ moreAnswers, setMoreAnswers ] = useState(false);
@@ -91,10 +94,10 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
           idx={ idx }
         />
         <div
-          className="accordion-button d-flex
+          className="accordion-button collapsed d-flex
           align-items-baseline justify-content-start flex-column"
-          type="button" data-toggle="collapse"
-          data-target={`#${helperIdx}`}
+          type="button" data-bs-toggle="collapse"
+          data-bs-target={`#${helperIdx}`}
           aria-expanded="true" aria-controls={helperIdx}
         >
           <div className='p-2 question'>Q: {question.question_body}</div>
@@ -117,7 +120,7 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
             <span className='sr-only'>  </span>
             <span
               className='badge bg-success text-light'
-              data-toggle='modal'
+              data-bs-toggle='modal'
               href={`#answer-form-${idx}`}>Add Answer
             </span>
           </div>
@@ -125,6 +128,7 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
       </h2>
       <div id={helperIdx}
         className="accordion-collapse collapse"
+        data-bs-parent="#quest-accordion"
         aria-labelledby={'col' + question.question_id}
       >
         <div className="accordion-body">

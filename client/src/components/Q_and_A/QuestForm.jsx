@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import validator from 'email-validator';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
   const [ questText, setQuestText ] = useState('');
@@ -65,7 +68,7 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
                 </h3>
                 <button type="button"
                   className="close"
-                  data-dismiss="modal"
+                  data-bs-dismiss="modal"
                   aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,7 +122,7 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
                   <button type="button"
                     id='question-closer'
                     className="btn btn-secondary"
-                    data-dismiss="modal">Close
+                    data-bs-dismiss="modal">Close
                   </button>
 
                 </div>
