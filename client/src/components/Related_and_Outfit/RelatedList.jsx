@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import RelatedEntry from './relatedEntry.jsx';
+import RelatedEntry from './RelatedEntry.jsx';
 import RelatedModal from './Modal.jsx';
 import Carousel from 'react-multi-carousel';
 import { Button } from 'react-bootstrap';

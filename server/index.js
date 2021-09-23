@@ -2,7 +2,12 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+
 const { routeProducts, routeQA, routeReviews, outfit } = require('./routes/index');
+
+
+const { TOKEN } = require('../config.js');
+
 
 const app = express();
 
@@ -15,6 +20,7 @@ app.use('/api/product', routeProducts);
 app.use('/api/QA', routeQA);
 app.use('/api/review', routeReviews);
 app.use('/api/outfit', outfit);
+
 
 app.listen(port, () => {
   console.log(`connected to port: ${port}`);

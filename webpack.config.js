@@ -14,13 +14,21 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
         include: SRC_DIR,
         loader: 'babel-loader',
-        exclude: '/node_modules/',
+        exclude: path.resolve(__dirname, 'node_modules'),
         options: {
-          presets: ['es2015', 'react'],
+          presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
+      {
+        test: /\.css$/,
+        loader: "css-loader"
+      }
     ],
   },
 };

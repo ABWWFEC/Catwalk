@@ -103,13 +103,13 @@ router.route('/questions')
       .catch(error => res.status(400).send(error));
   })
 
-router.route('/questions/:product_id')
+  router.route('/questions/:product_id')
   .get((req, res) => {
     const data = '';
 
     const config = {
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions?product_id=${req.params.product_id}`,
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions?product_id=${req.params.product_id}&count=100`,
       headers: {
         Authorization: TOKEN,
       },
@@ -119,7 +119,6 @@ router.route('/questions/:product_id')
     axios(config)
       .then((response) => {
         res.status(200).send(response.data);
-        res.end();
       })
       .catch((error) => {
         res.status(400).send(error);
@@ -148,6 +147,7 @@ router.route('/questions/:question_id/answers')
       })
   })
 
+router.route('/questions/:question_id/answers')
   .post((req, res) => {
     const {
       body, name, email, photos,
