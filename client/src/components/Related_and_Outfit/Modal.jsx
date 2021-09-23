@@ -1,41 +1,29 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import {ProductContext} from '../productContext.jsx';
 import axios from 'axios';
 
 const RelatedModal = ({prodId, comparison}) => {
   const [MainProduct, setMainProduct] = useState({});
   const [show, setShow] = useState(false);
 
+  const { prodInfo } = useContext(ProductContext);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  useEffect(() => {
-    const getCurrentProductFeatures = () => {
-      if (prodId !== undefined) {
-        axios.get(`/api/product/${prodId}`)
-        .then(res => {
-          setMainProduct(res.data);
-        })
-        .catch(err => {
-          console.error('Modal state error: ', err);
-        })
-      }
+  const checkForFeature = (feature, product) => {
+    if(product.includes(feature)) {
+      return (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+        </svg>);
     }
-    getCurrentProductFeatures();
-  }, [prodId])
+  }
 
-  // function displayFeatures() {
-  //   return (
-  //     {MainProduct.map((feature, index) => {
-  //       return (
-
-  //       )
-  //     })}
-  //   )
-  // }
+  let mainFeaturesString = JSON.stringify(prodInfo.features);
+  let comparisonFeaturesString = JSON.stringify(comparison.features);
 
   return (
-    <>
+    <div>
       <Button variant="secondary" onClick={handleShow}>
         Compare
       </Button>
@@ -47,14 +35,32 @@ const RelatedModal = ({prodId, comparison}) => {
         <Modal.Body>
           <Container>
             <Row>
-              <Col md="auto">{MainProduct.name}</Col>
-              <Col>Features</Col>
-              <Col md="auto">{comparison.name}</Col>
+              <Col className="mx-auto">{prodInfo.name}</Col>
+              <Col className="mx-auto">Features</Col>
+              <Col className="mx-auto">{comparison.name}</Col>
             </Row>
+              {prodInfo.features.map((feature, index) => {
+                return (
+                  <Row>
+                    <Col className="mx-auto">{checkForFeature(feature.feature, mainFeaturesString)}</Col>
+                    <Col className="mx-auto">{feature.feature}</Col>
+                    <Col className="mx-auto">{checkForFeature(feature.feature, comparisonFeaturesString)}</Col>
+                  </Row>
+                )
+              })}
+              {comparison.features.map((compFeature, index) => {
+                return (
+                  <Row>
+                    <Col className="mx-auto">{checkForFeature(compFeature.feature, mainFeaturesString)}</Col>
+                    <Col className="mx-auto">{compFeature.feature}</Col>
+                    <Col className="mx-auto">{checkForFeature(compFeature.feature, comparisonFeaturesString)}</Col>
+                  </Row>
+                )
+              })}
           </Container>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }
 

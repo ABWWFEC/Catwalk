@@ -22,72 +22,108 @@ const OutfitList = function({prodId}) {
     return (sum / numberOfReviews).toPrecision(2);
   }
 
+  const getOutfitIDs = () => {
+    axios.get('/api/outfit/')
+      .then(res => {
+        console.log('get call to outfit result: ', res);
+        setOutfitIDs([...OutfitIDs, ...res.data])
+      })
+      .catch(err => {
+        console.error('Outfit fetch error to outfit serverside: ', err);
+      })
+  }
+
   const handleClick = () => {
     if (!OutfitIDs.includes(prodId)) {
       setOutfitIDs([...OutfitIDs, prodId])
     }
   }
 
-  useEffect(() => {
-    const getOutfitInfo = () => {
-      if (OutfitIDs.length) {
-        for (var i = OutfitIDs.length - 1; i < OutfitIDs.length; i++) {
-          if (OutfitIDs[i] !== undefined) {
-            axios.get(`/api/product/${OutfitIDs[i]}`)
-            .then(res => {
-              setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
-              setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
-                id: res.data.id,
-                category: res.data.category,
-                price: res.data.default_price,
-                name: res.data.name
-              }]));
-            })
-            .catch(err => {
-              console.error('Outfit info error on axios call: ', err);
-            })
-          }
+  const getOutfitInfo = () => {
+    if (OutfitIDs.length) {
+      let stringOutfitInfo = JSON.stringify(OutfitInfo);
+      for (var i = 0; i < OutfitIDs.length; i++) {
+        if (OutfitIDs[i] !== undefined && !stringOutfitInfo.includes(JSON.stringify(OutfitIDs[i]))) {
+          axios.get(`/api/product/${OutfitIDs[i]}`)
+          .then(res => {
+            //setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
+            setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
+              id: res.data.id,
+              category: res.data.category,
+              price: res.data.default_price,
+              name: res.data.name
+            }]));
+          })
+          .catch(err => {
+            console.error('Outfit info error on axios call: ', err);
+          })
         }
       }
+
+      let data = OutfitIDs;
+      let config = {
+        method: 'post',
+        url: '/api/outfit/',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: data
+      };
+      axios(config)
+        .then(res => {
+          console.log(res);
+        })
     }
-    const getOutfitPhotos = () => {
-      for (var i = 0; i < OutfitIDs.length; i++) {
-        axios.get(`/api/product/${OutfitIDs[i]}/styles`)
-          .then(res => {
-            if (res.data.results[0].photos[0].thumbnail_url !== null) {
-              setOutfitPhotos(prevOutfitPhotos => ({...prevOutfitPhotos,
-                [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
-              }))
-            } else {
-              setOutfitPhotos(prevOutfitPhotos => ({...prevOutfitPhotos,
-                [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
-              }))
-            }
-          })
-          .catch(err => {
-            console.error('Error in outfit photo axios call: ', err);
-          })
-      }
+  }
+  const getOutfitPhotos = () => {
+    for (var i = 0; i < OutfitIDs.length; i++) {
+      axios.get(`/api/product/${OutfitIDs[i]}/styles`)
+        .then(res => {
+          if (res.data.results[0].photos[0].thumbnail_url !== null) {
+            setOutfitPhotos(prevOutfitPhotos => ({...prevOutfitPhotos,
+              [res.data.product_id]: res.data.results[0].photos[0].thumbnail_url
+            }))
+          } else {
+            setOutfitPhotos(prevOutfitPhotos => ({...prevOutfitPhotos,
+              [res.data.product_id]: "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+            }))
+          }
+        })
+        .catch(err => {
+          console.error('Error in outfit photo axios call: ', err);
+        })
     }
-    const getOutfitRatings = () => {
-      for (var i = 0; i < OutfitIDs.length; i++) {
-        axios.get(`api/review/meta/${OutfitIDs[i]}`)
-          .then(res => {
-            if(Object.keys(res.data.ratings).length !== 0){
-              setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
-            } else {
-              setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: "No ratings"}))
-            }
-          })
-          .catch(err => {
-            console.error('Error in ratings fetch: ', err);
-          })
-      }
+  }
+  const getOutfitRatings = () => {
+    for (var i = 0; i < OutfitIDs.length; i++) {
+      axios.get(`api/review/meta/${OutfitIDs[i]}`)
+        .then(res => {
+          if(Object.keys(res.data.ratings).length !== 0){
+            setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))
+          } else {
+            setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: "No ratings"}))
+          }
+        })
+        .catch(err => {
+          console.error('Error in ratings fetch: ', err);
+        })
     }
+  }
+
+  const showOutfitIDs = () => {
+    console.log('Outfit IDs locally: ', OutfitIDs);
+  }
+
+  useEffect(() => {
+    showOutfitIDs();
     getOutfitInfo();
     getOutfitPhotos();
     getOutfitRatings();
-  }, [OutfitIDs])
+  }, [OutfitIDs.length])
+
+  useEffect(() => {
+    getOutfitIDs();
+  }, [])
 
   const responsive = {
     superLargeDesktop: {
