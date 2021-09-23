@@ -14,12 +14,12 @@ const App = () => {
 
   useEffect(() => {
     const getInfo = () => {
-      axios.get(`/api/product/${prodId}`)
+      axios.get(`/api/products/${prodId}`)
         .then(res => {
           setProdInfo(res.data);
         })
         .catch(err => {
-          // console.error(err);
+          console.error(err);
         })
     }
     getInfo();
@@ -28,10 +28,11 @@ const App = () => {
   return (
     <div>
       <Overview prodInfo={prodInfo} />
-      <QandA prodId={prodId} />
+      {/* <QandA prodId={prodId} />
       <Reviews prodId={prodId} />
+
       <RelatedList prodId={prodId} setProdId={setProdId}/>
-      <OutfitList prodId={prodId} /> 
+      <OutfitList prodId={prodId} /> */}
     </div>
   );
 };

@@ -12,7 +12,7 @@ const Overview = ({prodInfo}) => {
 
   useEffect(() => {
     const getStyle = () => {
-      axios.get(`/api/product/${prodInfo.id}/styles`)
+      axios.get(`/api/products/${prodInfo.id}/styles`)
         .then(res => {
           setProdStyle(res.data.results);
           setSelStyle(res.data.results[0]);
