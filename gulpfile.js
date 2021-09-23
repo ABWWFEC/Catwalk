@@ -1,23 +1,23 @@
-const { src, dest, watch } = require('gulp');
-const minifyJs = require('gulp-uglify');
+const gulp = require('gulp');
+const path = require('path');
+const uglify = require('gulp-uglify');
 const sourceMaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
+const browserSync = require('browser-sync').create();
+const gzip = require('gulp-gzip');
+const rename = require('gulp-rename');
 
-const bundleJs = () => {
-  return src('./client/dist/**/*.js')
-  .pipe(babel({
-    presets: ['@babel/preset-env', '@babel/preset-react'],
-  }))
-    .pipe(sourceMaps.init())
-    .pipe(minifyJs())
-    .pipe(concat('bundleTest.js'))
-    .pipe(sourceMaps.write())
-    .pipe(dest('./client/dist/'));
-}
-
-const devWatch = () => {
-  watch('./client/dist/**/*.js', bundleJs);
-}
-
-exports.default = bundleJs;
+gulp.task('js', () => {
+	return gulp
+		.src('./client/dist/bundle.js')
+		.pipe(
+			babel({
+				presets: ['@babel/preset-env'],
+			}),
+		)
+		.pipe(uglify())
+		.pipe(concat('app.js'))
+		.pipe(gulp.dest('./client/dist'))
+		.pipe(browserSync.stream());
+});
