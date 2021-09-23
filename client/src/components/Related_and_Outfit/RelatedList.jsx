@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import RelatedEntry from './RelatedEntry.jsx';
 import RelatedModal from './Modal.jsx';
@@ -7,12 +7,16 @@ import { Button } from 'react-bootstrap';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {ProductContext} from '../productContext.jsx';
+
 const RelatedList = function({prodId, setProdId}) {
 
   const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedInfo, setRelatedInfo] = useState([]);
   const [relatedPhotos, setRelatedPhotos] = useState({});
   const [relatedRatings, setRelatedRatings] = useState({});
+
+  const { prodInfo } = useContext(ProductContext);
 
   const calculateAverage = (ratings) => {
     let sum = 0;
@@ -24,6 +28,17 @@ const RelatedList = function({prodId, setProdId}) {
 
     return (sum / numberOfReviews).toPrecision(2);
   }
+
+  const getIDs = () => {
+    axios.get(`/api/product/${prodId}/related`)
+      .then(res => {
+        setRelatedIDs(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
   const getRelatedInfo = () => {
     for (var i = 0; i < relatedIDs.length; i++) {
       axios.get(`/api/product/${relatedIDs[i]}`)
@@ -78,26 +93,12 @@ const RelatedList = function({prodId, setProdId}) {
   }
 
   useEffect(() => {
-    const getIDs = () => {
-      axios.get(`/api/product/${prodId}/related`)
-        .then(res => {
-          setRelatedInfo([]);
-          setRelatedPhotos({});
-          setRelatedRatings({});
-          setRelatedIDs(res.data);
-          getRelatedInfo();
-          getRelatedPhotos();
-          getRelatedRatings();
-        })
-        .catch(err => {
-          console.error(err);
-        })
-    }
     getIDs();
   }, [prodId])
 
   useEffect(() => {
     getRelatedPhotos()
+    setRelatedInfo([])
     getRelatedInfo()
     getRelatedRatings()
   }, [relatedIDs.length])
@@ -130,12 +131,21 @@ const RelatedList = function({prodId, setProdId}) {
     return (
       <Carousel responsive={responsive}>
         {relatedInfo.map((product, index) => {
+          const [show, setShow] = useState(false);
+          const handleShow = (e) => {
+            e.stopPropagation();
+            setShow(true);
+          };
+
           return (
-            <div id={product.id}>
+            <div id={product.id} style={{position: 'relative', display: 'inline-block', zIndex:5}}>
               <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
                 <RelatedEntry product={product} id={product.id} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick} setProdId={setProdId}/>
               </a>
-            <RelatedModal prodId={prodId} comparison={index}/>
+              <RelatedModal comparison={product} show={show} setShow={setShow}/>
+              <Button variant="outline-secondary" onClick={(e) => handleShow(e)} style={{position: 'absolute', top:0, right:0, margin:0, zIndex:1000}}>
+                Compare
+              </Button>
             </div>
            )
          })
@@ -146,6 +156,7 @@ const RelatedList = function({prodId, setProdId}) {
 
   return (
     <div>
+      <h2>Related Products</h2>
       <CardDisplay />
     </div>
   )
