@@ -167,7 +167,7 @@ const OutfitList = function({prodId}) {
         </a>
         {OutfitInfo.map((product) => {
             return(
-              <div style={{position: 'relative', display: 'inline-block', zIndex:5}}>
+              <div id={product.id} style={{position: 'relative', display: 'inline-block', zIndex:5}}>
                 <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} removeItem={removeItem} photo={OutfitPhotos[product.id]}/>
                 <Button variant="outline-secondary" onClick={(e) => removeItem(e)} style={{position: 'absolute', top:0, right:0, margin:0, zIndex:1000}}>Remove</Button>
               </div>
