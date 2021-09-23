@@ -14,6 +14,7 @@ const CharacteristicsReviewList = ({ characteristics }) => {
 
   return (
     <div className="row">
+      <div className="h6">Characteristics *</div>
       <div>Rate the characteristics of this product!</div>
       <div>
         {characteristicTags.map(characteristic => (

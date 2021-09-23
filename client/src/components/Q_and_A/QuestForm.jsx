@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import validator from 'email-validator';
 import axios from 'axios';
 
-const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
+const QuestForm = ({ prodInfo, setQuestInfo }) => {
   const [ questText, setQuestText ] = useState('');
   const [ nickname, setNickname ] = useState('');
   const [ email, setEmail ] = useState('');

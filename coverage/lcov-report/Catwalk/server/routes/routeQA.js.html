@@ -23,9 +23,15 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
+<<<<<<< Updated upstream
                 <span class="strong">90.3% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>214/237</span>
+=======
+                <span class="strong">60.84% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>87/143</span>
+>>>>>>> Stashed changes
             </div>
         
             
@@ -44,9 +50,15 @@
         
             
             <div class='fl pad1y space-right2'>
+<<<<<<< Updated upstream
                 <span class="strong">90.3% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>214/237</span>
+=======
+                <span class="strong">60.84% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>87/143</span>
+>>>>>>> Stashed changes
             </div>
         
             
@@ -200,6 +212,7 @@
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
+<<<<<<< Updated upstream
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
 <a name='L146'></a><a href='#L146'>146</a>
@@ -392,6 +405,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+=======
+<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+>>>>>>> Stashed changes
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -415,6 +431,38 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<<<<<<< Updated upstream
+=======
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> Stashed changes
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -652,12 +700,16 @@ router.route('/questions/:product_id')
     axios(config)
       .then((response) =&gt; {
         res.status(200).send(response.data);
+<<<<<<< Updated upstream
         res.end();
+=======
+>>>>>>> Stashed changes
       })
       .catch((error) =&gt; {
 <span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
 <span class="cstat-no" title="statement not covered" >      });</span>
   })
+<<<<<<< Updated upstream
 &nbsp;
 router.route('/questions/:question_id/answers')
   .get((req, res) =&gt; {
@@ -677,10 +729,43 @@ router.route('/questions/:question_id/answers')
         res.status(200).send(response.data);
       })
       .catch((error) =&gt; {
+=======
+  .post((req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const {</span>
+<span class="cstat-no" title="statement not covered" >      body, name, email, product_id,</span>
+<span class="cstat-no" title="statement not covered" >    } = req.body;</span>
+<span class="cstat-no" title="statement not covered" >    const data = {</span>
+<span class="cstat-no" title="statement not covered" >      body,</span>
+<span class="cstat-no" title="statement not covered" >      name,</span>
+<span class="cstat-no" title="statement not covered" >      email,</span>
+<span class="cstat-no" title="statement not covered" >      product_id,</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const config = {</span>
+<span class="cstat-no" title="statement not covered" >      method: 'post',</span>
+<span class="cstat-no" title="statement not covered" >      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?product_id=${req.params.product_id}/qa/questions`,</span>
+<span class="cstat-no" title="statement not covered" >      headers: {</span>
+<span class="cstat-no" title="statement not covered" >        Authorization: TOKEN,</span>
+<span class="cstat-no" title="statement not covered" >      },</span>
+<span class="cstat-no" title="statement not covered" >      data,</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    axios(config)</span>
+<span class="cstat-no" title="statement not covered" >      .then((response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        // console.log(JSON.stringify(response.data));</span>
+<span class="cstat-no" title="statement not covered" >        res.status(201).send('CREATED');</span>
+<span class="cstat-no" title="statement not covered" >      })</span>
+<span class="cstat-no" title="statement not covered" >      .catch((error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        // console.log(error);</span>
+>>>>>>> Stashed changes
 <span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
 <span class="cstat-no" title="statement not covered" >      })</span>
   })
 &nbsp;
+<<<<<<< Updated upstream
+=======
+router.route('/questions/:question_id/answers')
+>>>>>>> Stashed changes
   .post((req, res) =&gt; {
     const {
       body, name, email, photos,
@@ -775,7 +860,11 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< Updated upstream
                 at Sat Sep 11 2021 21:16:58 GMT-0700 (Pacific Daylight Time)
+=======
+                at Fri Sep 10 2021 19:32:53 GMT-0700 (Pacific Daylight Time)
+>>>>>>> Stashed changes
             </div>
         </div>
         <script src="../../../prettify.js"></script>

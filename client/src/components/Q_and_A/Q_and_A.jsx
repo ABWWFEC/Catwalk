@@ -5,22 +5,16 @@ import MoreQuests from './MoreQuests.jsx';
 import QuestAnswerContainer from './QuestAnswerContainer.jsx';
 import QuestSearch from './QuestSearch.jsx';
 
-const QandA = ({ prodId }) => {
-  const [ prodInfo, setProdInfo ] = useState({});
+const QandA = ({ prodInfo }) => {
   const [ questInfo, setQuestInfo ] = useState([]);
   const [ constQuestInfo, setConstQuestInfo ] = useState([]);
   const [ searched, setSearched ] = useState(false);
 
   useEffect(() => {
-    axios.get(`/api/QA/questions/${prodId}`)
+    axios.get(`/api/QA/questions/${prodInfo.id}`)
       .then(response => {
         setQuestInfo(sortQuestions(response.data.results));
         setConstQuestInfo(sortQuestions(response.data.results));
-      })
-      .then(() => {
-        axios.get(`/api/product/${prodId}`)
-          .then(response => setProdInfo(response.data))
-          .catch(error => console.error(error));
       })
       .catch(error => console.error(error));
   }, [])
@@ -45,7 +39,6 @@ const QandA = ({ prodId }) => {
       />
       <QuestAnswerContainer
         questInfo={ questInfo }
-        prodId={ prodId }
         prodInfo={ prodInfo }
         setQuestInfo={ setQuestInfo }
         searched={ searched }

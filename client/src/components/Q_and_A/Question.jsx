@@ -3,7 +3,7 @@ import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
 
-const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQuestInfo }) => {
+const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo }) => {
   const [ moreAnswers, setMoreAnswers ] = useState(false);
   const [ helpfulness, setHelpfulness ] = useState(null);
   const [ helpfulClick, setHelpfulClick ] = useState(false);
@@ -51,7 +51,7 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
         <div>
           {allAnswers.map((answer, idx) => {
             if (idx === 0) {
-              return <Answer first={true} key={answer.id} answer={answer} />
+              return <Answer first={true} key={idx} answer={answer} />
             } else return <Answer key={answer.id} answer={answer} />
           }
           )}
@@ -66,7 +66,7 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
         <div>
           {topTwo.map((answer, idx) => {
             if (idx === 0) {
-              return <Answer first={true} key={answer.id} answer={answer} />
+              return <Answer first={true} key={idx} answer={answer} />
             } else return <Answer key={answer.id} answer={answer} />
           }
           )}
@@ -87,7 +87,6 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
           setQuestInfo={ setQuestInfo }
           question={ question }
           prodInfo={ prodInfo }
-          prodId={ prodId }
           idx={ idx }
         />
         <div
