@@ -7,8 +7,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Fit') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">Runs tight</div>
-          <div className="col-sm-6 text-end">Runs long</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Runs tight</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Runs long</small></div>
         </div>
       )
     }
@@ -16,8 +16,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Length') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">Runs short</div>
-          <div className="col-sm-6 text-end">Runs long</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Runs short</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Runs long</small></div>
         </div>
       )
     }
@@ -25,16 +25,16 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Comfort') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">Uncomfortable</div>
-          <div className="col-sm-6 text-end">Perfect</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Uncomfortable</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Perfect</small></div>
         </div>
       )
     }
     if (name === 'Quality') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">Poor</div>
-          <div className="col-sm-6 text-end">Perfect</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Poor</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Perfect</small></div>
         </div>
       )
     }
@@ -42,8 +42,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Width') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">Too narrow</div>
-          <div className="col-sm-6 text-end">Too wide</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Too narrow</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Too wide</small></div>
         </div>
       )
     }
@@ -51,8 +51,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name ==='Size') {
       return (
         <div className="row">
-          <div className="col-sm-6 text-start">A size too small</div>
-          <div className="col-sm-6 text-end">A size too wide</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">A size too small</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">A size too wide</small></div>
         </div>
       )
     }
@@ -64,7 +64,7 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
         <div>{characteristicName}</div>
       </div>
       <div className="characteristic-rating row align-items-start" style={{height: '10px'}}>
-        <GoTriangleDown className="col-auto" style={{transform: `translate(${Number(characteristicValue).toPrecision(3) * 100}%)`}}/>
+        <GoTriangleDown className="col-auto" style={{transform: `translateX(${Number(characteristicValue).toPrecision(3) * 100}%)`}}/>
       </div>
       {descriptors(characteristicName)}
     </div>

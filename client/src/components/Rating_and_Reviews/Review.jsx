@@ -73,11 +73,11 @@ const Review = ({ reviewData }) => {
         )
       })}
       {recommend && <div className="row align-items-center mt-1">
-        <div className="col-auto"><FcCheckmark size={'1.5em'}/></div>
-        <div className="col">I recommend this product</div>
+        <div className="col-auto"><FcCheckmark style={{transform: 'translateY(-10%)'}} size={'1.25em'}/></div>
+        <div className="col" style={{'paddingLeft': '0px'}}>I recommend this product</div>
       </div>}
       {response && <div className="mt-1 seller-response">{response}</div>}
-      <div className="row mt-1 ">
+      <div className="row mt-1 fw-light">
         <div className="col-auto">
           Helpful? <span
             className="text-decoration-underline"
@@ -87,8 +87,8 @@ const Review = ({ reviewData }) => {
               style={{cursor: 'pointer'}}
               onClick={handleReportClick}>Report</span>
         </div>
-        {yesClicked && <div className="col">Sent as helpful!</div>}
-        {reportClicked && <div className="col">Reported!</div>}
+        {yesClicked && <div className="col helpful-yes">Sent as helpful!</div>}
+        {reportClicked && <div className="col helpful-report">Reported!</div>}
       </div>
       <Modal show={photoClicked} onHide={handlePhotoModalClose}>
         <Modal.Header>

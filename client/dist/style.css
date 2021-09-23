@@ -17,6 +17,14 @@ input.star-rating {
   overflow-wrap: break-word;
 }
 
+.helpful-yes {
+  color: #05b105cf;
+}
+
+.helpful-report {
+  color: #ff2b2bcf;
+}
+
 .add-review {
   width: 700px;
   max-width: 80%;

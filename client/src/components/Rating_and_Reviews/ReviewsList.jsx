@@ -48,15 +48,16 @@ const ReviewsList = () => {
       {displayedReviews()}
       <div className="row mt-2">
         {(currNumberOfReviews > 2) &&
-        <div className="col-auto me-auto">
+        <div className="col align-self-start">
           <button className="btn btn-outline-dark" onClick={handleMoreReviewsClick} >MORE REVIEWS</button>
         </div>
         }
-        <div className="col-auto">
+        <div className="col  align-self-end">
           <button className="btn btn-outline-dark" onClick={handleAddAReviewClick}><FiPlus size={'1.25em'}/> ADD A REVIEW</button>
         </div>
       </div>
-      {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
+      {currNumberOfReviews === 0 && <div>There are no reviews!</div>}
+      {(currNumberOfReviews !== 0 && currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       <Modal dialogClassName="add-review" show={addReviewClicked} onHide={handleAddReviewClose}>
         <Modal.Header>
           <Modal.Title>Add a Review!</Modal.Title>
