@@ -131,12 +131,21 @@ const RelatedList = function({prodId, setProdId}) {
     return (
       <Carousel responsive={responsive}>
         {relatedInfo.map((product, index) => {
+          const [show, setShow] = useState(false);
+          const handleShow = (e) => {
+            e.stopPropagation();
+            setShow(true);
+          };
+
           return (
-            <div id={product.id}>
+            <div id={product.id} style={{position: 'relative', display: 'inline-block', zIndex:5}}>
               <a style={{ cursor: 'pointer' }} onClick={() => setProdId(product.id)}>
                 <RelatedEntry product={product} id={product.id} key={index} photo={relatedPhotos[product.id]} rating={relatedRatings[product.id]} handleClick={handleClick} setProdId={setProdId}/>
               </a>
-            <RelatedModal prodId={prodId} comparison={product}/>
+              <RelatedModal comparison={product} show={show} setShow={setShow}/>
+              <Button variant="outline-secondary" onClick={(e) => handleShow(e)} style={{position: 'absolute', top:0, right:0, margin:0, zIndex:1000}}>
+                Compare
+              </Button>
             </div>
            )
          })
@@ -147,6 +156,7 @@ const RelatedList = function({prodId, setProdId}) {
 
   return (
     <div>
+      <h2>Related Products</h2>
       <CardDisplay />
     </div>
   )

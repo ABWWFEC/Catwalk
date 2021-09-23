@@ -3,14 +3,18 @@ import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import {ProductContext} from '../productContext.jsx';
 import axios from 'axios';
 
-const RelatedModal = ({prodId, comparison}) => {
+const RelatedModal = ({comparison, show, setShow}) => {
   const [MainProduct, setMainProduct] = useState({});
-  const [show, setShow] = useState(false);
-
   const { prodInfo } = useContext(ProductContext);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = (e) => {
+    setShow(false);
+  };
+  // const handleShow = (e) => {
+  //   console.log('in handleshow');
+  //   setShow(true);
+  //   e.stopPropagation();
+  // };
   const checkForFeature = (feature, product) => {
     if(product.includes(feature)) {
       return (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -24,11 +28,7 @@ const RelatedModal = ({prodId, comparison}) => {
 
   return (
     <div>
-      <Button variant="secondary" onClick={handleShow}>
-        Compare
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={(e) => handleClose(e)}>
         <Modal.Header closeButton>
           <Modal.Title>Comparing</Modal.Title>
         </Modal.Header>

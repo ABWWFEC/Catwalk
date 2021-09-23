@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import OutfitEntry from './OutfitEntry.jsx';
 import Carousel from 'react-multi-carousel';
@@ -166,7 +166,12 @@ const OutfitList = function({prodId}) {
           </Card>
         </a>
         {OutfitInfo.map((product) => {
-          return <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} removeItem={removeItem} photo={OutfitPhotos[product.id]}/>
+            return(
+              <div style={{position: 'relative', display: 'inline-block', zIndex:5}}>
+                <OutfitEntry product={product} key={product.id} rating={OutfitRatings[product.id]} removeItem={removeItem} photo={OutfitPhotos[product.id]}/>
+                <Button variant="outline-secondary" onClick={(e) => removeItem(e)} style={{position: 'absolute', top:0, right:0, margin:0, zIndex:1000}}>Remove</Button>
+              </div>
+            )
           })
         }
       </Carousel>
@@ -175,6 +180,7 @@ const OutfitList = function({prodId}) {
 
   return (
     <div>
+      <h2>Outfit</h2>
       <OutfitDisplay />
     </div>
   )

@@ -17,7 +17,6 @@ const OutfitEntry = ({product, photo, rating, removeItem}) => (
     <Card.Text>
       Rating: {rating}
     </Card.Text>
-    <Button variant="secondary" onClick={(e) => removeItem(e)}>Remove</Button>
   </Card.Body>
 </Card>
 )
