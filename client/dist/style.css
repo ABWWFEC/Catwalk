@@ -23,13 +23,17 @@ input.star-rating {
 }
 
 .rating-graph {
-  background-color: #ccc;
   max-width: 175px;
+  background-color: #ccc;
 }
 
 .rating-percent {
   height: 10px;
   background-color: #05b105cf;
+}
+
+.characteristic-rating {
+  background-color: #ccc;
 }
 
 .star-ratings {

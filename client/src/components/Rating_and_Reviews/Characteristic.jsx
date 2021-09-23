@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoTriangleDown } from 'react-icons/go';
 
 const Characteristic =  ({ characteristicName, characteristicValue }) => {
 
@@ -59,8 +60,12 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
 
   return (
     <div>
-      <div>{characteristicName}</div>
-      <div>{Number(characteristicValue).toPrecision(3)} bar</div>
+      <div className="row">
+        <div>{characteristicName}</div>
+      </div>
+      <div className="characteristic-rating row align-items-start" style={{height: '10px'}}>
+        <GoTriangleDown className="col-auto" style={{transform: `translate(${Number(characteristicValue).toPrecision(3) * 100}%)`}}/>
+      </div>
       {descriptors(characteristicName)}
     </div>
   )
