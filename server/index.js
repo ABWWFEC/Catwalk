@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const { routeProducts, routeQA, routeReviews } = require('./routes/index');
+const { routeProducts, routeQA, routeReviews, outfit } = require('./routes/index');
 
 const app = express();
 
@@ -14,9 +14,10 @@ app.use(morgan('dev'));
 app.use('/api/product', routeProducts);
 app.use('/api/QA', routeQA);
 app.use('/api/review', routeReviews);
+app.use('/api/outfit', outfit);
 
-// app.listen(port, () => {
-//   console.log(`connected to port: ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`connected to port: ${port}`);
+});
 
 module.exports = app;
