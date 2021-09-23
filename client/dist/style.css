@@ -6,6 +6,17 @@ input.star-rating {
   border-radius: 0;
 }
 
+.seller-response {
+  border-top: 2px;
+  border-bottom: 2px;
+  border-color: #000;
+  background-color: #ccc;
+}
+
+.review-body {
+  overflow-wrap: break-word;
+}
+
 .add-review {
   width: 700px;
   max-width: 80%;
