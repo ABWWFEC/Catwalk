@@ -17,7 +17,18 @@ const AddReview = ({ product_id, handleAddReviewClose }) => {
     characteristicsById[characteristics[characteristic].id] = 0;
   }
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      summary: '',
+      body: '',
+      rating: 0,
+      photos: '',
+      characteristics: '',
+      recommend: ''
+    }
+  });
   const { register, handleSubmit, formState: { errors }, watch } = methods;
   const watchFields = watch(['body', 'photos'], {"body": '', 'photos': []});
 

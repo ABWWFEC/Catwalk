@@ -80,7 +80,10 @@ const Review = ({ reviewData }) => {
       {response && <div className="mt-2 seller-response">{response}</div>}
       <div className="row mt-2 fw-light">
         <div className="col-auto">
-          Helpful? <span
+          <span className="badge bg-light text-dark">
+            Helpful?
+          </span>
+           <span
             className="badge bg-light text-dark"
             style={{cursor: 'pointer'}}
             onClick={handleYesClick}>Yes</span>({helpfulness}) | <span
