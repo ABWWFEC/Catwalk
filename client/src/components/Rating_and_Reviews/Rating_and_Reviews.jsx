@@ -165,7 +165,7 @@ const Reviews = (props) => {
   useEffect(() => {
     getReviewsData(sortParam);
     getReviewsMetaData();
-  }, []);
+  }, [props.prodId]);
 
   return (
     <div className="row mx-3 my-5">

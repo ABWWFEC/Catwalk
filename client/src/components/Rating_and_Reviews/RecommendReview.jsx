@@ -1,41 +1,41 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
-import { ReviewFormContext } from './AddReview.jsx'
+import { useFormContext } from 'react-hook-form';
 
 const RecommendReview = () => {
-  const { reviewForm, handleInputChange } = useContext(ReviewFormContext);
-  const { recommend } = reviewForm;
+  const methods = useFormContext();
+  const { register, formState: { errors } } = methods;
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <Form.Label>Would you recommend this product? *</Form.Label>
-      <Form.Group>
-        <div className="form-check-inline">
-          <Form.Label>
+      <div className="form-check-inline form-check">
+        <div className="form-check-inline form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="recommend"
+              value={true}
+              {...register("recommend", { required: { value: true, message: 'Please select an option.' }})} ></input>
+          <label className="form-check-label">
             Yes
-          </Form.Label>
-          <input
-            type="radio"
-            name="recommend"
-            label="Yes"
-            value={true}
-            checked={recommend === 'true'}
-            required
-            onChange={e => handleInputChange(e)}></input>
+          </label>
         </div>
-        <div className="form-check-inline">
-          <Form.Label>
+        <div className="form-check-inline form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="recommend"
+              value={false}
+              {...register("recommend", { required: { value: true, message: 'Please select an option.' }})} ></input>
+          <label className="form-check-label">
             No
-          </Form.Label>
-          <input
-            type="radio"
-            name="recommend"
-            value={false}
-            checked={recommend === 'false'}
-            required
-            onChange={e => handleInputChange(e)}></input>
+          </label>
         </div>
-      </Form.Group>
+      </div>
+      {errors.recommend && <Form.Text className="text-danger text-opacity-80">
+        {errors.recommend.message}
+      </Form.Text>}
     </div>
   )
 }
