@@ -3,6 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import Collapse from 'react-bootstrap/Collapse';
 import { FcCheckmark } from 'react-icons/fc';
+import { IoIosStarOutline, IoIosStar } from 'react-icons/io';
 
 const Review = ({ reviewData }) => {
   const [ photoClicked, setPhotoClicked ] = useState(false);
@@ -50,8 +51,18 @@ const Review = ({ reviewData }) => {
   return (
     <div className="row mt-3">
       <div className="row">
-        <div className="col-auto me-auto">star rating {rating}</div>
-        <div className="col-auto text-end">{reviewer_name}, {readableDate}</div>
+        <div className="col d-flex">
+          {[...Array(5)].map((starRating, index) => {
+            index += 1;
+            return (
+              <div className="col-auto">
+                {index <= rating && <IoIosStar size={'1em'} key={`up to star ${index}`}/>}
+                {index > rating && <IoIosStarOutline size={'1em'} key={`less than star ${index}`}/>}
+              </div>
+            )
+          })}
+        </div>
+        <div className="col text-end">{reviewer_name}, {readableDate}</div>
       </div>
       <div className="fw-bold mt-2">{summary}</div>
       {body.length <= 250 && <div className="text-wrap">{body}</div>}
