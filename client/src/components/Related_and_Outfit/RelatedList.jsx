@@ -30,7 +30,7 @@ const RelatedList = function({prodId, setProdId}) {
   }
 
   const getIDs = () => {
-    axios.get(`/api/product/${prodId}/related`)
+    axios.get(`/api/products/${prodId}/related`)
       .then(res => {
         setRelatedIDs(res.data);
       })
@@ -41,7 +41,7 @@ const RelatedList = function({prodId, setProdId}) {
 
   const getRelatedInfo = () => {
     for (var i = 0; i < relatedIDs.length; i++) {
-      axios.get(`/api/product/${relatedIDs[i]}`)
+      axios.get(`/api/products/${relatedIDs[i]}`)
         .then(res => {
           setRelatedInfo(prevRelatedInfo => ([...prevRelatedInfo, {
             id: res.data.id,
@@ -59,7 +59,7 @@ const RelatedList = function({prodId, setProdId}) {
 
   const getRelatedPhotos = () => {
     for (var i = 0; i < relatedIDs.length; i++) {
-      axios.get(`/api/product/${relatedIDs[i]}/styles`)
+      axios.get(`/api/products/${relatedIDs[i]}/styles`)
         .then(res => {
           if (res.data.results[0].photos[0].thumbnail_url !== null) {
             setRelatedPhotos(prevRelatedPhotos => ({...prevRelatedPhotos,
@@ -78,7 +78,7 @@ const RelatedList = function({prodId, setProdId}) {
   }
   const getRelatedRatings = () => {
     for (var i = 0; i < relatedIDs.length; i++) {
-      axios.get(`api/review/meta/${relatedIDs[i]}`)
+      axios.get(`api/reviews/meta/${relatedIDs[i]}`)
         .then(res => {
           if(Object.keys(res.data.ratings).length !== 0){
             setRelatedRatings(prevRelatedRatings => ({...prevRelatedRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))

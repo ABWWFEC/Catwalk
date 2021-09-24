@@ -44,7 +44,7 @@ const OutfitList = function({prodId}) {
       let stringOutfitInfo = JSON.stringify(OutfitInfo);
       for (var i = 0; i < OutfitIDs.length; i++) {
         if (OutfitIDs[i] !== undefined && !stringOutfitInfo.includes(JSON.stringify(OutfitIDs[i]))) {
-          axios.get(`/api/product/${OutfitIDs[i]}`)
+          axios.get(`/api/products/${OutfitIDs[i]}`)
           .then(res => {
             //setOutfitInfo(OutfitInfo.filter(item => item.id !== res.data.id));
             setOutfitInfo(prevRelatedInfo => ([...prevRelatedInfo, {
@@ -77,7 +77,7 @@ const OutfitList = function({prodId}) {
   }
   const getOutfitPhotos = () => {
     for (var i = 0; i < OutfitIDs.length; i++) {
-      axios.get(`/api/product/${OutfitIDs[i]}/styles`)
+      axios.get(`/api/products/${OutfitIDs[i]}/styles`)
         .then(res => {
           if (res.data.results[0].photos[0].thumbnail_url !== null) {
             setOutfitPhotos(prevOutfitPhotos => ({...prevOutfitPhotos,
@@ -96,7 +96,7 @@ const OutfitList = function({prodId}) {
   }
   const getOutfitRatings = () => {
     for (var i = 0; i < OutfitIDs.length; i++) {
-      axios.get(`api/review/meta/${OutfitIDs[i]}`)
+      axios.get(`api/reviews/meta/${OutfitIDs[i]}`)
         .then(res => {
           if(Object.keys(res.data.ratings).length !== 0){
             setOutfitRatings(prevOutfitRatings => ({...prevOutfitRatings, [res.data.product_id]: calculateAverage(res.data.ratings)}))

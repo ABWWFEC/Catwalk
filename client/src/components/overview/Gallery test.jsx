@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
+import ImgSSR from './SSR.jsx';
 
 const Gallery = ({style}) => {
   //image gallery
@@ -66,7 +67,7 @@ const Gallery = ({style}) => {
   const thumbnailDisplay = () => {
     return (
       <div className='thumbnail-bar'>
-        {thumbLeftNav()}
+        {/* {thumbLeftNav()} */}
         <div className='row row-cols-7'>
           {style.photos.map((photo, index) => {
             return (
@@ -76,7 +77,7 @@ const Gallery = ({style}) => {
             )
           })}
         </div>
-        {thumbRightNav()}
+        {/* {thumbRightNav()} */}
       </div>
     )
   }
@@ -210,6 +211,7 @@ const Gallery = ({style}) => {
   }
 
   return (
+    // ImgSSR()
     imgSection()
   )
 }

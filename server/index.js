@@ -16,9 +16,9 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use('/api/product', routeProducts);
+app.use('/api/products', routeProducts);
 app.use('/api/QA', routeQA);
-app.use('/api/review', routeReviews);
+app.use('/api/reviews', routeReviews);
 app.use('/api/outfit', outfit);
 
 
