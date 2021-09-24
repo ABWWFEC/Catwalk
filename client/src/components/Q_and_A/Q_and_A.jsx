@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.js'
 
 
-const QandA = ({ prodInfo }) => {
+const QandA = ({ prodInfo, prodId }) => {
   const [ questInfo, setQuestInfo ] = useState([]);
   const [ constQuestInfo, setConstQuestInfo ] = useState([]);
   const [ searched, setSearched ] = useState(false);
@@ -21,7 +21,7 @@ const QandA = ({ prodInfo }) => {
         setConstQuestInfo(sortQuestions(response.data.results));
       })
       .catch(error => console.error(error));
-  }, [])
+  }, [prodId])
 
   const sortQuestions = (questions) => {
     return questions.sort((a, b) => {

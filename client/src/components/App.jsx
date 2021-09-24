@@ -50,13 +50,14 @@ import RelatedList from './Related_and_Outfit/RelatedList.jsx';
 import OutfitList from './Related_and_Outfit/OutfitList.jsx';
 
 import NavBar from './NavBar.jsx';
-
 import { ProductContext } from './productContext.jsx';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const [prodId, setProdId] = useState(42366);
   const [prodInfo, setProdInfo] = useState({id:prodId});
+  const [viewMode, setViewMode ] = useState(false);
+
   const getProdInfo = () => {
     axios.get(`/api/products/${prodId}`)
         .then(res => {
