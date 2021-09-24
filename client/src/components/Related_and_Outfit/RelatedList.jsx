@@ -156,7 +156,7 @@ const RelatedList = function({prodId, setProdId}) {
 
   return (
     <div>
-      <h2>Related Products</h2>
+      <h2 className='my-5'>Related Products</h2>
       <CardDisplay />
     </div>
   )

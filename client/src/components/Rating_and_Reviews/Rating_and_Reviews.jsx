@@ -168,7 +168,7 @@ const Reviews = (props) => {
   }, []);
 
   return (
-    <div className="row mx-3">
+    <div className="row mx-3 my-5">
       <div className="row lead">RATINGS & REVIEWS</div>
       <div className="row justify-content-center">
         <ReviewsContext.Provider value={providerValue}>

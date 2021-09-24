@@ -76,13 +76,12 @@ const App = () => {
     <div>
       <NavBar viewMode={ viewMode } setViewMode={ setViewMode }/>
       <Overview prodId={prodId} prodInfo={prodInfo}/>
-      <QandA prodId={prodId} prodInfo={prodInfo}/>
-      <Reviews prodId={prodId} prodInfo={prodInfo} />
       <ProductContext.Provider value={value}>
         <RelatedList prodId={prodId} setProdId={setProdId} />
         <OutfitList prodId={prodId} />
       </ProductContext.Provider>
-
+      <QandA prodId={prodId} prodInfo={prodInfo}/>
+      <Reviews prodId={prodId} prodInfo={prodInfo} />
     </div>
   );
 };

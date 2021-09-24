@@ -33,7 +33,7 @@ const QandA = ({ prodInfo, prodId }) => {
 
   return (
     <div>
-      <h1 className='card-title px-3 mt-3 h3'>Questions & Answers</h1>
+      <h1 className='card-title px-3 my-5 h3'>Questions & Answers</h1>
       <QuestSearch
         questInfo={ questInfo }
         setQuestInfo={ setQuestInfo }
