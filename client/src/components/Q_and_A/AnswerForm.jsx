@@ -100,17 +100,20 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
 
   return (
     <div>
-      <div id={`answer-form-${ idx }`} className="modal" tabIndex="-1">
+      <div id={`answer-form-${ idx }`} className="modal" tabIndex="-1" role='form'>
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content p-3">
             <form onSubmit={ handlePost }>
               <div className="modal-header">
-                <h3 className="modal-title">
+                <h1 className="modal-title h3">
                   { prodInfo.name }: { question.question_body }
-                </h3>
+                </h1>
 
-                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <button type="button"
+                  className="btn btn-outline-dark close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close">
+                  <span className='h4'>×</span>
                 </button>
               </div>
 
@@ -121,7 +124,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                     Please check your responses and try again
                   </div>}
 
-                <h6 id='your-quest'>Your Answer*</h6>
+                <label className='fs-6' id='your-quest'>Your Answer*</label>
 
                 <textarea
                   type='text'
@@ -129,7 +132,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                   onChange={(e) => setAnswerText(e.target.value) }
                 required />
 
-                <h6 id='nickname'>What is your nickname?*</h6>
+                <label className='fs-6' id='nickname'>What is your nickname?*</label>
                 <p className='fs-6 font-weight-light text-muted'>
                   <small>
                     For privacy reasons, do not use your full name or email
@@ -141,14 +144,14 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                   placeholder='Example: jack543!'
                 required />
 
-                <h6 id='email'>Your Email*</h6>
+                <label className='fs-6' id='email'>Your Email*</label>
                 <input type='email'
                   className='input-group mb-3 fs-6 form-control'
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder='Example: jack@email.com'
                 required />
 
-                <h6>Upload your photos </h6>
+                <label style={{ width: '100%' }}className='fs-6'>Upload your photos </label>
                 <input
                   type='file'
                   ref={ inputref }
@@ -159,7 +162,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                   style={{ display: 'none' }}
                 />
 
-                <button className='btn btn-info' onClick={(e) => {
+                <button className='btn btn-outline-dark' onClick={(e) => {
                   e.preventDefault();
                   inputref.current.click();
                 }}>Select Photo</button>
@@ -167,7 +170,7 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                 <div className='mt-3 fs-6'>{photo.name}</div>
 
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-outline-dark"
                   style={{ display: photoCount === 5 ? 'none' : 'block' }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -185,13 +188,13 @@ const AnswerForm = ({ prodId, prodInfo, question, idx, questInfo, setQuestInfo }
                 </div>
                 <div>
                   <button onClick={ handleSubmit }
-                    className="btn btn-primary" type='submit' >Submit
+                    className="btn btn-outline-dark mx-2" type='submit' >Submit
                   </button>
 
                   <button
                     type="button"
                     id={`answer-form-${ idx }`}
-                    className="btn btn-secondary"
+                    className="btn btn-outline-dark"
                     data-bs-dismiss="modal">Close
                   </button>
                 </div>

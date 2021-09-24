@@ -60,17 +60,17 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
     <div>
       <div id='quest-form' className="modal" tabIndex="-1" role="form">
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content p-3">
             <form onSubmit={ handlePost }>
               <div className="modal-header">
-                <h3 className="modal-title">
+                <h1 className="modal-title h3">
                   Ask Your Question about {prodInfo.name}
-                </h3>
+                </h1>
                 <button type="button"
-                  className="close"
+                  className="btn btn-outline-dark close"
                   data-bs-dismiss="modal"
                   aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span className='h4'>×</span>
                 </button>
               </div>
 
@@ -81,13 +81,14 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
                   Please check your responses and try again
                 </div>}
 
-                <h6 id='your-quest'>Your Question*</h6>
+                <label className='fs-6' id='your-quest'>Your Question*</label>
+
                 <textarea type='text'
                   className='form-control'
                   onChange={(e) => setQuestText(e.target.value)}
                 required />
 
-                <h6 id='nickname'>What is your nickname?*</h6>
+                <label className='fs-6' id='nickname'>What is your nickname?*</label>
                 <p className='fs-6 font-weight-light text-muted'>
                   <small>
                     For privacy reasons, do not use your full name or email address
@@ -99,7 +100,7 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
                   placeholder='Example: jackson11!'
                 required />
 
-                <h6 id='email'>Your Email*</h6>
+                <label className='fs-6' id='email'>Your Email*</label>
                 <input type='email'
                   className='input-group mb-3 fs-6 form-control'
                   onChange={(e) => setEmail(e.target.value)}
@@ -116,12 +117,12 @@ const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
 
                 <div>
                   <button onClick={ handleSubmit }
-                    type="submit" className="btn btn-primary">Submit
+                    type="submit" className="btn btn-outline-dark mx-2">Submit
                   </button>
 
                   <button type="button"
                     id='question-closer'
-                    className="btn btn-secondary"
+                    className="btn btn-outline-dark"
                     data-bs-dismiss="modal">Close
                   </button>
 

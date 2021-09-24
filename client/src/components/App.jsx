@@ -14,8 +14,8 @@ const App = () => {
   return (
     <div>
       <NavBar viewMode={ viewMode } setViewMode={ setViewMode }/>
-      <Overview prodId={prodId} />
-      <QandA prodId={prodId} />
+      <Overview prodId={ prodId } />
+      <QandA prodId={ prodId } viewMode={ viewMode }/>
       <Reviews prodId={prodId} />
       <RelatedList prodId={prodId} setProdId={setProdId}/>
       <OutfitList prodId={prodId} />

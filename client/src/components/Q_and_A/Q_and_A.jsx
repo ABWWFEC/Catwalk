@@ -4,6 +4,10 @@ import AddQuest from './AddQuest.jsx';
 import MoreQuests from './MoreQuests.jsx';
 import QuestAnswerContainer from './QuestAnswerContainer.jsx';
 import QuestSearch from './QuestSearch.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
+
 
 const QandA = ({ prodId }) => {
   const [ prodInfo, setProdInfo ] = useState({});

@@ -12,7 +12,7 @@ const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
       <button type="button"
         data-bs-toggle="modal"
         data-bs-target="#quest-form"
-        className="btn btn-primary">
+        className="btn btn-outline-dark">
         Add Question +
       </button>
       <QuestForm

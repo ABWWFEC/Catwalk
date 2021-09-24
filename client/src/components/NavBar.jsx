@@ -9,11 +9,20 @@ const NavBar = ({ viewMode, setViewMode }) => {
 
   const toggleBodyClasses = isDarkMode => {
     if (isDarkMode) {
-      document.body.classList.add('bg-dark', 'text-light');
-      document.body.classList.remove('bg-light', 'text-dark');
+      const test = document.querySelectorAll('*');
+      test.forEach(el => {
+        el.classList.add('bg-dark', 'text-light', 'border-light')
+
+      });
+      // document.body.classList.add('bg-dark', 'text-light');
+      // document.body.classList.remove('bg-light', 'text-dark');
     } else {
-      document.body.classList.add('bg-light', 'text-dark');
-      document.body.classList.remove('bg-dark', 'text-light');
+      const test = document.querySelectorAll('*');
+      test.forEach(el => {
+      el.classList.remove('bg-dark', 'text-light', 'border-light')
+      });
+      // document.body.classList.add('bg-light', 'text-dark');
+      // document.body.classList.remove('bg-dark', 'text-light');
     }
   }
 

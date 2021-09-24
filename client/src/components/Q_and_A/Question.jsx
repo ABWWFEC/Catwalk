@@ -58,11 +58,11 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
             } else return <Answer key={answer.id} answer={answer} />
           }
           )}
-          <p style={{ 'cursor': 'pointer'}}
-          className='badge bg-info text-dark'
+          <button
+          className='btn btn-outline-dark'
             onClick={loadAndUnloadAnswers}
           >Hide Additional Answers
-          </p>
+          </button>
         </div>)
     } else {
       return (
@@ -74,14 +74,15 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
           }
           )}
           {allAnswers.length > 2 &&
-            <p style={{ 'cursor': 'pointer'}}
-            className='badge bg-info text-dark'
+            <button
+            type='button'
+            className='btn btn-outline-dark'
               onClick={loadAndUnloadAnswers}>Load More Answers
-            </p>}
+            </button>}
         </div>)
     }
   }
-
+  // bg-dark text-light
   return (
     <div className="accordion-item">
       <h2 className="accordion-header">
@@ -101,25 +102,25 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
           aria-expanded="true" aria-controls={helperIdx}
         >
           <div className='p-2 question'>Q: {question.question_body}</div>
-          <div className='mb-auto p-2 badge text-dark'>
+          <div className='mb-auto p-2 badge'>
             {!helpfulClick
-              ? <p className='badge bg-info text-dark'
+              ? <p className='badge bg-light text-dark'
                 onClick={() => {
                   setHelpfulness(helpfulness + 1);
                   increaseHelpful()
                 }}
               >Helpful?
               </p>
-              : <p className='badge bg-success text-light'>HELPFUL!</p>}
+              : <p className='badge bg-success text-dark'>HELPFUL!</p>}
             <span className='sr-only'>  </span>
 
-            <span className='badge bg-dark'>
+            <span className='badge bg-light text-dark'>
               Yes {helpfulness}
             </span>
 
             <span className='sr-only'>  </span>
             <span
-              className='badge bg-success text-light'
+              className='badge bg-light text-dark'
               data-bs-toggle='modal'
               href={`#answer-form-${idx}`}>Add Answer
             </span>
@@ -131,6 +132,7 @@ const Question = ({ prodId, question, helperIdx, prodInfo, idx, questInfo, setQu
         data-bs-parent="#quest-accordion"
         aria-labelledby={'col' + question.question_id}
       >
+        {/* bg-dark text-light */}
         <div className="accordion-body">
           {renderAnswers(question.answers)}
         </div>
