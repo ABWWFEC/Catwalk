@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.js'
 
-const QuestForm = ({ prodInfo, setQuestInfo, prodId }) => {
+const QuestForm = ({ prodInfo, setQuestInfo }) => {
   const [ questText, setQuestText ] = useState('');
   const [ nickname, setNickname ] = useState('');
   const [ email, setEmail ] = useState('');

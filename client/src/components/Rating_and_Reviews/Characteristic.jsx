@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoTriangleDown } from 'react-icons/go';
 
 const Characteristic =  ({ characteristicName, characteristicValue }) => {
 
@@ -6,8 +7,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Fit') {
       return (
         <div className="row">
-          <div className="col-sm-6">Runs tight</div>
-          <div className="col-sm-6">Runs long</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Runs tight</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Runs long</small></div>
         </div>
       )
     }
@@ -15,8 +16,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Length') {
       return (
         <div className="row">
-          <div className="col-sm-6">Runs short</div>
-          <div className="col-sm-6">Runs long</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Runs short</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Runs long</small></div>
         </div>
       )
     }
@@ -24,16 +25,16 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Comfort') {
       return (
         <div className="row">
-          <div className="col-sm-6">Uncomfortable</div>
-          <div className="col-sm-6">Perfect</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Uncomfortable</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Perfect</small></div>
         </div>
       )
     }
     if (name === 'Quality') {
       return (
         <div className="row">
-          <div className="col-sm-6">Poor</div>
-          <div className="col-sm-6">Perfect</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Poor</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Perfect</small></div>
         </div>
       )
     }
@@ -41,8 +42,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name === 'Width') {
       return (
         <div className="row">
-          <div className="col-sm-6">Too narrow</div>
-          <div className="col-sm-6">Too wide</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">Too narrow</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">Too wide</small></div>
         </div>
       )
     }
@@ -50,8 +51,8 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
     if (name ==='Size') {
       return (
         <div className="row">
-          <div className="col-sm-6">A size too small</div>
-          <div className="col-sm-6">A size too wide</div>
+          <div className="col-sm-6 text-start"><small className="fw-light">A size too small</small></div>
+          <div className="col-sm-6 text-end"><small className="fw-light">A size too wide</small></div>
         </div>
       )
     }
@@ -59,8 +60,12 @@ const Characteristic =  ({ characteristicName, characteristicValue }) => {
 
   return (
     <div>
-      <div>{characteristicName}</div>
-      <div>{Number(characteristicValue).toPrecision(3)} bar</div>
+      <div className="row">
+        <div>{characteristicName}</div>
+      </div>
+      <div className="characteristic-rating row align-items-start" style={{height: '10px'}}>
+        <GoTriangleDown className="col-auto" style={{transform: `translateX(${Number(characteristicValue).toPrecision(3) * 100}%)`}}/>
+      </div>
       {descriptors(characteristicName)}
     </div>
   )

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.js'
 
-const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
+const AddQuest = ({ prodInfo, questInfo, setQuestInfo }) => {
   const [ showModal, setShowModal ] = useState(false);
 
   return (
@@ -17,7 +17,6 @@ const AddQuest = ({ prodInfo, questInfo, setQuestInfo, prodId }) => {
       </button>
       <QuestForm
         prodInfo={ prodInfo }
-        prodId={ prodId }
         questInfo={ questInfo }
         setQuestInfo={ setQuestInfo }
       />

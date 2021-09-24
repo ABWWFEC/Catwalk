@@ -1,34 +1,41 @@
 import React, { useContext } from 'react';
+import { Form } from 'react-bootstrap';
 import { ReviewFormContext } from './AddReview.jsx'
 
 const RecommendReview = () => {
-  const { recommend, handleInputChange } = useContext(ReviewFormContext);
+  const { reviewForm, handleInputChange } = useContext(ReviewFormContext);
+  const { recommend } = reviewForm;
 
   return (
     <div className="row">
-      <div>Would you recommend this product?</div>
-      <div className="col-2">
-        <label className="radio-inline">
+      <Form.Label>Would you recommend this product? *</Form.Label>
+      <Form.Group>
+        <div className="form-check-inline">
+          <Form.Label>
+            Yes
+          </Form.Label>
           <input
             type="radio"
             name="recommend"
+            label="Yes"
             value={true}
             checked={recommend === 'true'}
+            required
             onChange={e => handleInputChange(e)}></input>
-          Yes
-        </label>
-      </div>
-      <div className="col-2">
-        <label className="radio-inline">
+        </div>
+        <div className="form-check-inline">
+          <Form.Label>
+            No
+          </Form.Label>
           <input
             type="radio"
             name="recommend"
             value={false}
             checked={recommend === 'false'}
+            required
             onChange={e => handleInputChange(e)}></input>
-          No
-        </label>
-      </div>
+        </div>
+      </Form.Group>
     </div>
   )
 }

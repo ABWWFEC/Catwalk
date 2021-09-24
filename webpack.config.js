@@ -14,6 +14,10 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?/,
+        loader: [
+          'style-loader',
+          'css-loader'
+        ],
         include: SRC_DIR,
         loader: 'babel-loader',
         exclude: path.resolve(__dirname, 'node_modules'),

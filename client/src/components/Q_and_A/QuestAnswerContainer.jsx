@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.js'
 
 
-const QuestAnswerContainer = ({ searched, prodId, prodInfo, questInfo, setQuestInfo }) => {
+const QuestAnswerContainer = ({ searched, prodInfo, questInfo, setQuestInfo }) => {
   const [ questAmount, setQuestAmount ] = useState(0);
   const [ moreQuestions, setMoreQuestions ] = useState(false);
 
@@ -24,11 +24,10 @@ const QuestAnswerContainer = ({ searched, prodId, prodInfo, questInfo, setQuestI
           <div className='accordion' id='quest-accordion'>
             { questInfo.map((question, idx) => (
               <Question
-                prodId={ prodId }
                 prodInfo={ prodInfo }
                 helperIdx={ 'collapse' + idx }
                 idx={ idx }
-                key={ question.question_id }
+                key={ idx }
                 question={ question }
                 setQuestInfo={ setQuestInfo }
                 questInfo={ questInfo }
@@ -47,7 +46,7 @@ const QuestAnswerContainer = ({ searched, prodId, prodInfo, questInfo, setQuestI
                 prodInfo={ prodInfo }
                 helperIdx={ 'collapse' + idx }
                 idx={ idx }
-                key={ question.question_id }
+                key={ idx }
                 question={ question }
                 setQuestInfo={ setQuestInfo }
                 questInfo={ questInfo }
@@ -65,7 +64,7 @@ const QuestAnswerContainer = ({ searched, prodId, prodInfo, questInfo, setQuestI
                 prodInfo={ prodInfo }
                 helperIdx={ 'collapse' + idx }
                 idx={ idx }
-                key={ question.question_id }
+                key={ idx }
                 question={ question }
                 setQuestInfo={ setQuestInfo }
                 questInfo={ questInfo }
@@ -88,20 +87,18 @@ const QuestAnswerContainer = ({ searched, prodId, prodInfo, questInfo, setQuestI
             setMoreQuestions={setMoreQuestions}
           />
           <AddQuest
-            prodInfo={prodInfo}
-            prodId={prodId}
-            questInfo={questInfo}
-            setQuestInfo={setQuestInfo}
+            prodInfo={ prodInfo }
+            questInfo={ questInfo }
+            setQuestInfo={ setQuestInfo }
           />
           </div>
           </div>
         </div>
-        : <div> {renderQuestions()}
+        : <div> { renderQuestions() }
           <AddQuest
-            prodId={prodId}
-            prodInfo={prodInfo}
-            questInfo={questInfo}
-            setQuestInfo={setQuestInfo}
+            prodInfo={ prodInfo }
+            questInfo={ questInfo }
+            setQuestInfo={ setQuestInfo }
           />
         </div>
       }
