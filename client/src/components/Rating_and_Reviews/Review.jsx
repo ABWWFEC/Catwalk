@@ -3,6 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import Collapse from 'react-bootstrap/Collapse';
 import { FcCheckmark } from 'react-icons/fc';
+import { IoIosStarOutline, IoIosStar } from 'react-icons/io';
 
 const Review = ({ reviewData }) => {
   const [ photoClicked, setPhotoClicked ] = useState(false);
@@ -50,8 +51,18 @@ const Review = ({ reviewData }) => {
   return (
     <div className="row mt-3">
       <div className="row">
-        <div className="col-auto me-auto">star rating {rating}</div>
-        <div className="col-auto text-end">{reviewer_name}, {readableDate}</div>
+        <div className="col d-flex">
+          {[...Array(5)].map((starRating, index) => {
+            index += 1;
+            return (
+              <div className="col-auto">
+                {index <= rating && <IoIosStar size={'1em'} key={`up to star ${index}`}/>}
+                {index > rating && <IoIosStarOutline size={'1em'} key={`less than star ${index}`}/>}
+              </div>
+            )
+          })}
+        </div>
+        <div className="col text-end">{reviewer_name}, {readableDate}</div>
       </div>
       <div className="fw-bold mt-2">{summary}</div>
       {body.length <= 250 && <div className="text-wrap">{body}</div>}
@@ -63,15 +74,16 @@ const Review = ({ reviewData }) => {
           </Collapse>
           <button className="btn btn-outline-dark" onClick={() => setReadMore(!readMore)}>Show more</button>
         </div>}
-      {photos.length > 0 && photos.map((photo, index) => {
-        return (
-          <div className="row mt-2">
-            <div className="col-2" key={photo.id}>
-              <img src={photo.url} onClick={handlePhotoClick}></img>
-            </div>
-          </div>
-        )
-      })}
+      {photos.length > 0 &&
+        <div className="row mt-2">
+          {photos.map((photo, index) => {
+            return (
+              <div className="col-auto" key={photo.id} style={{width:100, height:100, borderRadius: '50%'}}>
+                <img className="img-thumbnail" src={photo.url} style={{maxHeight:'100%', maxWidth:'100%'}} onClick={handlePhotoClick}></img>
+              </div>
+            )
+          })}
+        </div>}
       {recommend && <div className="row align-items-center mt-2">
         <div className="col-auto"><FcCheckmark style={{transform: 'translateY(-10%)'}} size={'1.25em'}/></div>
         <div className="col" style={{'paddingLeft': '0px'}}>I recommend this product</div>
@@ -79,7 +91,10 @@ const Review = ({ reviewData }) => {
       {response && <div className="mt-2 seller-response">{response}</div>}
       <div className="row mt-2 fw-light">
         <div className="col-auto">
-          Helpful? <span
+          <span className="badge bg-light text-dark">
+            Helpful?
+          </span>
+           <span
             className="badge bg-light text-dark"
             style={{cursor: 'pointer'}}
             onClick={handleYesClick}>Yes</span>({helpfulness}) | <span
