@@ -6,6 +6,11 @@ input.star-rating {
   border-radius: 0;
 }
 
+.reviews-list {
+  height: 375px;
+  overflow-y: scroll;
+}
+
 .seller-response {
   border-top: 2px;
   border-bottom: 2px;

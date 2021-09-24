@@ -48,12 +48,12 @@ const Review = ({ reviewData }) => {
   }
 
   return (
-    <div className="row mt-2">
+    <div className="row mt-3">
       <div className="row">
         <div className="col-auto me-auto">star rating {rating}</div>
         <div className="col-auto text-end">{reviewer_name}, {readableDate}</div>
       </div>
-      <div className="fw-bold mt-1">{summary}</div>
+      <div className="fw-bold mt-2">{summary}</div>
       {body.length <= 250 && <div className="text-wrap">{body}</div>}
       {body.length > 250 &&
         <div style={{width: '100%'}}>
@@ -65,25 +65,25 @@ const Review = ({ reviewData }) => {
         </div>}
       {photos.length > 0 && photos.map((photo, index) => {
         return (
-          <div className="row mt-1">
+          <div className="row mt-2">
             <div className="col-2" key={photo.id}>
               <img src={photo.url} onClick={handlePhotoClick}></img>
             </div>
           </div>
         )
       })}
-      {recommend && <div className="row align-items-center mt-1">
+      {recommend && <div className="row align-items-center mt-2">
         <div className="col-auto"><FcCheckmark style={{transform: 'translateY(-10%)'}} size={'1.25em'}/></div>
         <div className="col" style={{'paddingLeft': '0px'}}>I recommend this product</div>
       </div>}
-      {response && <div className="mt-1 seller-response">{response}</div>}
-      <div className="row mt-1 fw-light">
+      {response && <div className="mt-2 seller-response">{response}</div>}
+      <div className="row mt-2 fw-light">
         <div className="col-auto">
           Helpful? <span
-            className="text-decoration-underline"
+            className="badge bg-light text-dark"
             style={{cursor: 'pointer'}}
             onClick={handleYesClick}>Yes</span>({helpfulness}) | <span
-              className="text-decoration-underline"
+              className="badge bg-light text-dark"
               style={{cursor: 'pointer'}}
               onClick={handleReportClick}>Report</span>
         </div>

@@ -45,7 +45,9 @@ const ReviewsList = () => {
           <option value={'helpful'}>helpful</option>
         </select>
       </div>
-      {displayedReviews()}
+      <div className="row reviews-list">
+        {displayedReviews()}
+      </div>
       <div className="row mt-2">
         {(currNumberOfReviews > 2) &&
         <div className="col align-self-start">
