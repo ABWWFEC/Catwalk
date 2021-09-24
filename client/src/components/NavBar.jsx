@@ -1,4 +1,7 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const NavBar = ({ viewMode, setViewMode }) => {
 
@@ -27,7 +30,7 @@ const NavBar = ({ viewMode, setViewMode }) => {
   }
 
   return (
-    <div className="form-check form-switch">
+    <div className="form-check form-switch mx-5">
       <input onChange={ handleChange }
         className="form-check-input"
         type="checkbox"
@@ -37,12 +40,12 @@ const NavBar = ({ viewMode, setViewMode }) => {
        ?
         <label
           className="form-check-label"
-          htmlfor="flexSwitchCheckDefault">Light Mode
+          htmlfor="flexSwitchCheckDefault"><span> ☀️</span>
         </label>
        :
         <label
           className="form-check-label"
-          htmlfor="flexSwitchCheckDefault">Dark Mode
+          htmlfor="flexSwitchCheckDefault"><span> 🌙 </span>
         </label>
        }
     </div>
