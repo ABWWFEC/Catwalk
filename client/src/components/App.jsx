@@ -7,6 +7,7 @@ import RelatedList from './Related_and_Outfit/RelatedList.jsx';
 import OutfitList from './Related_and_Outfit/OutfitList.jsx';
 import NavBar from './NavBar.jsx';
 
+
 const App = () => {
   const [prodId, setProdId] = useState(42370);
   const [viewMode, setViewMode] = useState(true)
