@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerForm from './AnswerForm.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo }) => {
   const [ moreAnswers, setMoreAnswers ] = useState(false);
@@ -55,11 +58,11 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
             } else return <Answer key={answer.id} answer={answer} />
           }
           )}
-          <p style={{ 'cursor': 'pointer'}}
-          className='badge bg-info text-dark'
+          <button
+          className='btn btn-outline-dark'
             onClick={loadAndUnloadAnswers}
           >Hide Additional Answers
-          </p>
+          </button>
         </div>)
     } else {
       return (
@@ -71,14 +74,15 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
           }
           )}
           {allAnswers.length > 2 &&
-            <p style={{ 'cursor': 'pointer'}}
-            className='badge bg-info text-dark'
+            <button
+            type='button'
+            className='btn btn-outline-dark'
               onClick={loadAndUnloadAnswers}>Load More Answers
-            </p>}
+            </button>}
         </div>)
     }
   }
-
+  // bg-dark text-light
   return (
     <div className="accordion-item">
       <h2 className="accordion-header">
@@ -90,33 +94,33 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
           idx={ idx }
         />
         <div
-          className="accordion-button d-flex
+          className="accordion-button collapsed d-flex
           align-items-baseline justify-content-start flex-column"
-          type="button" data-toggle="collapse"
-          data-target={`#${helperIdx}`}
+          type="button" data-bs-toggle="collapse"
+          data-bs-target={`#${helperIdx}`}
           aria-expanded="true" aria-controls={helperIdx}
         >
           <div className='p-2 question'>Q: {question.question_body}</div>
-          <div className='mb-auto p-2 badge text-dark'>
+          <div className='mb-auto p-2 badge'>
             {!helpfulClick
-              ? <p className='badge bg-info text-dark'
+              ? <p className='badge bg-light text-dark'
                 onClick={() => {
                   setHelpfulness(helpfulness + 1);
                   increaseHelpful()
                 }}
               >Helpful?
               </p>
-              : <p className='badge bg-success text-light'>HELPFUL!</p>}
+              : <p className='badge bg-success text-dark'>HELPFUL!</p>}
             <span className='sr-only'>  </span>
 
-            <span className='badge bg-dark'>
+            <span className='badge bg-light text-dark'>
               Yes {helpfulness}
             </span>
 
             <span className='sr-only'>  </span>
             <span
-              className='badge bg-success text-light'
-              data-toggle='modal'
+              className='badge bg-light text-dark'
+              data-bs-toggle='modal'
               href={`#answer-form-${idx}`}>Add Answer
             </span>
           </div>
@@ -124,8 +128,10 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
       </h2>
       <div id={helperIdx}
         className="accordion-collapse collapse"
+        data-bs-parent="#quest-accordion"
         aria-labelledby={'col' + question.question_id}
       >
+        {/* bg-dark text-light */}
         <div className="accordion-body">
           {renderAnswers(question.answers)}
         </div>

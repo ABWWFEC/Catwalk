@@ -4,6 +4,10 @@ import AnswerForm from './AnswerForm.jsx';
 import MoreQuests from './MoreQuests.jsx';
 import AddQuest from './AddQuest.jsx';
 import Question from './Question.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
+
 
 const QuestAnswerContainer = ({ searched, prodInfo, questInfo, setQuestInfo }) => {
   const [ questAmount, setQuestAmount ] = useState(0);

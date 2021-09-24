@@ -4,8 +4,8 @@ const MoreQuests = ({ moreQuestions, setMoreQuestions }) => {
   return (
     <div className='col'>
     { !moreQuestions
-      ? <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-secondary">More Questions</button>
-      : <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-secondary">Less Questions</button>
+      ? <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-outline-dark">More Questions</button>
+      : <button onClick={() => setMoreQuestions(!moreQuestions)} className="btn btn-outline-dark">Less Questions</button>
     }
     </div>
   )

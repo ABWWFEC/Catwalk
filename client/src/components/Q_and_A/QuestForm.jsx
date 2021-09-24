@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import validator from 'email-validator';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const QuestForm = ({ prodInfo, setQuestInfo }) => {
   const [ questText, setQuestText ] = useState('');
@@ -57,17 +60,17 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
     <div>
       <div id='quest-form' className="modal" tabIndex="-1" role="form">
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content p-3">
             <form onSubmit={ handlePost }>
               <div className="modal-header">
-                <h3 className="modal-title">
+                <h1 className="modal-title h3">
                   Ask Your Question about {prodInfo.name}
-                </h3>
+                </h1>
                 <button type="button"
-                  className="close"
-                  data-dismiss="modal"
+                  className="btn btn-outline-dark close"
+                  data-bs-dismiss="modal"
                   aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <span className='h4'>×</span>
                 </button>
               </div>
 
@@ -78,13 +81,14 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
                   Please check your responses and try again
                 </div>}
 
-                <h6 id='your-quest'>Your Question*</h6>
+                <label className='fs-6' id='your-quest'>Your Question*</label>
+
                 <textarea type='text'
                   className='form-control'
                   onChange={(e) => setQuestText(e.target.value)}
                 required />
 
-                <h6 id='nickname'>What is your nickname?*</h6>
+                <label className='fs-6' id='nickname'>What is your nickname?*</label>
                 <p className='fs-6 font-weight-light text-muted'>
                   <small>
                     For privacy reasons, do not use your full name or email address
@@ -96,7 +100,7 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
                   placeholder='Example: jackson11!'
                 required />
 
-                <h6 id='email'>Your Email*</h6>
+                <label className='fs-6' id='email'>Your Email*</label>
                 <input type='email'
                   className='input-group mb-3 fs-6 form-control'
                   onChange={(e) => setEmail(e.target.value)}
@@ -113,13 +117,13 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
 
                 <div>
                   <button onClick={ handleSubmit }
-                    type="submit" className="btn btn-primary">Submit
+                    type="submit" className="btn btn-outline-dark mx-2">Submit
                   </button>
 
                   <button type="button"
                     id='question-closer'
-                    className="btn btn-secondary"
-                    data-dismiss="modal">Close
+                    className="btn btn-outline-dark"
+                    data-bs-dismiss="modal">Close
                   </button>
 
                 </div>

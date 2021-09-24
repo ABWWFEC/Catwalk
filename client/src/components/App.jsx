@@ -48,6 +48,9 @@ import QandA from './Q_and_A/Q_and_A.jsx';
 import Reviews from './Rating_and_Reviews/Rating_and_Reviews.jsx';
 import RelatedList from './Related_and_Outfit/RelatedList.jsx';
 import OutfitList from './Related_and_Outfit/OutfitList.jsx';
+
+import NavBar from './NavBar.jsx';
+
 import { ProductContext } from './productContext.jsx';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -70,6 +73,7 @@ const App = () => {
   const value = useMemo(() => ({prodInfo, setProdInfo}), [prodInfo, setProdInfo]);
   return (
     <div>
+      <NavBar viewMode={ viewMode } setViewMode={ setViewMode }/>
       <Overview prodId={prodId} prodInfo={prodInfo}/>
       <QandA prodId={prodId} prodInfo={prodInfo}/>
       <Reviews prodId={prodId} prodInfo={prodInfo} />
@@ -77,6 +81,7 @@ const App = () => {
         <RelatedList prodId={prodId} setProdId={setProdId} />
         <OutfitList prodId={prodId} />
       </ProductContext.Provider>
+
     </div>
   );
 };

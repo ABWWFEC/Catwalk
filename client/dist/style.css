@@ -62,3 +62,12 @@ input.star-rating {
 .highlight {
   background-color: yellow;
 }
+
+.btn {
+  border-radius: 0 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #198754 !important;
+  background-color: #dee2e6 !important;
+}

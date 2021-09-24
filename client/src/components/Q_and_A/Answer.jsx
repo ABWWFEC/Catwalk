@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@popperjs/core/dist/umd/popper.js'
 
 const Answer = ({ answer, first }) => {
   const [ helpfulness, setHelpfulness ] = useState(null);
@@ -47,18 +50,18 @@ const Answer = ({ answer, first }) => {
   }
 
   const readableDate = (date) => {
-    return new Date(date).toLocaleDateString('en-us', {
+    return <span> {new Date(date).toLocaleDateString('en-us', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    })
+    })}</span>
   }
 
   const isSeller = () => {
     if (answer.answerer_name.toLowerCase() === 'seller') {
       return <b className='badge bg-success text-light'>{ answer.answerer_name + '  ' }</b>
     } else {
-      return <span>{ answer.answerer_name + ' ' }</span>
+      return <span>{ answer.answerer_name + '' }</span>
     }
   }
 
@@ -80,7 +83,7 @@ const Answer = ({ answer, first }) => {
 
             { !helpfulClick
               ? <p style={{ 'cursor': 'pointer' }}
-                className='badge bg-info text-dark'
+                className='badge bg-light text-dark'
                 onClick={() => {
                   setHelpfulness(helpfulness + 1);
                   increaseHelpful()
@@ -88,21 +91,21 @@ const Answer = ({ answer, first }) => {
               >Helpful?
               </p>
 
-              : <p className='badge bg-success text-light'>
+              : <p className='badge bg-success text-dark'>
                 HELPFUL!
               </p>}
 
             <span className='sr-only'>  </span>
 
             <span style={{ 'cursor': 'pointer' }}
-              className='badge bg-dark'> Yes {helpfulness}
+              className='badge bg-light text-dark'> Yes {helpfulness}
             </span>
 
             <span className='sr-only'>  </span>
 
             {!reportClick
               ? <p style={{ 'cursor': 'pointer' }}
-                className='badge bg-warning text-dark'
+                className='badge bg-light text-dark'
                 onClick={ handleReport }>Report</p>
               : <p className='badge bg-danger'>REPORTED</p>}
           </small>
