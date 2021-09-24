@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import { FiPlus } from 'react-icons/fi';
 import { ReviewsContext } from './Rating_and_Reviews.jsx';
 import Review from './Review.jsx';
 import AddReview from './AddReview.jsx';
@@ -44,16 +45,21 @@ const ReviewsList = () => {
           <option value={'helpful'}>helpful</option>
         </select>
       </div>
-      {displayedReviews()}
-      <div className="row">
-        {(currNumberOfReviews > 2) && <div className="col">
-          <button onClick={handleMoreReviewsClick} >More Reviews</button>
-          {(currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
-        </div>}
-        <div className="col">
-          <button onClick={handleAddAReviewClick}>Add A Review</button>
+      <div className="row reviews-list">
+        {displayedReviews()}
+      </div>
+      <div className="row mt-2">
+        {(currNumberOfReviews > 2) &&
+        <div className="col align-self-start">
+          <button className="btn btn-outline-dark" onClick={handleMoreReviewsClick} >MORE REVIEWS</button>
+        </div>
+        }
+        <div className="col  align-self-end">
+          <button className="btn btn-outline-dark" onClick={handleAddAReviewClick}><FiPlus size={'1.25em'}/> ADD A REVIEW</button>
         </div>
       </div>
+      {currNumberOfReviews === 0 && <div>There are no reviews!</div>}
+      {(currNumberOfReviews !== 0 && currNumberOfReviews <= displayReviewsAmount) && <div>These are all the reviews!</div>}
       <Modal dialogClassName="add-review" show={addReviewClicked} onHide={handleAddReviewClose}>
         <Modal.Header>
           <Modal.Title>Add a Review!</Modal.Title>

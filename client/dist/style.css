@@ -2,18 +2,51 @@ input.star-rating {
   display: none;
 }
 
+.btn-outline-dark {
+  border-radius: 0;
+}
+
+.reviews-list {
+  height: 375px;
+  overflow-y: scroll;
+}
+
+.seller-response {
+  border-top: 2px;
+  border-bottom: 2px;
+  border-color: #000;
+  background-color: #ccc;
+}
+
+.review-body {
+  overflow-wrap: break-word;
+}
+
+.helpful-yes {
+  color: #05b105cf;
+}
+
+.helpful-report {
+  color: #ff2b2bcf;
+}
+
 .add-review {
+  width: 700px;
   max-width: 80%;
 }
 
 .rating-graph {
-  background-color: #ccc;
   max-width: 175px;
+  background-color: #ccc;
 }
 
 .rating-percent {
   height: 10px;
   background-color: #05b105cf;
+}
+
+.characteristic-rating {
+  background-color: #ccc;
 }
 
 .star-ratings {

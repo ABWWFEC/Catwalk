@@ -5,7 +5,7 @@ const CharacteristicsBreakdown = ({ characteristics }) => {
   const characteristicTags = Object.keys(characteristics);
 
   return (
-    <div>
+    <div className="row mt-1">
       {characteristicTags.map(characteristic => (
         characteristics[characteristic].id !== 0
           && <Characteristic
