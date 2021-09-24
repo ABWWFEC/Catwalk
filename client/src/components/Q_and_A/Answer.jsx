@@ -91,7 +91,7 @@ const Answer = ({ answer, first }) => {
               >Helpful?
               </p>
 
-              : <p className='badge bg-success text-dark'>
+              : <p className='badge bg-success text-light'>
                 HELPFUL!
               </p>}
 

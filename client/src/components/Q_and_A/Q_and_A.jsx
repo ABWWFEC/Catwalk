@@ -21,7 +21,7 @@ const QandA = ({ prodInfo, prodId }) => {
         setConstQuestInfo(sortQuestions(response.data.results));
       })
       .catch(error => console.error(error));
-  }, [prodId])
+  }, [ prodInfo.id ])
 
   const sortQuestions = (questions) => {
     return questions.sort((a, b) => {
@@ -33,7 +33,7 @@ const QandA = ({ prodInfo, prodId }) => {
 
   return (
     <div>
-      <h5 className='card-title px-3'>Questions & Answers</h5>
+      <h1 className='card-title px-3 mt-3 h3'>Questions & Answers</h1>
       <QuestSearch
         questInfo={ questInfo }
         setQuestInfo={ setQuestInfo }

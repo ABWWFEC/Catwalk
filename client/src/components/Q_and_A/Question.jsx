@@ -84,7 +84,7 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
   }
   // bg-dark text-light
   return (
-    <div className="accordion-item">
+    <div className="accordion-item border-dark">
       <h2 className="accordion-header">
         <AnswerForm
           questInfo={ questInfo }
@@ -110,7 +110,7 @@ const Question = ({ question, helperIdx, prodInfo, idx, questInfo, setQuestInfo 
                 }}
               >Helpful?
               </p>
-              : <p className='badge bg-success text-dark'>HELPFUL!</p>}
+              : <p className='badge bg-success text-light'>HELPFUL!</p>}
             <span className='sr-only'>  </span>
 
             <span className='badge bg-light text-dark'>

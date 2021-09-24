@@ -59,13 +59,13 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
   return (
     <div>
       <div id='quest-form' className="modal" tabIndex="-1" role="form">
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-lg">
           <div className="modal-content p-3">
             <form onSubmit={ handlePost }>
               <div className="modal-header">
-                <h1 className="modal-title h3">
+                <div className="modal-title h3">
                   Ask Your Question about {prodInfo.name}
-                </h1>
+                </div>
                 <button type="button"
                   className="btn btn-outline-dark close"
                   data-bs-dismiss="modal"
@@ -75,20 +75,21 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
               </div>
 
               <div className="modal-body">
+                <div className='mb-2 text-end fw-light fs-6 '><small>* indicates a required field</small></div>
                 {!submissionCheck &&
 
                 <div className='fs-6 mb-3 badge bg-danger'>
                   Please check your responses and try again
                 </div>}
-
+                <div>&#8203;</div>
                 <label className='fs-6' id='your-quest'>Your Question*</label>
 
                 <textarea type='text'
-                  className='form-control'
+                  className='form-control mb-3'
                   onChange={(e) => setQuestText(e.target.value)}
                 required />
 
-                <label className='fs-6' id='nickname'>What is your nickname?*</label>
+                <label className='fs-6 mt-3' id='nickname'>What is your nickname?*</label>
                 <p className='fs-6 font-weight-light text-muted'>
                   <small>
                     For privacy reasons, do not use your full name or email address
@@ -100,11 +101,11 @@ const QuestForm = ({ prodInfo, setQuestInfo }) => {
                   placeholder='Example: jackson11!'
                 required />
 
-                <label className='fs-6' id='email'>Your Email*</label>
+                <label className='fs-6 mt-3' id='email'>Your Email*</label>
                 <input type='email'
                   className='input-group mb-3 fs-6 form-control'
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder='Why did you like the product or not?'
+                  placeholder='Example: jackson5@motown.com'
                 required />
               </div>
 

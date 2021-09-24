@@ -15,7 +15,7 @@ const QuestAnswerContainer = ({ searched, prodInfo, questInfo, setQuestInfo }) =
 
   useEffect(() => {
     setQuestAmount(questInfo.length);
-  }, [ questInfo, moreQuestions, searched ]);
+  }, [ questInfo.length, moreQuestions, searched ]);
 
   const renderQuestions = () => {
     if (searched) {
@@ -80,7 +80,7 @@ const QuestAnswerContainer = ({ searched, prodInfo, questInfo, setQuestInfo }) =
     <div>
       {questAmount >= 2
         ? <div> {renderQuestions()}
-        <div className='container mt-3'>
+        <div className='container mt-3 mb-3 d-flex justify-content-center'>
           <div className='row row-cols-auto'>
           <MoreQuests
             moreQuestions={moreQuestions}

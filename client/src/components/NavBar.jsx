@@ -40,7 +40,7 @@ const NavBar = ({ viewMode, setViewMode }) => {
        ?
         <label
           className="form-check-label"
-          htmlfor="flexSwitchCheckDefault"><span> ☀️</span>
+          htmlFor="flexSwitchCheckDefault"><span> ☀️</span>
         </label>
        :
         <label

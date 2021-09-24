@@ -4,7 +4,6 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import '@popperjs/core/dist/umd/popper.js'
-// import config from '../../../../../config.js';
 import config from '../../../../config.js';
 
 const AnswerForm = ({ prodInfo, question, idx, questInfo, setQuestInfo }) => {
@@ -102,7 +101,7 @@ const AnswerForm = ({ prodInfo, question, idx, questInfo, setQuestInfo }) => {
   return (
     <div>
       <div id={`answer-form-${ idx }`} className="modal" tabIndex="-1" role='form'>
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-lg">
           <div className="modal-content p-3">
             <form onSubmit={ handlePost }>
               <div className="modal-header">
@@ -119,21 +118,22 @@ const AnswerForm = ({ prodInfo, question, idx, questInfo, setQuestInfo }) => {
               </div>
 
               <div className="modal-body">
+                <div className='mb-2 text-end'><small className='fs-6 fw-light'>* indicates a required field</small></div>
 
                 { !submissionCheck &&
-                  <div className='fs-6 mb-3 badge bg-danger'>
+                  <div className='fs-6 badge bg-danger'>
                     Please check your responses and try again
                   </div>}
-
+                  <div>&#8203;</div>
                 <label className='fs-6' id='your-quest'>Your Answer*</label>
 
                 <textarea
                   type='text'
-                  className='form-control'
+                  className='form-control mb-3'
                   onChange={(e) => setAnswerText(e.target.value) }
                 required />
 
-                <label className='fs-6' id='nickname'>What is your nickname?*</label>
+                <label className='fs-6 mt-3' id='nickname'>What is your nickname?*</label>
                 <p className='fs-6 font-weight-light text-muted'>
                   <small>
                     For privacy reasons, do not use your full name or email
@@ -145,14 +145,14 @@ const AnswerForm = ({ prodInfo, question, idx, questInfo, setQuestInfo }) => {
                   placeholder='Example: jack543!'
                 required />
 
-                <label className='fs-6' id='email'>Your Email*</label>
+                <label className='fs-6 mt-3' id='email'>Your Email*</label>
                 <input type='email'
                   className='input-group mb-3 fs-6 form-control'
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder='Example: jack@email.com'
                 required />
 
-                <label style={{ width: '100%' }}className='fs-6'>Upload your photos </label>
+                <label style={{ width: '100%' }}className='fs-6 mt-3'>Upload your photos </label>
                 <input
                   type='file'
                   ref={ inputref }
