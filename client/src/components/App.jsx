@@ -57,6 +57,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const [prodId, setProdId] = useState(42366);
   const [prodInfo, setProdInfo] = useState({id:prodId});
+  const [viewMode, setViewMode ] = useState(false);
   const getProdInfo = () => {
     axios.get(`/api/products/${prodId}`)
         .then(res => {
