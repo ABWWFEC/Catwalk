@@ -1,7 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Form } from 'react-bootstrap';
 import CharacteristicReview from './CharacteristicReview.jsx';
 
 const CharacteristicsReviewList = ({ characteristics }) => {
+  const methods = useFormContext();
+  const { formState: { errors } } = methods;
   const characteristicTags = Object.keys(characteristics);
   const characteristicsDescriptors = {
     Size: ['A size too small', `1/2 a size too small`, 'Perfect', `1/2 a size too big`, 'A size too wide'],
@@ -13,19 +17,23 @@ const CharacteristicsReviewList = ({ characteristics }) => {
   }
 
   return (
-    <div className="row">
-      <div className="h6">Characteristics *</div>
-      <div>Rate the characteristics of this product!</div>
-      <div>
-        {characteristicTags.map(characteristic => (
-          characteristics[characteristic].id
-            && <CharacteristicReview
-              key={characteristics[characteristic].id}
-              characteristicName={characteristic}
-              characteristicId={characteristics[characteristic].id}
-              characteristicDescriptors={characteristicsDescriptors[characteristic]} />
-        ))}
-      </div>
+    <div className="row mt-2">
+      <Form.Group>
+        <Form.Label>Characteristics *</Form.Label>
+        <div>
+          {characteristicTags.map(characteristic => (
+            characteristics[characteristic].id
+              && <CharacteristicReview
+                key={characteristics[characteristic].id}
+                characteristicName={characteristic}
+                characteristicId={characteristics[characteristic].id}
+                characteristicDescriptors={characteristicsDescriptors[characteristic]} />
+          ))}
+        </div>
+        {errors.characteristics && <Form.Text className="text-danger text-opacity-80">
+          Please select an option for each characteristic.
+        </Form.Text>}
+      </Form.Group>
     </div>
   )
 }

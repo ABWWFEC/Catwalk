@@ -63,15 +63,16 @@ const Review = ({ reviewData }) => {
           </Collapse>
           <button className="btn btn-outline-dark" onClick={() => setReadMore(!readMore)}>Show more</button>
         </div>}
-      {photos.length > 0 && photos.map((photo, index) => {
-        return (
-          <div className="row mt-2">
-            <div className="col-2" key={photo.id}>
-              <img src={photo.url} onClick={handlePhotoClick}></img>
-            </div>
-          </div>
-        )
-      })}
+      {photos.length > 0 &&
+        <div className="row mt-2">
+          {photos.map((photo, index) => {
+            return (
+              <div className="col-auto" key={photo.id} style={{width:100, height:100, borderRadius: '50%'}}>
+                <img className="img-thumbnail" src={photo.url} style={{maxHeight:'100%', maxWidth:'100%'}} onClick={handlePhotoClick}></img>
+              </div>
+            )
+          })}
+        </div>}
       {recommend && <div className="row align-items-center mt-2">
         <div className="col-auto"><FcCheckmark style={{transform: 'translateY(-10%)'}} size={'1.25em'}/></div>
         <div className="col" style={{'paddingLeft': '0px'}}>I recommend this product</div>
